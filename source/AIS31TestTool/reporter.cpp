@@ -941,12 +941,12 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXSupportingInfo << L"\\multirow{3}{*}{" << i_NoOfInputDataItem << L" } & ";
+		o_refLaTeXSupportingInfo << L"\\cellcolor{anotherlightblue} & ";
 		o_refLaTeXSupportingInfo << L"Path to the input data " << i_refTestSpecificString << L" & \\verb|";
 		o_refLaTeXSupportingInfo << (*io_refInfoInputDataItem.p_path_to_input_data) << L"| \\\\" << L"\n";
-		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
 
-		o_refLaTeXSupportingInfo << L"\t & ";
+		o_refLaTeXSupportingInfo << L"\\multirow{-2}{*}{\\cellcolor{anotherlightblue} " << i_NoOfInputDataItem << L" } & ";
 		switch (i_enmHashAlgorithmId)
 		{
 		case ais_31_tool::constants::EnmHashAlgorithm::ESHA_256:
@@ -971,7 +971,7 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << wstrHashOfAcquisitionData << L"\n";
 		o_refLaTeXSupportingInfo << L"\\end{verbatim} " << L"\n";
 		o_refLaTeXSupportingInfo << L"\\\\" << L"\n";
-		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
 
 		struct tm newtime;
 
@@ -981,7 +981,7 @@ namespace ais_31_tool
 			return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 		}
 
-		o_refLaTeXSupportingInfo << L"\t & ";
+		o_refLaTeXSupportingInfo << L"\\cellcolor{anotherlightblue} & ";
 		o_refLaTeXSupportingInfo << L"Last write time & " << std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S") << L" \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
 		// -------------------------------------------------------------------------- //
@@ -1340,9 +1340,9 @@ namespace ais_31_tool
 		o_refLaTeXAnnex << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
 		o_refLaTeXAnnex << L"\\scriptsize" << L"\n";
 		o_refLaTeXAnnex << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
-		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\columncolor{anotherlightblue}}p{1cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
+		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.75cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
 		o_refLaTeXAnnex << L"\\caption{Identification information of input data} \\\\" << L"\n";
-		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline \\hline " << L"\n";
+		o_refLaTeXAnnex << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & Value \\\\ \\hline \\hline " << L"\n";
 		o_refLaTeXAnnex << L"\\endfirsthead " << L"\n";
 		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
 		o_refLaTeXAnnex << L"\\endhead " << L"\n";

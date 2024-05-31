@@ -102,23 +102,24 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					// 
 					// -------------------------------------------------------------------------- //
-					std::wstringstream	ssWorkHeader = std::wstringstream();
-					ssWorkHeader << L"\\begin{minipage}[t]{0.45\\hsize}" << L"\n";
-					ssWorkHeader << L" \\centering" << L"\n";
-					ssWorkHeader << L"\n";
-					ssWorkHeader << L" \\begin{tikzpicture}" << L"\n";
-					ssWorkHeader << L" \\begin{axis}[" << L"\n";
-					ssWorkHeader << L" 	xmin=0," << L"\n";
-					ssWorkHeader << L"	xmax=290," << L"\n";
-					ssWorkHeader << L"	ymin=0," << L"\n";
-					//ssWorkHeader << L"	ymax=12000," << L"\n";
-					ssWorkHeader << L"	bar width=0.025cm," << L"\n";
-					ssWorkHeader << L"	xtick distance=20," << L"\n";
-					ssWorkHeader << L"	width=10.5cm," << L"\n";
-					ssWorkHeader << L"	xlabel=\\# of given sets," << L"\n";
-					ssWorkHeader << L"	ylabel=$T_{3}$" << L"\n";
-					ssWorkHeader << L" ]" << L"\n";
-					ssWorkHeader << L" \\addplot[mark size=0.4, draw=blue] coordinates {" << L"\n";
+					std::wstringstream	ssWorkHeader1 = std::wstringstream();
+					std::wstringstream	ssWorkHeader2 = std::wstringstream();
+					ssWorkHeader1 << L"\\begin{minipage}[t]{0.45\\hsize}" << L"\n";
+					ssWorkHeader1 << L" \\centering" << L"\n";
+					ssWorkHeader1 << L"\n";
+					ssWorkHeader1 << L" \\begin{tikzpicture}" << L"\n";
+					ssWorkHeader1 << L" \\begin{axis}[" << L"\n";
+					ssWorkHeader1 << L" 	xmin=0," << L"\n";
+					ssWorkHeader1 << L"	xmax=290," << L"\n";
+					ssWorkHeader1 << L"	ymin=0," << L"\n";
+					ssWorkHeader1 << L"	bar width=0.025cm," << L"\n";
+					ssWorkHeader1 << L"	xtick distance=20," << L"\n";
+					ssWorkHeader1 << L"	width=10.5cm," << L"\n";
+					ssWorkHeader1 << L"	xlabel=\\# of given sets," << L"\n";
+					ssWorkHeader1 << L"	ylabel={$T_{3}(\\lambda ";
+					ssWorkHeader2 << L")$}" << L"\n";
+					ssWorkHeader2 << L" ]" << L"\n";
+					ssWorkHeader2 << L" \\addplot[mark size=0.4, draw=blue] coordinates {" << L"\n";
 					// -------------------------------------------------------------------------- //
 					// 
 					// -------------------------------------------------------------------------- //
@@ -135,7 +136,17 @@ namespace ais_31_lib
 							{
 
 							}
-							*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << ssWorkHeader.str();
+							*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << ssWorkHeader1.str();
+							if (i < 5)
+							{
+								*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << L"= ";
+							}
+							else
+							{
+								*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << L"\\ge ";
+							}
+							*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << (i + 1) << L", p = " << j;
+							*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << ssWorkHeader2.str();
 						}
 					}
 				}
