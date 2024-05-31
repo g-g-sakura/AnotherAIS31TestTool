@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_CHECK_ARGS_H__
-#define __AIS_31_LIB_CHECK_ARGS_H__
+#ifndef AIS_31_LIB_CHECK_ARGS_H
+#define AIS_31_LIB_CHECK_ARGS_H
 
 #include "../TestData.h"
 

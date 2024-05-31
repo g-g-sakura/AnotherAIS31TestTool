@@ -34,7 +34,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -77,7 +77,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(ns_dt::t_data_for_v2& io_refData, uint32_t i_test_value)
+			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(const ns_dt::t_data_for_v2& io_refData, uint32_t i_test_value)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -190,7 +190,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < io_refData.t_testT1.c2)
+				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < (int64_t)io_refData.t_testT1.c2)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
 				}
@@ -239,19 +239,17 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				int	max_count = 1;
-
 				uint32_t	test_value = 0;
-				for (int i = 0; i < io_refData.t_testT1.c2; ++i)
+				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c2; ++i)
 				{
 					if (i != (io_refData.t_testT1.c2 - 1))
 					{
-						const uint32_t	word_bit_count = countBits((ns_dt::octet)(*io_refData.p_bzInterpretedBj)(i));
+						const uint32_t	word_bit_count = countBits((ns_dt::octet)(*io_refData.p_bzInterpretedBj)((int)i));
 						test_value += word_bit_count;
 					}
 					else
 					{
-						ns_dt::octet	octMaskedLastData = (*io_refData.p_bzInterpretedBj)(i);
+						ns_dt::octet	octMaskedLastData = (*io_refData.p_bzInterpretedBj)((int)i);
 						octMaskedLastData &= octMaskAtLast;
 						const uint32_t	word_bit_count = countBits((ns_dt::octet)octMaskedLastData);
 						test_value += word_bit_count;

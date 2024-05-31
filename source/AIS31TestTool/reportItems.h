@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_REPORT_ITEMS_H__
-#define __AIS31_TEST_TOOL_REPORT_ITEMS_H__
+#ifndef AIS31_TEST_TOOL_REPORT_ITEMS_H
+#define AIS31_TEST_TOOL_REPORT_ITEMS_H
 
 #include <boost/filesystem.hpp>
 #include <vector>

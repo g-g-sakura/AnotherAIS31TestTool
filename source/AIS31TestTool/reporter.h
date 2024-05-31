@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_REPORTER_H__
-#define __AIS31_TEST_TOOL_REPORTER_H__
+#ifndef AIS31_TEST_TOOL_REPORTER_H
+#define AIS31_TEST_TOOL_REPORTER_H
 
 #include "AIS31Lib/constants.h"
 #include "AIS31Lib/TestData.h"
@@ -28,10 +28,10 @@ namespace ais_31_tool
 	void showTailSamplesTestT1(const ns_dt::t_data_for_v2& i_refData);
 
 	ns_consts::EnmReturnStatus reportXML(const IDInfoForReport& i_refInfoReport,
-		const ns_dt::t_data_for_v2& io_refDataOriginal);
+		const ns_dt::t_data_for_v2& i_refData);
 
 	ns_consts::EnmReturnStatus reportLaTeX(IDInfoForReport& i_refInfoReport,
-		ns_dt::t_data_for_v2& io_refDataOriginal);
+		ns_dt::t_data_for_v2& io_refData);
 
 	ns_consts::EnmReturnStatus synthesizeReportPath(bs_fs::path& o_report_complete_path,
 		const bs_fs::path& i_path_input_data);

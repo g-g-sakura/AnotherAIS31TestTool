@@ -9,9 +9,8 @@
 #pragma once
 #endif
 
-
-#ifndef __AIS31_TEST_TOOL_PERFORM_TESTS_H__
-#define __AIS31_TEST_TOOL_PERFORM_TESTS_H__
+#ifndef AIS31_TEST_TOOL_PERFORM_TESTS_H
+#define AIS31_TEST_TOOL_PERFORM_TESTS_H
 
 #include "AIS31Lib/constants.h"
 #include "AIS31Lib/TestData.h"

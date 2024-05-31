@@ -10,8 +10,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_MONOBIT_TESTS_H__
-#define __AIS_31_LIB_MONOBIT_TESTS_H__
+#ifndef AIS_31_LIB_MONOBIT_TESTS_H
+#define AIS_31_LIB_MONOBIT_TESTS_H
 
 #include "TestData.h"
 

@@ -6,9 +6,7 @@
 // Copyright (c) 2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
-#include "pokerTest.h"
 #include "support/checkArgs.h"
-#include "support/countBits.h"
 
 namespace ais_31_lib
 {

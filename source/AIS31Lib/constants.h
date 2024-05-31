@@ -2,15 +2,15 @@
 //
 //
 //
-// Copyright (c) 2023 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2023-2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB__CONSTANTS_H__
-#define __AIS_31_LIB__CONSTANTS_H__
+#ifndef AIS_31_LIB__CONSTANTS_H
+#define AIS_31_LIB__CONSTANTS_H
 
 namespace ais_31_lib
 {

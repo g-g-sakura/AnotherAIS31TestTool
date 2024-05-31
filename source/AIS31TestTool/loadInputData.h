@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_LOAD_INPUT_DATA_H__
-#define __AIS31_TEST_TOOL_LOAD_INPUT_DATA_H__
+#ifndef AIS31_TEST_TOOL_LOAD_INPUT_DATA_H
+#define AIS31_TEST_TOOL_LOAD_INPUT_DATA_H
 
 #include "AIS31Lib//TestData.h"
 #include "AIS31Lib/constants.h"
@@ -24,7 +24,7 @@ namespace ais_31_tool
 	namespace bs_fs = boost::filesystem;
 
 	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v2& io_refData,
-		IDInfoForReport& i_refInfoReport,
+		const IDInfoForReport& i_refInfoReport,
 		const bs_fs::path& i_refFullPath,
 		ns_consts::EnmAIS20AIS31V2Track i_enmTrack);
 

@@ -8,7 +8,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include "pokerTest.h"
 #include "support/checkArgs.h"
-#include "support/countBits.h"
 
 namespace ais_31_lib
 {
@@ -35,7 +34,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -231,7 +230,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (i_refData.p_bzInterpretedBj->extent(blitz::firstDim) < (4 * (j + 1)))
+				if (i_refData.p_bzInterpretedBj->extent(blitz::firstDim) < (int)(4 * (j + 1)))
 				{
 					return sts = ns_consts::EnmReturnStatus::ErrorOutOfBound;
 				}

@@ -6,9 +6,7 @@
 // Copyright (c) 2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
-#include "pokerTest.h"
 #include "support/checkArgs.h"
-#include "support/countBits.h"
 
 namespace ais_31_lib
 {
@@ -35,7 +33,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -130,7 +128,7 @@ namespace ais_31_lib
 						{
 							if (0 == j)
 							{
-								*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << L"\\begin{figure}[h]" << L"\n";
+								*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << L"\\begin{figure}[ht]" << L"\n";
 								*(io_refData.p_ssLaTeXFragmentWork3[i][j]) << L"\\begin{tabular}{cc}" << L"\n";
 							}
 							else if (1 == j)
@@ -412,7 +410,6 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				unsigned long	accum[2] = { 0, 0 };
 				for (int p = 0; p < 2; ++p)
 				{
 					// -------------------------------------------------------------------------- //

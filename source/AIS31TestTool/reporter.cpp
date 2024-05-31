@@ -396,7 +396,7 @@ namespace ais_31_tool
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
-		if (0 == i_refInfoReport.info_source.p_info_input_data_items_testT1->size())
+		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
@@ -425,11 +425,6 @@ namespace ais_31_tool
 		{
 			return  sts;
 		}
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		double  min_entropy_bitstring = 1.0;
-		auto  min_entropy_literal = static_cast<double>(i_refData.bits_per_sample);
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -521,7 +516,7 @@ namespace ais_31_tool
 			// 
 			// -------------------------------------------------------------------------- //
 			if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-				&& (0 < i_refInfoReport.info_source.p_info_input_data_items_testT1->size()))
+				&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
 			{
 
 				BOOST_FOREACH(const InfoInputDataItem & input_item, *i_refInfoReport.info_source.p_info_input_data_items_testT1) {
@@ -578,7 +573,7 @@ namespace ais_31_tool
 		// <summary>
 		// -------------------------------------------------------------------------- //
 		{
-			boost::property_tree::wptree& child = the_tree.add(L"conformance_report.summary.result", getPassFail(global_pass_fail));
+			the_tree.add(L"conformance_report.summary.result", getPassFail(global_pass_fail));
 		}
 		// -------------------------------------------------------------------------- //
 		// <results>
@@ -1345,7 +1340,7 @@ namespace ais_31_tool
 		o_refLaTeXAnnex << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
 		o_refLaTeXAnnex << L"\\scriptsize" << L"\n";
 		o_refLaTeXAnnex << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
-		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\columncolor{anotherlightblue}}p{1cm}|\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
+		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\columncolor{anotherlightblue}}p{1cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
 		o_refLaTeXAnnex << L"\\caption{Identification information of input data} \\\\" << L"\n";
 		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline \\hline " << L"\n";
 		o_refLaTeXAnnex << L"\\endfirsthead " << L"\n";
@@ -1366,11 +1361,9 @@ namespace ais_31_tool
 		constexpr ais_31_tool::constants::EnmHashAlgorithm  enmDefaultHashId = ais_31_tool::constants::EnmHashAlgorithm::ESHA_256;
 		std::string strHashOfAcquisitionData = std::string();
 
-		const InfoInputDataItem* pInfoInputDataItem = nullptr;
-
 		if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
 		{
-			pInfoInputDataItem = &i_refInfoReport.info_source.info_input_data_testT0;
+			const InfoInputDataItem* pInfoInputDataItem = &i_refInfoReport.info_source.info_input_data_testT0;
 
 			const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
 				*(pInfoInputDataItem->p_path_to_input_data),
@@ -1384,9 +1377,9 @@ namespace ais_31_tool
 			std::wstring    wstrTestSpecific = std::wstring(L"for Test T0");
 
 			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
-			if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
+			if (ns_consts::EnmReturnStatus::Success != sts)
 			{
-				return  sts = stsCalcHash;
+				return  sts;
 			}
 			++number_of_entry;
 		}
@@ -1394,7 +1387,7 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-			&& (0 < i_refInfoReport.info_source.p_info_input_data_items_testT1->size()))
+			&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
 		{
 			BOOST_FOREACH(const InfoInputDataItem & info_item, *(i_refInfoReport.info_source.p_info_input_data_items_testT1)) {
 				const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
@@ -1409,9 +1402,9 @@ namespace ais_31_tool
 				std::wstring    wstrTestSpecific = std::wstring(L"for Test T1");
 
 				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
-				if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
+				if (ns_consts::EnmReturnStatus::Success != sts)
 				{
-					return  sts = stsCalcHash;
+					return  sts;
 				}
 				++number_of_entry;
 			}
@@ -1442,7 +1435,7 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	ns_consts::EnmReturnStatus showLaTeXCompilationHint(bs_fs::path& i_refReportPath)
+	ns_consts::EnmReturnStatus showLaTeXCompilationHint(const bs_fs::path& i_refReportPath)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -1488,7 +1481,7 @@ namespace ais_31_tool
 	/// </remarks>
 	/// <params="i_refInfoReport">
 	/// </params>
-	/// <params="i_refData">
+	/// <params="io_refData">
 	/// </params>
 	/// <returns>
 	/// </returns>
@@ -1498,7 +1491,7 @@ namespace ais_31_tool
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus reportLaTeX(IDInfoForReport& i_refInfoReport,
-		ns_dt::t_data_for_v2& i_refData)
+		ns_dt::t_data_for_v2& io_refData)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -1509,7 +1502,7 @@ namespace ais_31_tool
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
-		if (0 == i_refInfoReport.info_source.p_info_input_data_items_testT1->size())
+		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
@@ -1538,11 +1531,6 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		double  min_entropy_bitstring = 1.0;
-		auto  min_entropy_literal = static_cast<double>(i_refData.bits_per_sample);
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
 		std::wstringstream ssLaTeXSummary = std::wstringstream();
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1559,42 +1547,42 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T0 (disjointness test)		& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT0.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT0.pass_fail_result);
 		ssLaTeXSummary << L" & ---         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T1 (monobit test)			& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT1.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT1.pass_fail_result);
 		ssLaTeXSummary << L" & see \\ref{sec:TestT1}         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T2 (poker test)			& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT2.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT2.pass_fail_result);
 		ssLaTeXSummary << L" & see \\ref{sec:TestT2}         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T3 (runs test)				& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT3.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT3.pass_fail_result);
 		ssLaTeXSummary << L" & see \\ref{sec:TestT3}         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T4 (long runs test)		& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT4.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT4.pass_fail_result);
 		ssLaTeXSummary << L" & ---         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T5 (autocorrelation test)	& ";
-		ssLaTeXSummary << getPassFail(i_refData.t_testT5.pass_fail_result);
+		ssLaTeXSummary << getPassFail(io_refData.t_testT5.pass_fail_result);
 		ssLaTeXSummary << L" & see \\ref{sec:TestT5}         \\\\" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1609,7 +1597,7 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		std::wstringstream ssLaTeXSupportingInfo = std::wstringstream();
-		reportLaTeXSupportingInfo(ssLaTeXSupportingInfo, i_refInfoReport, i_refData);
+		reportLaTeXSupportingInfo(ssLaTeXSupportingInfo, i_refInfoReport, io_refData);
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1644,7 +1632,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeX << i_refData.p_ssLaTeXFragment->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragment->rdbuf();
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1656,7 +1644,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		ssLaTeX << L"\\appendix" << L"\n";
 		std::wstringstream ssAnnex = std::wstringstream();
-		reportLaTeXAnnex(ssAnnex, i_refInfoReport, i_refData);
+		reportLaTeXAnnex(ssAnnex, i_refInfoReport, io_refData);
 		ssLaTeX << ssAnnex.rdbuf();
 		// -------------------------------------------------------------------------- //
 		// 

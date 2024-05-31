@@ -21,7 +21,7 @@ namespace ais_31_tool
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v2& io_refData,
-		IDInfoForReport& i_refInfoReport,
+		const IDInfoForReport& i_refInfoReport,
 		const bs_fs::path& i_refFullPath,
 		ns_consts::EnmAIS20AIS31V2Track i_enmTrack)
 	{
@@ -136,7 +136,7 @@ namespace ais_31_tool
 					{
 						sts = stsSynth;
 						std::cout << "# [ERROR]: Failed to synthesize the filename for " << next_index << "-th input data in 257 sets.\n";
-						break;
+						return sts;
 					}
 					// -------------------------------------------------------------------------- //
 					//
@@ -146,7 +146,7 @@ namespace ais_31_tool
 					{
 						sts = stsSynth = ns_consts::EnmReturnStatus::ErrorFileIO;
 						std::wcout << L"# [ERROR]: Failed to open the file: " << path_next_index.wstring() << L".\n";
-						break;
+						return sts;
 					}
 					// -------------------------------------------------------------------------- //
 					//
@@ -230,8 +230,6 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		constexpr	uintmax_t number_of_bits_to_be_loaded = 20000;
-
 		if (1 == io_refData.bits_per_sample)
 		{
 			io_refData.p_bzInterpretedBj->resize(io_refData.p_bzInputDataT1->length(blitz::secondDim));
@@ -242,6 +240,8 @@ namespace ais_31_tool
 		}
 		else
 		{
+			constexpr	uintmax_t number_of_bits_to_be_loaded = 20000;
+
 			// -------------------------------------------------------------------------- //
 			// 1 < io_refData.bits_per_sample
 			// -------------------------------------------------------------------------- //

@@ -9,9 +9,7 @@
 #include "performTests.h"
 #include "parse.h"
 #include "synthesizeFilename.h"
-#include "reportItems.h"
 #include "loadInputData.h"
-#include <AIS31Lib/support/setUp.h>
 #include "boost/date_time/posix_time/posix_time.hpp"
 #include <AIS31Lib/DisjointnessTest.h>  // T0
 #include <AIS31Lib/MonobitTests.h>      // T1

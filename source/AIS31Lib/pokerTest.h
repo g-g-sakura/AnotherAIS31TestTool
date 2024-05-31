@@ -10,8 +10,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_POKER_TEST_H__
-#define __AIS_31_LIB_POKER_TEST_H__
+#ifndef AIS_31_LIB_POKER_TEST_H
+#define AIS_31_LIB_POKER_TEST_H
 
 #include "TestData.h"
 

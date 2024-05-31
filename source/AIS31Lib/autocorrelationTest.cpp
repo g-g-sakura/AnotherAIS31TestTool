@@ -26,7 +26,7 @@ namespace ais_31_lib
 			namespace ns_dt = ais_31_lib::data_types;
 			namespace ns_spt = ais_31_lib::support;
 
-			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -47,7 +47,7 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
-			ns_consts::EnmReturnStatus outputLaTeXSummarySubsubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSummarySubsubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -68,7 +68,7 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
-			ns_consts::EnmReturnStatus outputLaTeXDetailInfoSubsubsectionHeader(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXDetailInfoSubsubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -89,7 +89,7 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
-			ns_consts::EnmReturnStatus flushFiguresInLaTeX(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus flushFiguresInLaTeX(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -132,7 +132,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(ns_dt::t_data_for_v2& io_refData, uint32_t i_test_value)
+			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(const ns_dt::t_data_for_v2& io_refData, uint32_t i_test_value)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -231,8 +231,6 @@ namespace ais_31_lib
 			/// </remarks>
 			/// <params="io_refData">
 			/// </params>
-			/// <params="i_ref_bz_Q">
-			/// </params>
 			/// <returns>
 			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
@@ -245,7 +243,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputEachFigureInLaTeX(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputEachFigureInLaTeX(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
@@ -459,7 +457,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// as per paragraph 199 of AIS 20/31 - Version 2.0
 				// -------------------------------------------------------------------------- //
-				unsigned int	input_data_size = i_refData.p_bzInterpretedBj->size();
+				size_t	input_data_size = i_refData.p_bzInterpretedBj->size();
 				if (input_data_size < 20000)
 				{
 					sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
@@ -485,7 +483,7 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <param name="i_refData">
+			/// <param name="io_refData">
 			/// </param>
 			/// <param name="o_ref_test_value">
 			/// </param>
@@ -498,7 +496,7 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus computeTestValueForSpecificTau(ns_dt::t_data_for_v2& io_refData, 
+			ns_consts::EnmReturnStatus computeTestValueForSpecificTau(const ns_dt::t_data_for_v2& io_refData, 
 				uint32_t &o_ref_test_value, uint32_t i_tau)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
@@ -531,7 +529,7 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <param name="i_refData">
+			/// <param name="io_refData">
 			/// </param>
 			/// <returns>
 			/// </returns>
@@ -579,7 +577,7 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <param name="i_refData">
+			/// <param name="io_refData">
 			/// </param>
 			/// <returns>
 			/// </returns>
@@ -691,7 +689,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					// randomly select $\tau_0$ in case of several candidates
 					// -------------------------------------------------------------------------- //
-					int j = 0;
+					unsigned long long j = 0;
 					for (ns_dt::tpl_test_value_map::iterator it = rg_x.first; it != rg_x.second; ++it)
 					{
 						if (pos == j)
@@ -716,7 +714,7 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Implements autocorrelation test test as specified in AIS 20/31 - Version 2.0
+			///  Implements autocorrelation test as specified in AIS 20/31 - Version 2.0
 			/// </summary>
 			/// <remarks>
 			/// </remarks>

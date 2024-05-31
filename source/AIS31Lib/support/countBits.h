@@ -10,8 +10,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_COUNT_BITS_H__
-#define __AIS_31_LIB_COUNT_BITS_H__
+#ifndef AIS_31_LIB_COUNT_BITS_H
+#define AIS_31_LIB_COUNT_BITS_H
 
 #include <cstdint>
 

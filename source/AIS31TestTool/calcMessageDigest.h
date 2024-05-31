@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_CALC_MESSAGE_DIGEST_H__
-#define __AIS31_TEST_TOOL_CALC_MESSAGE_DIGEST_H__
+#ifndef AIS31_TEST_TOOL_CALC_MESSAGE_DIGEST_H
+#define AIS31_TEST_TOOL_CALC_MESSAGE_DIGEST_H
 
 #include <string>
 #include <boost/filesystem.hpp>

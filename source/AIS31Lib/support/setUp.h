@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_SET_UP_H__
-#define __AIS_31_LIB_SET_UP_H__
+#ifndef AIS_31_LIB_SET_UP_H
+#define AIS_31_LIB_SET_UP_H
 
 #include "../TestData.h"
 #include "../constants.h"

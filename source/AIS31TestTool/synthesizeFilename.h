@@ -9,12 +9,11 @@
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_SYNTHESIZE_FILENAME_H__
-#define __AIS31_TEST_TOOL_SYNTHESIZE_FILENAME_H__
+#ifndef AIS31_TEST_TOOL_SYNTHESIZE_FILENAME_H
+#define AIS31_TEST_TOOL_SYNTHESIZE_FILENAME_H
 
 #include "AIS31Lib/constants.h"
 #include "AIS31Lib/TestData.h"
-#include "reporter.h"
 #include <boost/filesystem.hpp>
 
 namespace ais_31_tool

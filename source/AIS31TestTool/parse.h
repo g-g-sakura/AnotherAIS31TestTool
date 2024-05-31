@@ -2,15 +2,15 @@
 // parse.h
 //
 //
-// Copyright (c) 2021-2022 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2021-2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(_MSC_VER)
 #pragma once
 #endif
 
-#ifndef __AIS31_TEST_TOOL_PARSE_H__
-#define __AIS31_TEST_TOOL_PARSE_H__
+#ifndef AIS31_TEST_TOOL_PARSE_H
+#define AIS31_TEST_TOOL_PARSE_H
 
 #include "AIS31Lib/constants.h"
 #include "AIS31Lib/TestData.h"

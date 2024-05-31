@@ -77,7 +77,7 @@ namespace ais_31_lib
 					// 
 					// -------------------------------------------------------------------------- //
 					uint64_t	w = 0;
-					for (int j = 0; j < io_refData.t_testT0.c1; ++j)
+					for (uint64_t j = 0; j < io_refData.t_testT0.c1; ++j)
 					{
 						if (j < (io_refData.t_testT0.c1 - 1))
 						{

@@ -15,7 +15,6 @@ namespace ais_31_lib
 	{
 		namespace ns_consts = ais_31_lib::constants;
 		namespace ns_dt = ais_31_lib::data_types;
-		namespace bs_fs = boost::filesystem;
 
 		// -------------------------------------------------------------------------- //
 		/// <summary>
@@ -109,6 +108,8 @@ namespace ais_31_lib
 				case 5:
 					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 90;
 					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 223;
+					break;
+				default:
 					break;
 				}
 			}

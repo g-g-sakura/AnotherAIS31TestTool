@@ -10,8 +10,8 @@
 #pragma once
 #endif
 
-#ifndef __AIS_31_LIB_TEST_DATA_H__
-#define __AIS_31_LIB_TEST_DATA_H__
+#ifndef AIS_31_LIB_TEST_DATA_H
+#define AIS_31_LIB_TEST_DATA_H
 
 #include <cstdint>
 #include <blitz/array.h>

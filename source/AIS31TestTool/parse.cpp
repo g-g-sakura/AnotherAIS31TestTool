@@ -16,10 +16,6 @@
 #include <Windows.h>
 
 namespace bs_po = boost::program_options;
-namespace bs_fs = boost::filesystem;
-
-namespace ns_consts = ais_31_lib::constants;
-namespace ns_dt = ais_31_lib::data_types;
 
 namespace ais_31_tool
 {
@@ -63,7 +59,7 @@ namespace ais_31_tool
             // 
             // -------------------------------------------------------------------------- //
             if (po_vm.count("help")) {
-                std::cout << desc << std::endl;
+                std::cout << desc << "\n";
                 return  sts = ns_consts::EnmReturnStatus::ErrorNoTask;
             }
             // -------------------------------------------------------------------------- //
@@ -73,7 +69,7 @@ namespace ais_31_tool
             if (po_vm.count("bits_per_sample")) {
                 if ((bits_per_sample < 1) || (8 < bits_per_sample)) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Invalid bits per symbol." << std::endl;
+                    std::cout << "# [ERROR]: Invalid bits per symbol." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                     return  sts;
                 }
@@ -92,8 +88,8 @@ namespace ais_31_tool
             // 
             // -------------------------------------------------------------------------- //
             if ((po_vm.count("inputT0") == 0) && (po_vm.count("inputT1") == 0)) {
-                std::cout << "# [INFO]: No file is specified to process." << std::endl;
-                std::cout << "# [INFO]: Terminates conformance test..." << std::endl;
+                std::cout << "# [INFO]: No file is specified to process." << "\n";
+                std::cout << "# [INFO]: Terminates conformance test..." << "\n";
                 ais_31_lib::support::tearDown(io_refData);
                 return  sts = ns_consts::EnmReturnStatus::ErrorNoTask;
             }
@@ -106,14 +102,14 @@ namespace ais_31_tool
                 const bool result = bs_fs::exists(file_path_testT0, error);
                 if (!result || error) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Specified file was not found." << std::endl;
+                    std::cout << "# [ERROR]: Specified file was not found." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
                     return  sts;
                 }
                 else {
-                    std::cout << "# [INFO]: Specified file was found." << std::endl;
+                    std::cout << "# [INFO]: Specified file was found." << "\n";
                 }
                 // -------------------------------------------------------------------------- //
                 // full path
@@ -131,11 +127,11 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 const boost::uintmax_t size = bs_fs::file_size(file_path_testT0);
 
-                std::cout << "Its file size: " << size << "-byte" << std::endl;
+                std::cout << "Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Huge file is specified, so the estimation is stopped." << std::endl;
+                    std::cout << "# [ERROR]: Huge file is specified, so the estimation is stopped." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
@@ -165,7 +161,7 @@ namespace ais_31_tool
                 if (io_refData.p_bzInputDataT0->size() < 65536 * 6)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-                    std::cout << "# [WARNING]: data contains less than 65,536 samples." << std::endl;
+                    std::cout << "# [WARNING]: data contains less than 65,536 samples." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 }
                 // -------------------------------------------------------------------------- //
@@ -175,7 +171,7 @@ namespace ais_31_tool
                 if ((io_refData.p_bzInputDataT0->size() * bits_per_sample) < 65536 * 48)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T0." << std::endl;
+                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T0." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
@@ -194,14 +190,14 @@ namespace ais_31_tool
                 const bool result = bs_fs::exists(file_path_testT1, error);
                 if (!result || error) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Specified file was not found." << std::endl;
+                    std::cout << "# [ERROR]: Specified file was not found." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
                     return  sts;
                 }
                 else {
-                    std::cout << "# [INFO]: Specified file was found." << std::endl;
+                    std::cout << "# [INFO]: Specified file was found." << "\n";
                 }
                 // -------------------------------------------------------------------------- //
                 // full path
@@ -211,7 +207,7 @@ namespace ais_31_tool
                 // get path for future use
                 // -------------------------------------------------------------------------- //
                 if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-                    && (0 < i_refInfoReport.info_source.p_info_input_data_items_testT1->size())) {
+                    && (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())) {
                     i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data = new bs_fs::path(full_path_testT1);
                 }
                 i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).tm_last_write_time = bs_fs::last_write_time(full_path_testT1);
@@ -220,11 +216,11 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 const boost::uintmax_t size = bs_fs::file_size(file_path_testT1);
 
-                std::cout << "Its file size: " << size << "-byte" << std::endl;
+                std::cout << "Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Huge file is specified, so the estimation is stopped." << std::endl;
+                    std::cout << "# [ERROR]: Huge file is specified, so the estimation is stopped." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
@@ -239,7 +235,7 @@ namespace ais_31_tool
                 if (ns_consts::EnmReturnStatus::Success != stsGetFirstIndex)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: More than or equal to 3-digit number is not appended at the file name of the input data file." << std::endl;
+                    std::cout << "# [ERROR]: More than or equal to 3-digit number is not appended at the file name of the input data file." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
@@ -282,7 +278,7 @@ namespace ais_31_tool
                 if (io_refData.p_bzInputDataT1->size() < 20000 / 8)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-                    std::cout << "# [WARNING]: data contains less than 20,000 samples." << std::endl;
+                    std::cout << "# [WARNING]: data contains less than 20,000 samples." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 }
                 // -------------------------------------------------------------------------- //
@@ -292,7 +288,7 @@ namespace ais_31_tool
                 if ((io_refData.p_bzInputDataT1->size() * bits_per_sample) < 20000)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T1." << std::endl;
+                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T1." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                     ais_31_lib::support::tearDown(io_refData);
                     return  sts = ns_consts::EnmReturnStatus::ErrorPreconditions;
@@ -303,8 +299,8 @@ namespace ais_31_tool
             // 
             // -------------------------------------------------------------------------- //
             if (po_vm.count("LaTeX")) {
-                std::cout << "# [INFO]: Generating a report in LaTeX format is requested." << std::endl;
-                std::cout << "# [INFO]: The report in LaTeX format will be output in the same folder as the input file." << std::endl;
+                std::cout << "# [INFO]: Generating a report in LaTeX format is requested." << "\n";
+                std::cout << "# [INFO]: The report in LaTeX format will be output in the same folder as the input file." << "\n";
                 io_refData.isGeneratingReportInLaTeXformatRequested = true;
             }
             // -------------------------------------------------------------------------- //
@@ -314,7 +310,7 @@ namespace ais_31_tool
             if (po_vm.count("verbose_level")) {
                 if ((vl < 0) || (3 < vl)) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Invalid verbose level." << std::endl;
+                    std::cout << "# [ERROR]: Invalid verbose level." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 
                     ais_31_lib::support::tearDown(io_refData);
@@ -329,13 +325,13 @@ namespace ais_31_tool
         }
         catch (std::exception& e) {
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-            std::cerr << "# [ERROR]: error: " << e.what() << std::endl;
+            std::cerr << "# [ERROR]: error: " << e.what() << "\n";
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             return sts;
         }
         catch (...) {
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-            std::cerr << "# [ERROR]: Exception of unknown type!" << std::endl;
+            std::cerr << "# [ERROR]: Exception of unknown type!" << "\n";
             SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
             return	sts;
         }
