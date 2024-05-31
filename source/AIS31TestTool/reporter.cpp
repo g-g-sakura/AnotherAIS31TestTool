@@ -899,7 +899,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"% 1" << L"\n";
 		o_ssLaTeX << L"\\bibitem{AIS2031An_11}" << L"\n";
 		o_ssLaTeX << L"W. Killmann and W. Schindler." << L"\n";
-		o_ssLaTeX << L"\\textit{proposal for: Functionality classes for random number generators}," << L"\n";
+		o_ssLaTeX << L"\\textit{A proposal for: Functionality classes for random number generators}," << L"\n";
 		o_ssLaTeX << L"Version 2.0 (18.09.2011), " << L"\n";
 		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/dok/ais-20-31-appx-2011}" << L"\n";
 		o_ssLaTeX << L"\\end{thebibliography}" << L"\n\n";
