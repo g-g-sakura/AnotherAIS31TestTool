@@ -746,6 +746,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\usepackage{lastpage}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{verbatim}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{multirow}" << L"\n";
+		o_ssLaTeX << L"\\usepackage{fancyvrb}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{censor}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[unicode,pdftitle={Test report of based on BSI AIS 20 / AIS 31},setpagesize=false]{hyperref}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[open,openlevel=4]{bookmark}" << L"\n";
@@ -882,6 +883,18 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
+		std::wstringstream	ssSep = std::wstringstream();
+		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+		ssSep << L"%%%%%%" << L"\n";
+		ssSep << L"%%%%%%  Bibliography" << L"\n";
+		ssSep << L"%%%%%%" << L"\n";
+		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << ssSep.rdbuf();
+		o_ssLaTeX << L"\\normalsize" << L"\n";
+		o_ssLaTeX << L"\\addcontentsline{toc}{chapter}{\\refname}" << L"\n";
 		o_ssLaTeX << L"\\begin{thebibliography}{99}" << L"\n";
 		o_ssLaTeX << L"% 1" << L"\n";
 		o_ssLaTeX << L"\\bibitem{AIS2031An_11}" << L"\n";
@@ -889,7 +902,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\textit{proposal for: Functionality classes for random number generators}," << L"\n";
 		o_ssLaTeX << L"Version 2.0 (18.09.2011), " << L"\n";
 		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/dok/ais-20-31-appx-2011}" << L"\n";
-		o_ssLaTeX << L"\\end{thebibliography}" << L"\n";
+		o_ssLaTeX << L"\\end{thebibliography}" << L"\n\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -962,14 +975,14 @@ namespace ais_31_tool
 			return  sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 		}
 		o_refLaTeXSupportingInfo << L" hash value of the input data " << i_refTestSpecificString << L"[hex] & " << L"\n";
-		o_refLaTeXSupportingInfo << L"\\begin{verbatim}" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\begin{BVerbatim}" << L"\n";
 
 		const int size_needed = MultiByteToWideChar(CP_UTF8, 0, strHashOfAcquisitionData.data(), static_cast<int>(strHashOfAcquisitionData.size()), nullptr, 0);
 		std::wstring    wstrHashOfAcquisitionData(size_needed, 0);
 		MultiByteToWideChar(CP_UTF8, 0, strHashOfAcquisitionData.data(), static_cast<int>(strHashOfAcquisitionData.size()), wstrHashOfAcquisitionData.data(), size_needed);
 
 		o_refLaTeXSupportingInfo << wstrHashOfAcquisitionData << L"\n";
-		o_refLaTeXSupportingInfo << L"\\end{verbatim} " << L"\n";
+		o_refLaTeXSupportingInfo << L"\\end{BVerbatim} " << L"\n";
 		o_refLaTeXSupportingInfo << L"\\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
 
@@ -1127,7 +1140,7 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << L"		\\item Name of the submitter of the input data : " << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\noindent" << L"\n";
-		o_refLaTeXSupportingInfo << L"		    \\TextField[name=NameOfSubmitter, multiline=false, bordercolor=bordercolordarkblue,width=14cm,height=1cm]{}" << L"\n";
+		o_refLaTeXSupportingInfo << L"		    \\TextField[name=NameOfSubmitter, multiline=false, bordercolor=bordercolordarkblue,width=17cm,height=1cm]{}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\end{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	\\item Brief explanation of the input data : \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\begin{Form}" << L"\n";
@@ -1311,7 +1324,7 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_refLaTeXAnnex">
+	/// <params="o_refLaTeXAppendix">
 	/// </params>
 	/// <params="i_refInfoReport">
 	/// </params>
@@ -1324,7 +1337,7 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	ns_consts::EnmReturnStatus reportLaTeXAnnex(std::wstringstream& o_refLaTeXAnnex,
+	ns_consts::EnmReturnStatus reportLaTeXAppendix(std::wstringstream& o_refLaTeXAppendix,
 		const IDInfoForReport& i_refInfoReport,
 		const ns_dt::t_data_for_v2& i_refData)
 	{
@@ -1333,23 +1346,23 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXAnnex << L"\\section{Identification information} " << L"\n";
+		o_refLaTeXAppendix << L"\\section{Identification information} " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXAnnex << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
-		o_refLaTeXAnnex << L"\\scriptsize" << L"\n";
-		o_refLaTeXAnnex << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
-		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.75cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
-		o_refLaTeXAnnex << L"\\caption{Identification information of input data} \\\\" << L"\n";
-		o_refLaTeXAnnex << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & Value \\\\ \\hline \\hline " << L"\n";
-		o_refLaTeXAnnex << L"\\endfirsthead " << L"\n";
-		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
-		o_refLaTeXAnnex << L"\\endhead " << L"\n";
-		o_refLaTeXAnnex << L"\\hline  \\multicolumn{3}{|r|}{continued...} " << L"\n";
-		o_refLaTeXAnnex << L"\\endfoot " << L"\n";
-		o_refLaTeXAnnex << L"\\hline  \\multicolumn{3}{|r|}{end of the table} " << L"\n";
-		o_refLaTeXAnnex << L"\\endlastfoot " << L"\n";
+		o_refLaTeXAppendix << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
+		o_refLaTeXAppendix << L"\\scriptsize" << L"\n";
+		o_refLaTeXAppendix << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
+		o_refLaTeXAppendix << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.7cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
+		o_refLaTeXAppendix << L"\\caption{Identification information of input data} \\\\" << L"\n";
+		o_refLaTeXAppendix << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & Value \\\\ \\hline \\hline " << L"\n";
+		o_refLaTeXAppendix << L"\\endfirsthead " << L"\n";
+		o_refLaTeXAppendix << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
+		o_refLaTeXAppendix << L"\\endhead " << L"\n";
+		o_refLaTeXAppendix << L"\\hline  \\multicolumn{3}{|r|}{continued...} " << L"\n";
+		o_refLaTeXAppendix << L"\\endfoot " << L"\n";
+		o_refLaTeXAppendix << L"\\hline  \\multicolumn{3}{|r|}{end of the table} " << L"\n";
+		o_refLaTeXAppendix << L"\\endlastfoot " << L"\n";
 
 		// -------------------------------------------------------------------------- //
 		// calculate hash value of the acquisition data
@@ -1376,7 +1389,7 @@ namespace ais_31_tool
 
 			std::wstring    wstrTestSpecific = std::wstring(L"for Test T0");
 
-			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
+			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
 			if (ns_consts::EnmReturnStatus::Success != sts)
 			{
 				return  sts;
@@ -1401,7 +1414,7 @@ namespace ais_31_tool
 
 				std::wstring    wstrTestSpecific = std::wstring(L"for Test T1");
 
-				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
+				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
 				if (ns_consts::EnmReturnStatus::Success != sts)
 				{
 					return  sts;
@@ -1412,8 +1425,8 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXAnnex << L"\\end{longtable}" << L"\n";
-		o_refLaTeXAnnex << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
+		o_refLaTeXAppendix << L"\\end{longtable}" << L"\n";
+		o_refLaTeXAppendix << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1587,8 +1600,6 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		//ssLaTeXSummary << L"\\hline \hline " << L"\n";
-		//ssLaTeXSummary << L"Overall test result	& ";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		ssLaTeXSummary << L"\\end{tabular}" << L"\n";
 		ssLaTeXSummary << L"\\end{center}" << L"\n";
@@ -1636,16 +1647,27 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		std::wstringstream ssBiblio = std::wstringstream();
-		loadLaTeXBibliography(ssBiblio);
-		ssLaTeX << ssBiblio.rdbuf();
+		std::wstringstream	ssSep = std::wstringstream();
+		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+		ssSep << L"%%%%%%" << L"\n";
+		ssSep << L"%%%%%%  Appendix" << L"\n";
+		ssSep << L"%%%%%%" << L"\n";
+		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
+		ssLaTeX << ssSep.rdbuf();
 		ssLaTeX << L"\\appendix" << L"\n";
-		std::wstringstream ssAnnex = std::wstringstream();
-		reportLaTeXAnnex(ssAnnex, i_refInfoReport, io_refData);
-		ssLaTeX << ssAnnex.rdbuf();
+		std::wstringstream ssAppendix = std::wstringstream();
+		reportLaTeXAppendix(ssAppendix, i_refInfoReport, io_refData);
+		ssLaTeX << ssAppendix.rdbuf();
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		ssLaTeX << L"\\clearpage" << L"\n";
+		std::wstringstream ssBiblio = std::wstringstream();
+		loadLaTeXBibliography(ssBiblio);
+		ssLaTeX << ssBiblio.rdbuf();
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //

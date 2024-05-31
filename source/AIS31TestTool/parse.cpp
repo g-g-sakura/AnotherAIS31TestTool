@@ -127,7 +127,7 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 const boost::uintmax_t size = bs_fs::file_size(file_path_testT0);
 
-                std::cout << "Its file size: " << size << "-byte" << "\n";
+                std::cout << "# [INFO]: Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
@@ -216,7 +216,7 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 const boost::uintmax_t size = bs_fs::file_size(file_path_testT1);
 
-                std::cout << "Its file size: " << size << "-byte" << "\n";
+                std::cout << "# [INFO]: Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
