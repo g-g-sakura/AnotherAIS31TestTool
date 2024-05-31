@@ -9,13 +9,14 @@
 - ```--inputT0``` specifies the file name of the input data.  The file path must be relative path to a binary file with at least 3145728 bits as per [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
 - ```--inputT1``` specifies the initial file name of the input data of 257 sets for tests T1 through T5.  The file name must contain at least 3 digits which identifies the index of 257 sets, at the end.  The file path must be relative path to a binary file with at least 20000 bits as per [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
 - ```-w``` specifies the number of bits per sample.  This shall be between 1-8, inclusive.  By default, this value is 8.
-- ```-x``` requests to generate a XeLaTeX source file of entropy estimation report, in the same folder as the specified acquisition data (see ```-f```).
+- ```-x``` requests to generate a XeLaTeX source file of entropy estimation report, in the same folder as the specified acquisition data (see ```--inputT0``` or ```--inputT1```).
 - ```--MSb``` specifies the conversion from sample to bitstring in Most Significant bit first (**default**). 
 - ```--LSb``` specifies the conversion from sample to bitstring in Least Significant bit first.
 
 # System equirements for runtime environment
 - OS : Windows 10 or newer with 64-bit
 - RAM : 8GB or more main memory
+- [TeX Live](https://www.tug.org/texlive/) (optional for compiling automatically generated XeLaTeX source file)
 
 # System requirements for development environment
 ## Compiler
