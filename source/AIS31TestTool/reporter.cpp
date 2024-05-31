@@ -3,7 +3,7 @@
 //
 //
 //
-// Copyright (c) 2021-2023 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2021-2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "reporter.h"
@@ -925,7 +925,8 @@ namespace ais_31_tool
 		const IDInfoForReport& i_refInfoReport,
 		const ais_31_tool::constants::EnmHashAlgorithm i_enmHashAlgorithmId,
 		const std::wstring& i_refTestSpecificString,
-		const InfoInputDataItem& io_refInfoInputDataItem)
+		const InfoInputDataItem& io_refInfoInputDataItem,
+		const int i_NoOfInputDataItem)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -941,13 +942,16 @@ namespace ais_31_tool
 		if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
 		{
 			return  sts = stsCalcHash;
-		}    // -------------------------------------------------------------------------- //
+		}    
+		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
+		o_refLaTeXSupportingInfo << L"\\multirow{3}{*}{" << i_NoOfInputDataItem << L" } & ";
 		o_refLaTeXSupportingInfo << L"Path to the input data " << i_refTestSpecificString << L" & \\verb|";
 		o_refLaTeXSupportingInfo << (*io_refInfoInputDataItem.p_path_to_input_data) << L"| \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
 
+		o_refLaTeXSupportingInfo << L"\t & ";
 		switch (i_enmHashAlgorithmId)
 		{
 		case ais_31_tool::constants::EnmHashAlgorithm::ESHA_256:
@@ -982,6 +986,7 @@ namespace ais_31_tool
 			return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 		}
 
+		o_refLaTeXSupportingInfo << L"\t & ";
 		o_refLaTeXSupportingInfo << L"Last write time & " << std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S") << L" \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
 		// -------------------------------------------------------------------------- //
@@ -1132,7 +1137,7 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << L"\t	\\item Brief explanation of the input data : \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\noindent" << L"\n";
-		o_refLaTeXSupportingInfo << L"\t	    \\TextField[name=ExplanationOfInputData, multiline=true, bordercolor=bordercolordarkblue,width=\\linewidth,height=2in]{}" << L"\n";
+		o_refLaTeXSupportingInfo << L"\t	    \\TextField[name=ExplanationOfInputData, multiline=true, bordercolor=bordercolordarkblue,width=\\linewidth,height=2.5in]{}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\end{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t\\end{itemize} " << L"\n";
 		// -------------------------------------------------------------------------- //
@@ -1186,6 +1191,18 @@ namespace ais_31_tool
 			o_refLaTeXSupportingInfo << L" Boost C++ ";
 			o_refLaTeXSupportingInfo << BOOST_VERSION / 100000 << L"." << ((BOOST_VERSION / 100) % 1000) << L"." << BOOST_VERSION % 100;
 			o_refLaTeXSupportingInfo << L" \\\\" << L"\n";
+		}
+		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_refLaTeXSupportingInfo << L"\\, & with & ";
+		{
+#if defined(_OPENMP)
+			o_refLaTeXSupportingInfo << L"OpenMP enabled \\\\" << L"\n";
+#else
+			o_refLaTeXSupportingInfo << L"OpenMP disabled \\\\" << L"\n";
+#endif
 		}
 		o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
 		// -------------------------------------------------------------------------- //
@@ -1326,19 +1343,23 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		o_refLaTeXAnnex << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
-		o_refLaTeXAnnex << L"\\footnotesize" << L"\n";
+		o_refLaTeXAnnex << L"\\scriptsize" << L"\n";
 		o_refLaTeXAnnex << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
-		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\columncolor{anotherlightblue}}p{7.5cm}|p{17cm}|}" << L"\n";
+		o_refLaTeXAnnex << L"\\begin{longtable}{|>{\\columncolor{anotherlightblue}}p{1cm}|\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
 		o_refLaTeXAnnex << L"\\caption{Identification information of input data} \\\\" << L"\n";
-		o_refLaTeXAnnex << L"\\hline Item & Value \\\\ \\hline \\hline " << L"\n";
+		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline \\hline " << L"\n";
 		o_refLaTeXAnnex << L"\\endfirsthead " << L"\n";
-		o_refLaTeXAnnex << L"\\hline Item & Value \\\\ \\hline " << L"\n";
+		o_refLaTeXAnnex << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
 		o_refLaTeXAnnex << L"\\endhead " << L"\n";
-		o_refLaTeXAnnex << L"\\hline  \\multicolumn{2}{|r|}{continued...} " << L"\n";
+		o_refLaTeXAnnex << L"\\hline  \\multicolumn{3}{|r|}{continued...} " << L"\n";
 		o_refLaTeXAnnex << L"\\endfoot " << L"\n";
-		o_refLaTeXAnnex << L"\\hline  \\multicolumn{2}{|r|}{end of the table} " << L"\n";
+		o_refLaTeXAnnex << L"\\hline  \\multicolumn{3}{|r|}{end of the table} " << L"\n";
 		o_refLaTeXAnnex << L"\\endlastfoot " << L"\n";
 
+		// -------------------------------------------------------------------------- //
+		// calculate hash value of the acquisition data
+		// -------------------------------------------------------------------------- //
+		int	number_of_entry = 1;
 		// -------------------------------------------------------------------------- //
 		// calculate hash value of the acquisition data
 		// -------------------------------------------------------------------------- //
@@ -1362,11 +1383,12 @@ namespace ais_31_tool
 
 			std::wstring    wstrTestSpecific = std::wstring(L"for Test T0");
 
-			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem);
+			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
 			if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
 			{
 				return  sts = stsCalcHash;
 			}
+			++number_of_entry;
 		}
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1386,11 +1408,12 @@ namespace ais_31_tool
 
 				std::wstring    wstrTestSpecific = std::wstring(L"for Test T1");
 
-				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item);
+				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAnnex, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
 				if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
 				{
 					return  sts = stsCalcHash;
 				}
+				++number_of_entry;
 			}
 		}
 		// -------------------------------------------------------------------------- //
