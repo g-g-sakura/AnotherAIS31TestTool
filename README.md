@@ -1,7 +1,7 @@
 # AnotherAIS31TestTool
 This tool provides tests specified by [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
 
-As of today, [A proposal for: Functionality classes for random number generators - Version 2.35 - Draft](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e.pdf?__blob=publicationFile&v=7) is posted on BSI Web site, yet its final version is not yet released.
+As of today, [A proposal for: Functionality classes for random number generators - Version 2.35 - Draft](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e.pdf?__blob=publicationFile&v=7) is posted on BSI Web site. However its final version is not yet released.
 The specification of tests will be subject to change in its final version, so the implementation of tests T6 through T8 are suspended.
 
 # Features
