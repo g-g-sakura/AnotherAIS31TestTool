@@ -38,6 +38,7 @@ namespace ais_31_lib
 			ErrorFileIO = -250,
 			ErrorPreconditions = -251,
 			ErrorInsufficientData = -252,
+			ErrorChildProcess = -480,
 			ErrorUnexpected = -8192,
 		};
 

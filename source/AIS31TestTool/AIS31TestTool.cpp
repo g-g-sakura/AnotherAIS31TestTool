@@ -51,12 +51,16 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     std::wstring strHostName;
     std::wstring strCPUInfo;
     std::wstring strPhysicalMemory;
-    std::wstring strOSInfo;
+    std::wstring strOSName;
+    std::wstring strOSVersion;
+    std::wstring strSystemType;
     std::wstring strUserName;
     the_info_report.info_env.p_hostname = &strHostName;
     the_info_report.info_env.p_cpuinfo = &strCPUInfo;
     the_info_report.info_env.p_physicalmemory = &strPhysicalMemory;
-    the_info_report.info_env.p_osinfo = &strOSInfo;
+    the_info_report.info_env.p_osname = &strOSName;
+    the_info_report.info_env.p_osversion = &strOSVersion;
+    the_info_report.info_env.p_system_type = &strSystemType;
     the_info_report.info_env.p_username = &strUserName;
     sts = ns_tool::getEnvInfo(the_info_report.info_env);
     if (ns_consts::EnmReturnStatus::Success == sts)
@@ -64,7 +68,9 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
         std::wcout << std::wstring(L"# Host name:\t") << strHostName << L"\n";
         std::wcout << std::wstring(L"# CPU id:\t") << strCPUInfo << L"\n";
         std::wcout << std::wstring(L"# Amount of Physical Memory:\t") << strPhysicalMemory << L"\n";
-        std::wcout << std::wstring(L"# Operating System:\t") << strOSInfo << L"\n";
+        std::wcout << std::wstring(L"# OS name:\t") << strOSName << L"\n";
+        std::wcout << std::wstring(L"# OS version:\t") << strOSVersion << L"\n";
+        std::wcout << std::wstring(L"# System type:\t") << strSystemType << L"\n";
         std::wcout << std::wstring(L"# User name:\t") << strUserName << L"\n";
     }
     // -------------------------------------------------------------------------- //

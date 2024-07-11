@@ -1,3 +1,11 @@
+////////////////////////////////////////////////////////////////////////////////
+// loadInputData.cpp
+//
+//
+//
+// Copyright (c) 2024 G. G. SAKURAI <g.garland823@gmail.com>
+//
+////////////////////////////////////////////////////////////////////////////////
 #include "loadInputData.h"
 #include "synthesizeFilename.h"
 #include <fstream>
@@ -11,7 +19,11 @@ namespace ais_31_tool
 	/// </remarks>
 	/// <params="io_refData">
 	/// </params>
+	/// <params="i_refInfoReport">
+	/// </params>
 	/// <params="i_refFullPath">
+	/// </params>
+	/// <params="i_enmTrack">
 	/// </params>
 	/// <returns>
 	/// </returns>
@@ -196,6 +208,8 @@ namespace ais_31_tool
 	/// <remarks>
 	/// </remarks>
 	/// <params="io_refData">
+	/// </params>
+	/// <params="indexWithZeroOffset">
 	/// </params>
 	/// <returns>
 	/// </returns>

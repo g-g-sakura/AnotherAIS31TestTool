@@ -565,6 +565,18 @@ namespace ais_31_tool
 		{
 			the_tree.add(L"conformance_report.identification.environment.physicalmemory", *i_refInfoReport.info_env.p_physicalmemory);
 		}
+		if (nullptr != i_refInfoReport.info_env.p_osname)
+		{
+			the_tree.add(L"conformance_report.identification.environment.os_name", *i_refInfoReport.info_env.p_osname);
+		}
+		if (nullptr != i_refInfoReport.info_env.p_osversion)
+		{
+			the_tree.add(L"conformance_report.identification.environment.os_version", *i_refInfoReport.info_env.p_osversion);
+		}
+		if (nullptr != i_refInfoReport.info_env.p_system_type)
+		{
+			the_tree.add(L"conformance_report.identification.environment.system_type", *i_refInfoReport.info_env.p_system_type);
+		}
 		if (nullptr != i_refInfoReport.info_env.p_username)
 		{
 			the_tree.add(L"conformance_report.identification.environment.username", *i_refInfoReport.info_env.p_username);
@@ -1235,7 +1247,17 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXSupportingInfo << L"\\, &  OS information & " << (*i_refInfoReport.info_env.p_osinfo) << L" \\\\" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\, &  OS name & " << (*i_refInfoReport.info_env.p_osname) << L" \\\\" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_refLaTeXSupportingInfo << L"\\, &  OS version & " << (*i_refInfoReport.info_env.p_osversion) << L" \\\\" << L"\n";
+		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_refLaTeXSupportingInfo << L"\\, &  System type & " << (*i_refInfoReport.info_env.p_system_type) << L" \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\cline{2-3}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 

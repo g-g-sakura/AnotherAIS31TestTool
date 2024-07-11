@@ -12,9 +12,6 @@ namespace ais_31_lib
 {
 	namespace support
 	{
-		namespace ns_consts = ais_31_lib::constants;
-		namespace ns_dt = ais_31_lib::data_types;
-
 		// -------------------------------------------------------------------------- //
 		/// <summary>
 		/// </summary>

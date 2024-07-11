@@ -2,7 +2,7 @@
 // reportItems.h
 //
 //
-// Copyright (c) 2021-2022 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2021-2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(_MSC_VER)
@@ -27,11 +27,8 @@ namespace ais_31_tool
 
 	struct InfoInputData
 	{
-		//bs_fs::path* p_path_to_input_data_testT0;
 		InfoInputDataItem		info_input_data_testT0;
 		std::vector<InfoInputDataItem>* p_info_input_data_items_testT1;
-		//bs_fs::path* p_path_to_input_data_testT1;
-		//std::time_t		tm_last_write_time;
 	};
 
 	struct InfoAnalysisTool
@@ -45,7 +42,9 @@ namespace ais_31_tool
 		std::wstring* p_hostname;
 		std::wstring* p_cpuinfo;
 		std::wstring* p_physicalmemory;
-		std::wstring* p_osinfo;
+		std::wstring* p_osname;
+		std::wstring* p_osversion;
+		std::wstring* p_system_type;
 		std::wstring* p_username;
 	};
 
