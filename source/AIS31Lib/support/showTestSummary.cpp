@@ -21,12 +21,12 @@ namespace ais_31_lib
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <params="o_refStream">
-		/// </params>
-		/// <params="i_enmTest">
-		/// </params>
-		/// <params="io_refData">
-		/// </params>
+		/// <param name="o_refStream">
+		/// </param>
+		/// <param name="i_enmTest">
+		/// </param>
+		/// <param name="io_refData">
+		/// </param>
 		/// <returns>
 		/// </returns>
 		/// <precondition>
@@ -149,12 +149,12 @@ namespace ais_31_lib
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <params="o_refStream">
-		/// </params>
-		/// <params="i_enmTest">
-		/// </params>
-		/// <params="io_refData">
-		/// </params>
+		/// <param name="o_refStream">
+		/// </param>
+		/// <param name="i_enmTest">
+		/// </param>
+		/// <param name="io_refData">
+		/// </param>
 		/// <returns>
 		/// </returns>
 		/// <precondition>
@@ -243,12 +243,12 @@ namespace ais_31_lib
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <params="o_refStream">
-		/// </params>
-		/// <params="i_enmTest">
-		/// </params>
-		/// <params="io_refData">
-		/// </params>
+		/// <param name="o_refStream">
+		/// </param>
+		/// <param name="i_enmTest">
+		/// </param>
+		/// <param name="io_refData">
+		/// </param>
 		/// <returns>
 		/// </returns>
 		/// <precondition>

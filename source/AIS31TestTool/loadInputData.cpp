@@ -17,14 +17,14 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="io_refData">
-	/// </params>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="i_refFullPath">
-	/// </params>
-	/// <params="i_enmTrack">
-	/// </params>
+	/// <param name="io_refData">
+	/// </param>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_refFullPath">
+	/// </param>
+	/// <param name="i_enmTrack">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -207,10 +207,10 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="io_refData">
-	/// </params>
-	/// <params="indexWithZeroOffset">
-	/// </params>
+	/// <param name="io_refData">
+	/// </param>
+	/// <param name="indexWithZeroOffset">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>

@@ -7,6 +7,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "support/checkArgs.h"
+#include "support/LaTeX.h"
 
 namespace ais_31_lib
 {
@@ -24,8 +25,8 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			/// </returns>
 			/// <precondition>
@@ -47,11 +48,18 @@ namespace ais_31_lib
 				// 
 				// -------------------------------------------------------------------------- //
 				std::wstringstream	ssSep = std::wstringstream();
-				ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
-				ssSep << L"%%%%%%" << L"\n";
-				ssSep << L"%%%%%%  Test T3 (runs test)" << L"\n";
-				ssSep << L"%%%%%%" << L"\n";
-				ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+				// -------------------------------------------------------------------------- //
+				// 
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTitle = std::wstring(L"Test T3 (runs test)");
+				std::wstring	strLabel = std::wstring(L"sec:TestT3");
+				std::wstring	strBlock = std::wstring();
+				sts = ns_spt::getLaTeXSubsection(strBlock, strTitle, strLabel);
+				if (ns_consts::EnmReturnStatus::Success != sts)
+				{
+					return  sts;
+				}
+				ssSep << strBlock;
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
@@ -59,7 +67,6 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\subsection{Test T3 (runs test) }\\label{sec:TestT3}" << L"\n";
 				(*io_refData.p_ssLaTeXFragment) << L"\n\n";
 				// -------------------------------------------------------------------------- //
 				//
@@ -73,10 +80,8 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
-			/// <params="i_test_value">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
@@ -328,12 +333,12 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Implements Test T1: monobit test as specified in AIS 20/31 Version 2.35
+			///  Implements Test T3: runs test as specified in AIS 20/31 Version 2.35
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			/// </returns>
 			/// <precondition>

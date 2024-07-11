@@ -18,15 +18,15 @@ namespace ais_31_tool
 /// </summary>
 /// <remarks>
 /// </remarks>
-/// <params="io_refOffset">
+/// <param name="io_refOffset">
 ///  [Output] specifies the reference to the first index (or offset) to be stored.
-/// </params>
-/// <params="io_refNumberOfDigitsOfIndex">
+/// </param>
+/// <param name="io_refNumberOfDigitsOfIndex">
 ///  [Output] specifies the reference to the digits of the first index (or offset) in the filename.
-/// </params>
-/// <params="i_refInitialFilePath">
+/// </param>
+/// <param name="i_refInitialFilePath">
 ///  [Input] specifies the file path of initial file.
-/// </params>
+/// </param>
 /// <returns>
 ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNotFound</c>:  the file referenced by <c>i_refInitialFilePath</c> is not found.
 ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extesion:
@@ -96,15 +96,15 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="io_refPathForIndex">
+    /// <param name="io_refPathForIndex">
     ///  [Output] specifies the reference to the path of input data file of the specified index <c>indexOfInputDataFiles</c>
-    /// </params>
-    /// <params="io_refNumberOfDigitsOfIndex">
+    /// </param>
+    /// <param name="io_refNumberOfDigitsOfIndex">
     ///  [Input] specifies the index of file to be synthesized.
-    /// </params>
-    /// <params="i_refInitialFilePath">
+    /// </param>
+    /// <param name="i_refInitialFilePath">
     ///  [Input] specifies the file path of initial file.
-    /// </params>
+    /// </param>
     /// <returns>
     ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNotFound</c>:  the file referenced by <c>i_refInitialFilePath</c> is not found.
     ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extesion:

@@ -26,8 +26,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refHostInfo">
-    /// </params>
+    /// <param name="o_refHostInfo">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -59,8 +59,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refCPUInfo">
-    /// </params>
+    /// <param name="o_refCPUInfo">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -111,8 +111,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refMemoryStatus">
-    /// </params>
+    /// <param name="o_refMemoryStatus">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -145,8 +145,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="">
-    /// </params>
+    /// <param name="">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -184,8 +184,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refSystemType">
-    /// </params>
+    /// <param name="o_refSystemType">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -227,8 +227,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="io_refContainer">
-    /// </params>
+    /// <param name="io_refContainer">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -309,12 +309,12 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refOSName">
-    /// </params>
-    /// <params="o_refOSVersion">
-    /// </params>
-    /// <params="io_container">
-    /// </params>
+    /// <param name="o_refOSName">
+    /// </param>
+    /// <param name="o_refOSVersion">
+    /// </param>
+    /// <param name="io_container">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -370,10 +370,10 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refOSName">
-    /// </params>
-    /// <params="o_refOSVersion">
-    /// </params>
+    /// <param name="o_refOSName">
+    /// </param>
+    /// <param name="o_refOSVersion">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -448,8 +448,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="o_refUserInfo">
-    /// </params>
+    /// <param name="o_refUserInfo">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>
@@ -481,8 +481,8 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <params="i_refEnv">
-    /// </params>
+    /// <param name="i_refEnv">
+    /// </param>
     /// <returns>
     /// </returns>
     /// <precondition>

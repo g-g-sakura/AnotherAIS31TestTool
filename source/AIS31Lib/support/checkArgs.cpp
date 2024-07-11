@@ -17,9 +17,9 @@ namespace ais_31_lib
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <params="i_refData">
+		/// <param name="i_refData">
 		///  Specifies the reference to data structure for conformance test.
-		/// </params>
+		/// </param>
 		/// <returns>
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>: when one of the following conditions is met:
 		///    <ul>

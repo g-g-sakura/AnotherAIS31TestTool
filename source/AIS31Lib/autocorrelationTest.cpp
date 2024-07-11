@@ -11,6 +11,7 @@
 #include "support/checkArgs.h"
 #include <boost/format.hpp>    // only needed for printing
 #include <boost/histogram.hpp>
+#include "support/LaTeX.h"
 
 #ifdef _OPENMP
 #include <omp.h>
@@ -26,6 +27,20 @@ namespace ais_31_lib
 			namespace ns_dt = ais_31_lib::data_types;
 			namespace ns_spt = ais_31_lib::support;
 
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
@@ -40,11 +55,18 @@ namespace ais_31_lib
 				// 
 				// -------------------------------------------------------------------------- //
 				std::wstringstream	ssSep = std::wstringstream();
-				ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
-				ssSep << L"%%%%%%" << L"\n";
-				ssSep << L"%%%%%%  Test T5 (autocorrelation test)" << L"\n";
-				ssSep << L"%%%%%%" << L"\n";
-				ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+				// -------------------------------------------------------------------------- //
+				// 
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTitle = std::wstring(L"Test T5 (autocorrelation test)");
+				std::wstring	strLabel = std::wstring(L"sec:TestT5");
+				std::wstring	strBlock = std::wstring();
+				sts = ns_spt::getLaTeXSubsection(strBlock, strTitle, strLabel);
+				if (ns_consts::EnmReturnStatus::Success != sts)
+				{
+					return  sts;
+				}
+				ssSep << strBlock;
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
@@ -52,7 +74,6 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\subsection{Test T5 (autocorrelation test) }\\label{sec:TestT5}" << L"\n";
 				(*io_refData.p_ssLaTeXFragment) << L"\n\n";
 				// -------------------------------------------------------------------------- //
 				//
@@ -60,6 +81,20 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus outputLaTeXSummarySubsubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
@@ -81,6 +116,20 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus outputLaTeXDetailInfoSubsubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
@@ -102,6 +151,20 @@ namespace ais_31_lib
 				return sts = ns_consts::EnmReturnStatus::Success;
 			}
 
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus flushFiguresInLaTeX(const ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
@@ -129,10 +192,10 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
-			/// <params="i_test_value">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
+			/// <param name="i_test_value">
+			/// </param>
 			/// <returns>
 			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
@@ -242,8 +305,8 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
@@ -731,8 +794,8 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			/// </returns>
 			/// <precondition>

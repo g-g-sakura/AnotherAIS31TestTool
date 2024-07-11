@@ -18,6 +18,21 @@ namespace ais_31_lib
 			namespace ns_dt = ais_31_lib::data_types;
 
 
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			///  Implements Test T0: disjointness test as specified in AIS 20/31 Version 2.0
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus performTest(ns_dt::t_data_for_v2& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;

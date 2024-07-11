@@ -18,6 +18,7 @@
 #include <Windows.h>
 #include <boost/version.hpp>
 #include "calcMessageDigest.h"
+#include <AIS31Lib/support/LaTeX.h>
 
 namespace ais_31_tool
 {
@@ -25,14 +26,15 @@ namespace ais_31_tool
 
 	namespace ns_consts = ais_31_lib::constants;
 	namespace ns_dt = ais_31_lib::data_types;
+	namespace ns_spt = ais_31_lib::support;
 
 	// -------------------------------------------------------------------------- //
 	/// <summary>
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -80,8 +82,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -130,8 +132,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -185,8 +187,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -290,8 +292,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_est">
-	/// </params>
+	/// <param name="i_test">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -337,6 +339,20 @@ namespace ais_31_tool
 		return  str_ret;
 	}
 
+	// -------------------------------------------------------------------------- //
+	/// <summary>
+	/// </summary>
+	/// <remarks>
+	/// </remarks>
+	/// <param name="i_enmPassFail">
+	/// </param>
+	/// <returns>
+	/// </returns>
+	/// <precondition>
+	/// </precondition>
+	/// <postcondition>
+	/// </postcondition>
+	// -------------------------------------------------------------------------- //
 	std::wstring getPassFail(ns_consts::EnmPassFailResults i_enmPassFail)
 	{
 		std::wstring     str_ret;
@@ -359,10 +375,10 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -612,10 +628,10 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_report_complete_path">
-	/// </params>
-	/// <params="i_path_input_data">
-	/// </params>
+	/// <param name="o_report_complete_path">
+	/// </param>
+	/// <param name="i_path_input_data">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -660,10 +676,10 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_report_complete_path">
-	/// </params>
-	/// <params="i_path_input_data">
-	/// </params>
+	/// <param name="o_report_complete_path">
+	/// </param>
+	/// <param name="i_path_input_data">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -708,8 +724,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_ssLaTeX">
-	/// </params>
+	/// <param name="o_ssLaTeX">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -724,12 +740,13 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		std::wstringstream	ssSep = std::wstringstream();
-		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
-		ssSep << L"%%%%%%" << L"\n";
-		ssSep << L"%%%%%%" << L"\n";
-		ssSep << L"%%%%%%" << L"\n";
-		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+		std::wstring	strBlock = std::wstring();
+		std::wstring	strComment = std::wstring();
+		sts = ns_spt::getLaTeXCommentBlock(strBlock, strComment);
+		if (ns_consts::EnmReturnStatus::Success != sts)
+		{
+			return  sts;
+		}
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -787,22 +804,22 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\setlength{\\textwidth}{25cm}" << L"\n";
 		o_ssLaTeX << L"\\setlength{\\oddsidemargin}{-5mm}" << L"\n";
 		o_ssLaTeX << L"\\setlength{\\evensidemargin}{-5mm}" << L"\n";
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"%%%\\renewcommand{ \\figurename }{Figure }" << L"\n";
 		o_ssLaTeX << L"%%%\\renewcommand{ \\tablename }{Table }" << L"\n";
 		o_ssLaTeX << L"%%%\\renewcommand{ \\refname }{References}" << L"\n";
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\definecolor{rowcolorlightblue}{RGB}{191,233,251}" << L"\n";
 		o_ssLaTeX << L"\\definecolor{bordercolordarkblue}{RGB}{0,163,243}" << L"\n";
 		o_ssLaTeX << L"\\definecolor{BleuDur}{RGB}{27,61,176}" << L"\n";
 		o_ssLaTeX << L"\\definecolor{Nigelle}{RGB}{0,133,201}" << L"\n";
 		o_ssLaTeX << L"\\definecolor{BleuFaience}{RGB}{105,171,219}" << L"\n";
 		o_ssLaTeX << L"\\definecolor{anotherlightblue}{RGB}{61,143,244}" << L"\n";
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\def\\chpcolor{BleuDur}" << L"\n";
 		o_ssLaTeX << L"\\def\\chpcolortxt{BleuDur}" << L"\n";
 		o_ssLaTeX << L"\\def\\sectionfont{\\sffamily\\LARGE}" << L"\n";
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\makeatletter" << L"\n";
 		o_ssLaTeX << L"%Section:" << L"\n";
 		o_ssLaTeX << L"\\def\\@sectionstrut{\\vrule\\@width\\z@\\@height12.5\\p@}" << L"\n";
@@ -843,12 +860,12 @@ namespace ais_31_tool
 		o_ssLaTeX << L"  \\fi" << L"\n";
 		o_ssLaTeX << L"}" << L"\n";
 		o_ssLaTeX << L"\\makeatother" << L"\n";
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\setlength{ \\topmargin }{-1.5cm}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_ssLaTeX << ssSep.str();
+		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\pagestyle{mypagestylewithtotalpagenumbers}" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
@@ -879,8 +896,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_ssLaTeX">
-	/// </params>
+	/// <param name="o_ssLaTeX">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -895,16 +912,17 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		std::wstringstream	ssSep = std::wstringstream();
-		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
-		ssSep << L"%%%%%%" << L"\n";
-		ssSep << L"%%%%%%  Bibliography" << L"\n";
-		ssSep << L"%%%%%%" << L"\n";
-		ssSep << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
+		std::wstring	strBlock = std::wstring();
+		std::wstring	strComment = std::wstring(L"Bibliography");
+		sts = ns_spt::getLaTeXCommentBlock(strBlock, strComment);
+		if (ns_consts::EnmReturnStatus::Success != sts)
+		{
+			return  sts;
+		}
+		o_ssLaTeX << strBlock;
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_ssLaTeX << ssSep.rdbuf();
 		o_ssLaTeX << L"\\normalsize" << L"\n";
 		o_ssLaTeX << L"\\addcontentsline{toc}{chapter}{\\refname}" << L"\n";
 		o_ssLaTeX << L"\\begin{thebibliography}{99}" << L"\n";
@@ -926,14 +944,14 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_refLaTeXSupportingInfo">
-	/// </params>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="i_refTestSpecificString">
-	/// </params>
-	/// <params="io_refInfoInputDataItem">
-	/// </params>
+	/// <param name="o_refLaTeXSupportingInfo">
+	/// </param>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_refTestSpecificString">
+	/// </param>
+	/// <param name="io_refInfoInputDataItem">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -1020,8 +1038,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_refLaTeXSupportingInfo">
-	/// </params>
+	/// <param name="o_refLaTeXSupportingInfo">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -1117,12 +1135,12 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_refLaTeXSupportingInfo">
-	/// </params>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="o_refLaTeXSupportingInfo">
+	/// </param>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -1346,12 +1364,12 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="o_refLaTeXAppendix">
-	/// </params>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="i_refData">
-	/// </params>
+	/// <param name="o_refLaTeXAppendix">
+	/// </param>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -1372,7 +1390,15 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXAppendix << L"\\subsection{Identification of input data} \\label{sec:AnnexIdentification}" << L"\n";
+		std::wstring	strSubsectionTitle = std::wstring(L"Identification of input data");
+		std::wstring	strLabel = std::wstring(L"sec:AnnexIdentification");
+		std::wstring	strBlock = std::wstring();
+		sts = ns_spt::getLaTeXSubsection(strBlock, strSubsectionTitle, strLabel);
+		if (ns_consts::EnmReturnStatus::Success != sts)
+		{
+			return  sts;
+		}
+		o_refLaTeXAppendix << strBlock;
 		o_refLaTeXAppendix << L"\\scriptsize" << L"\n";
 		o_refLaTeXAppendix << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
 		o_refLaTeXAppendix << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.7cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
@@ -1461,8 +1487,8 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refReportPath">
-	/// </params>
+	/// <param name="i_refReportPath">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -1514,10 +1540,10 @@ namespace ais_31_tool
 	/// </summary>
 	/// <remarks>
 	/// </remarks>
-	/// <params="i_refInfoReport">
-	/// </params>
-	/// <params="io_refData">
-	/// </params>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="io_refData">
+	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>

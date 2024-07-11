@@ -64,8 +64,8 @@ namespace ais_31_lib
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
-			/// <params="io_refData">
-			/// </params>
+			/// <param name="io_refData">
+			/// </param>
 			/// <returns>
 			/// </returns>
 			/// <precondition>
