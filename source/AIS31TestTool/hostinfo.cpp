@@ -12,6 +12,7 @@
 #include <intrin.h>
 #include <sstream>
 #include <regex>
+#include <boost/algorithm/string.hpp>
 
 namespace ais_31_tool
 {
@@ -353,6 +354,7 @@ namespace ais_31_tool
         if (true == std::regex_search(strRead, m, std::regex(experOSName)))
         {
             o_OS_name = m[1].str();
+            boost::algorithm::trim_right(o_OS_name);
         }
         // -------------------------------------------------------------------------- //
         // get OS version
@@ -360,6 +362,7 @@ namespace ais_31_tool
         if (true == std::regex_search(strRead, m, std::regex(experOSVersion)))
         {
             o_OS_version = m[1].str();
+            boost::algorithm::trim_right(o_OS_version);
         }
 
         return  sts = ns_consts::EnmReturnStatus::Success;
