@@ -4,6 +4,8 @@ This tool provides tests specified by [BSI AIS 20 / AIS 31](https://www.bsi.bund
 As of today, [A proposal for: Functionality classes for random number generators - Version 2.35 - Draft](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e.pdf?__blob=publicationFile&v=7) is posted on BSI Web site. However its final version is not yet released.
 The specification of tests will be subject to change in its final version, so the implementation of tests T6 through T8 are suspended.
 
+It should be also noted that [A proposal for: Functionality classes for random number generators - Version 2.36](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2023.pdf?__blob=publicationFile&v=2) is also posted on BSI Web site. However no contents about the test specification are included in the draft.
+
 # Features
 - Automatic report generation with graphs
   - Supports report generation capability, in XeLaTeX source file (see ```-x``` option), where relevant intermediate results are also contained to gain confidence and support characterization of input data (or of entropy source).
