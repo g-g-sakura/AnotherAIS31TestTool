@@ -1,8 +1,9 @@
 # AnotherAIS31TestTool
 This tool provides tests specified by [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
 
-As of today, [A proposal for: Functionality classes for random number generators - Version 2.35 - Draft](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e.pdf?__blob=publicationFile&v=7) is posted on BSI Web site. However its final version is not yet released.
-The specification of tests will be subject to change in its final version, so the implementation of tests T6 through T8 are suspended.
+## ToDo
+[A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3) is posted on BSI Web site. The implementing statistical tests are ongoing.
+Implementation of some statistical tests will be using that in [AnotherEntropyEstimationTool](https://github.com/g-g-sakura/AnotherEntropyEstimationTool).
 
 # Features
 - Automatic report generation with graphs
