@@ -48,6 +48,9 @@
     <ClCompile Include="support\showTestSummary.cpp">
       <Filter>ソース ファイル\support</Filter>
     </ClCompile>
+    <ClCompile Include="support\LaTeX.cpp">
+      <Filter>ソース ファイル\support</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="TestData.h">
@@ -84,6 +87,9 @@
       <Filter>ヘッダー ファイル\support</Filter>
     </ClInclude>
     <ClInclude Include="support\showTestSummary.h">
+      <Filter>ヘッダー ファイル\support</Filter>
+    </ClInclude>
+    <ClInclude Include="support\LaTeX.h">
       <Filter>ヘッダー ファイル\support</Filter>
     </ClInclude>
   </ItemGroup>
