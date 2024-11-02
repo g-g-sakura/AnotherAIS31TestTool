@@ -17,7 +17,7 @@ namespace ns_consts = ais_31_lib::constants;
 namespace ns_dt = ais_31_lib::data_types;
 namespace ns_tool = ais_31_tool;
 
-typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v2&);
+typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v3&);
 
 int wmain(int ac, wchar_t* av[], wchar_t* envp[])
 {
@@ -25,7 +25,7 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // 
     // -------------------------------------------------------------------------- //
-    ns_dt::t_data_for_v2     data;
+    ns_dt::t_data_for_v3     data;
     memset(&data, 0, sizeof(data));
     // -------------------------------------------------------------------------- //
     // 
@@ -93,14 +93,6 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // show some samples from the head of file, for confirmation
     // -------------------------------------------------------------------------- //
-    ns_tool::showHeadSamplesTestT0(data);
-    // -------------------------------------------------------------------------- //
-    // show some samples from the tail of file, for confirmation
-    // -------------------------------------------------------------------------- //
-    ns_tool::showTailSamplesTestT0(data);
-    // -------------------------------------------------------------------------- //
-    // show some samples from the head of file, for confirmation
-    // -------------------------------------------------------------------------- //
     ns_tool::showHeadSamplesTestT1(data);
     // -------------------------------------------------------------------------- //
     // show some samples from the tail of file, for confirmation
@@ -114,24 +106,9 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // for Test T3
     // -------------------------------------------------------------------------- //
-    for (int i = 0; i < 6; ++i)
-    {
-        for (int j = 0; j < 2; ++j)
-        {
-            data.p_ssLaTeXFragmentWork3[i][j] = new std::wstringstream();
-        }
-    }
     // -------------------------------------------------------------------------- //
-    // for Test T5
+    // for Test T4
     // -------------------------------------------------------------------------- //
-    std::wstringstream ssLaTeXFragmentFormer = std::wstringstream();
-    data.p_ssLaTeXFragmentWork51 = &ssLaTeXFragmentFormer;
-    std::wstringstream ssLaTeXFragmentLatter = std::wstringstream();
-    data.p_ssLaTeXFragmentWork52 = &ssLaTeXFragmentLatter;
-    std::wstringstream ssLaTeXFragmentT5Summary = std::wstringstream();
-    data.p_ssLaTeXFragmentWork53 = &ssLaTeXFragmentT5Summary;
-    std::wstringstream ssLaTeXFragmentT5Detail = std::wstringstream();
-    data.p_ssLaTeXFragmentWork54 = &ssLaTeXFragmentT5Detail;
     // -------------------------------------------------------------------------- //
     // 
     // -------------------------------------------------------------------------- //

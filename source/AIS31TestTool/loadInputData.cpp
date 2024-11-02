@@ -32,10 +32,10 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v2& io_refData,
+	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v3& io_refData,
 		const IDInfoForReport& i_refInfoReport,
 		const bs_fs::path& i_refFullPath,
-		ns_consts::EnmAIS20AIS31V2Track i_enmTrack)
+		ns_consts::EnmAIS20AIS31V3Track i_enmTrack)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -44,17 +44,10 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		switch (i_enmTrack)
 		{
-		case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-			if (io_refData.p_bzInputDataT0 == nullptr)
-			{
-				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT1:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT2:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT5:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 			if (io_refData.p_bzInputDataT1 == nullptr)
 			{
 				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
@@ -69,15 +62,10 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		switch (i_enmTrack)
 		{
-		case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-			io_refData.p_bzInputDataT0->resize(size);
-			(*io_refData.p_bzInputDataT0) = 0;
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT1:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT2:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT5:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
@@ -114,15 +102,10 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		switch (i_enmTrack)
 		{
-		case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-			file.read((char*)io_refData.p_bzInputDataT0->data(), size);
-			io_refData.p_bzInputDataT0->resizeAndPreserve(size);
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT1:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT2:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-		case ns_consts::EnmAIS20AIS31V2Track::TestT5:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 		{
 			int i = 0;
 			bs_fs::path	path_next_index = bs_fs::path(i_refFullPath);
@@ -218,7 +201,7 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	ns_consts::EnmReturnStatus performProjection(ns_dt::t_data_for_v2& io_refData, int indexWithZeroOffset)
+	ns_consts::EnmReturnStatus performProjection(ns_dt::t_data_for_v3& io_refData, int indexWithZeroOffset)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 

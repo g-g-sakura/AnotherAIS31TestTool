@@ -35,8 +35,8 @@ namespace ais_31_lib
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
 		ns_consts::EnmReturnStatus showTestSpecificHeader(std::stringstream& o_refStream,
-			const ns_consts::EnmAIS20AIS31V2Track& i_enmTest,
-			ns_dt::t_data_for_v2& io_refData)
+			const ns_consts::EnmAIS20AIS31V3Track& i_enmTest,
+			ns_dt::t_data_for_v3& io_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			// -------------------------------------------------------------------------- //
@@ -49,32 +49,17 @@ namespace ais_31_lib
 			o_refStream << "# Running ";
 			switch (i_enmTest)
 			{
-			case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-				o_refStream << "Test T0 (disjointness test) ";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT1:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT1:
 				o_refStream << "Test T1 (monobit test) ";
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT2:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				o_refStream << "Test T2 (poker test) ";
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-				o_refStream << "Test T3 (runs test) ";
+			case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+				o_refStream << "Test T3 (MultiMMC Prediction Estimate) ";
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-				o_refStream << "Test T4 (long run test) ";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-				o_refStream << "Test T5 (autocorrelation test) ";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT6:
-				o_refStream << "Test T6 (uniform distribution test) ";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-				o_refStream << "Test T7 (comparative test for multinomial distributions aka `test for homogeneity') ";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT8:
-				o_refStream << "Test T8 (entropy estimation) ";
+			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
+				o_refStream << "Test T4 (LZ78Y Prediction Estimate) ";
 				break;
 			default:
 				break;
@@ -100,33 +85,12 @@ namespace ais_31_lib
 			ns_dt::t_data_for_performance_info* p_perf = nullptr;
 			switch (i_enmTest)
 			{
-			case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-				p_perf = &io_refData.t_testT0.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT1:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT1:
 				p_perf = &io_refData.t_testT1.t_performance;
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT2:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				p_perf = &io_refData.t_testT2.t_performance;
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-				p_perf = &io_refData.t_testT3.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-				p_perf = &io_refData.t_testT4.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-				p_perf = &io_refData.t_testT5.t_performance;
-				break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT6:
-			//	p_perf = &io_refData.t_testT6.t_performance;
-			//	break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-			//	p_perf = &io_refData.t_testT7.t_performance;
-			//	break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT8:
-			//	p_perf = &io_refData.t_testT8.t_performance;
-			//	break;
 			default:
 				break;
 			}
@@ -163,8 +127,8 @@ namespace ais_31_lib
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
 		ns_consts::EnmReturnStatus showTestSpecificFooter(std::stringstream& o_refStream,
-			const ns_consts::EnmAIS20AIS31V2Track& i_enmTest,
-			ns_dt::t_data_for_v2& io_refData)
+			const ns_consts::EnmAIS20AIS31V3Track& i_enmTest,
+			ns_dt::t_data_for_v3& io_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			// -------------------------------------------------------------------------- //
@@ -186,33 +150,12 @@ namespace ais_31_lib
 			ns_dt::t_data_for_performance_info* p_perf = nullptr;
 			switch (i_enmTest)
 			{
-			case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-				p_perf = &io_refData.t_testT0.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT1:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT1:
 				p_perf = &io_refData.t_testT1.t_performance;
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT2:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				p_perf = &io_refData.t_testT2.t_performance;
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-				p_perf = &io_refData.t_testT3.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-				p_perf = &io_refData.t_testT4.t_performance;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-				p_perf = &io_refData.t_testT5.t_performance;
-				break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT6:
-			//	p_perf = &io_refData.t_testT6.t_performance;
-			//	break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-			//	p_perf = &io_refData.t_testT7.t_performance;
-			//	break;
-			//case ns_consts::EnmAIS20AIS31V2Track::TestT8:
-			//	p_perf = &io_refData.t_testT8.t_performance;
-			//	break;
 			default:
 				break;
 			}
@@ -257,8 +200,8 @@ namespace ais_31_lib
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
 		ns_consts::EnmReturnStatus showTestSpecificResult(std::stringstream& o_refStream,
-			ns_consts::EnmAIS20AIS31V2Track& i_enmTest,
-			ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmAIS20AIS31V3Track& i_enmTest,
+			ns_dt::t_data_for_v3& io_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			// -------------------------------------------------------------------------- //
@@ -279,27 +222,7 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			switch (i_enmTest)
 			{
-			case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				o_refStream << "# " << "Test T0:\t" << "\n";
-				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT0.pass_fail_result)
-				{
-				case ns_consts::EnmPassFailResults::NotDetermined:
-					o_refStream << "Not determined";
-					break;
-				case ns_consts::EnmPassFailResults::Fail:
-					o_refStream << "Fail";
-					break;
-				case ns_consts::EnmPassFailResults::Pass:
-					o_refStream << "Pass";
-					break;
-				}
-				o_refStream << "\n";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT1:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT1:
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
@@ -319,7 +242,7 @@ namespace ais_31_lib
 				}
 				o_refStream << "\n";
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT2:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
@@ -339,67 +262,7 @@ namespace ais_31_lib
 				}
 				o_refStream << "\n";
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				o_refStream << "# " << "Test T3:\t" << "\n";
-				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT3.pass_fail_result)
-				{
-				case ns_consts::EnmPassFailResults::NotDetermined:
-					o_refStream << "Not determined";
-					break;
-				case ns_consts::EnmPassFailResults::Fail:
-					o_refStream << "Fail";
-					break;
-				case ns_consts::EnmPassFailResults::Pass:
-					o_refStream << "Pass";
-					break;
-				}
-				o_refStream << "\n";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				o_refStream << "# " << "Test T4:\t" << "\n";
-				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT4.pass_fail_result)
-				{
-				case ns_consts::EnmPassFailResults::NotDetermined:
-					o_refStream << "Not determined";
-					break;
-				case ns_consts::EnmPassFailResults::Fail:
-					o_refStream << "Fail";
-					break;
-				case ns_consts::EnmPassFailResults::Pass:
-					o_refStream << "Pass";
-					break;
-				}
-				o_refStream << "\n";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				o_refStream << "# " << "Test T5:\t" << "\n";
-				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT5.pass_fail_result)
-				{
-				case ns_consts::EnmPassFailResults::NotDetermined:
-					o_refStream << "Not determined";
-					break;
-				case ns_consts::EnmPassFailResults::Fail:
-					o_refStream << "Fail";
-					break;
-				case ns_consts::EnmPassFailResults::Pass:
-					o_refStream << "Pass";
-					break;
-				}
-				o_refStream << "\n";
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT6:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT3:
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
@@ -410,18 +273,7 @@ namespace ais_31_lib
 				{
 				}
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (1 < io_refData.verbose_level)
-				{
-				}
-				else
-				{
-				}
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT8:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //

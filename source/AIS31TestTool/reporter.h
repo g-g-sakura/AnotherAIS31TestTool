@@ -22,16 +22,14 @@ namespace ais_31_tool
 	namespace ns_dt = ais_31_lib::data_types;
 	namespace bs_fs = boost::filesystem;
 
-	void showHeadSamplesTestT0(const ns_dt::t_data_for_v2& i_refData);
-	void showHeadSamplesTestT1(const ns_dt::t_data_for_v2& i_refData);
-	void showTailSamplesTestT0(const ns_dt::t_data_for_v2& i_refData);
-	void showTailSamplesTestT1(const ns_dt::t_data_for_v2& i_refData);
+	void showHeadSamplesTestT1(const ns_dt::t_data_for_v3& i_refData);
+	void showTailSamplesTestT1(const ns_dt::t_data_for_v3& i_refData);
 
 	ns_consts::EnmReturnStatus reportXML(const IDInfoForReport& i_refInfoReport,
-		const ns_dt::t_data_for_v2& i_refData);
+		const ns_dt::t_data_for_v3& i_refData);
 
 	ns_consts::EnmReturnStatus reportLaTeX(IDInfoForReport& i_refInfoReport,
-		ns_dt::t_data_for_v2& io_refData);
+		ns_dt::t_data_for_v3& io_refData);
 
 	ns_consts::EnmReturnStatus synthesizeReportPath(bs_fs::path& o_report_complete_path,
 		const bs_fs::path& i_path_input_data);

@@ -40,7 +40,7 @@ namespace ais_31_lib
 		/// <postcondition>
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
-		ns_consts::EnmReturnStatus perform_common_args_for_tests(const ns_dt::t_data_for_v2& i_refData)
+		ns_consts::EnmReturnStatus perform_common_args_for_tests(const ns_dt::t_data_for_v3& i_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			if (nullptr == i_refData.p_bzInputDataT1)
