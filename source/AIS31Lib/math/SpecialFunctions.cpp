@@ -7,7 +7,11 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "SpecialFunctions.h"
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 #include <boost/math/special_functions/erf.hpp>
+
 
 namespace ais_31_lib
 {

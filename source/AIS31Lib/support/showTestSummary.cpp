@@ -91,6 +91,12 @@ namespace ais_31_lib
 			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				p_perf = &io_refData.t_testT2.t_performance;
 				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+				p_perf = &io_refData.t_testT3.t_performance;
+				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
+				p_perf = &io_refData.t_testT4.t_performance;
+				break;
 			default:
 				break;
 			}
@@ -155,6 +161,12 @@ namespace ais_31_lib
 				break;
 			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 				p_perf = &io_refData.t_testT2.t_performance;
+				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+				p_perf = &io_refData.t_testT3.t_performance;
+				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
+				p_perf = &io_refData.t_testT4.t_performance;
 				break;
 			default:
 				break;
@@ -266,23 +278,41 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (1 < io_refData.verbose_level)
+				o_refStream << "# " << "Test T3:\t" << "\n";
+				o_refStream << "#\tTest result = ";
+				switch (io_refData.t_testT3.pass_fail_result)
 				{
+				case ns_consts::EnmPassFailResults::NotDetermined:
+					o_refStream << "Not determined";
+					break;
+				case ns_consts::EnmPassFailResults::Fail:
+					o_refStream << "Fail";
+					break;
+				case ns_consts::EnmPassFailResults::Pass:
+					o_refStream << "Pass";
+					break;
 				}
-				else
-				{
-				}
+				o_refStream << "\n";
 				break;
 			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (1 < io_refData.verbose_level)
+				o_refStream << "# " << "Test T4:\t" << "\n";
+				o_refStream << "#\tTest result = ";
+				switch (io_refData.t_testT4.pass_fail_result)
 				{
+				case ns_consts::EnmPassFailResults::NotDetermined:
+					o_refStream << "Not determined";
+					break;
+				case ns_consts::EnmPassFailResults::Fail:
+					o_refStream << "Fail";
+					break;
+				case ns_consts::EnmPassFailResults::Pass:
+					o_refStream << "Pass";
+					break;
 				}
-				else
-				{
-				}
+				o_refStream << "\n";
 				break;
 			default:
 				break;

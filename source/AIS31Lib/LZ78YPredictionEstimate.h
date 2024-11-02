@@ -17,7 +17,7 @@
 
 namespace ais_31_lib
 {
-	namespace estimators
+	namespace predictors
 	{
 		namespace lz78y_prediction
 		{

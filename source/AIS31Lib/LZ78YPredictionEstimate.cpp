@@ -21,19 +21,19 @@
 
 namespace ais_31_lib
 {
-	namespace estimators
+	namespace predictors
 	{
 		namespace lz78y_prediction
 		{
 			namespace ns_consts = ais_31_lib::constants;
 			namespace ns_dt = ais_31_lib::data_types;
-			namespace ns_math = ais_31_lib::estimators::math;
+			namespace ns_math = ais_31_lib::predictors::math;
 			namespace ns_spt = ais_31_lib::support;
-			namespace ns_es = ais_31_lib::estimators::support;
+			namespace ns_es = ais_31_lib::predictors::support;
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output LaTeX header for
+			///  Output LaTeX header for LZ78Y Prediction Estimate
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -110,7 +110,7 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output LaTeX Footer for
+			///  Output LaTeX Footer for LZ78Y Prediction Estimate
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -287,7 +287,7 @@ namespace ais_31_lib
 					return	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				}
 
-				const int		N = i_refData.p_bzInputS->length(blitz::firstDim) - i_refData.t_testT4.B - 1;
+				const int		N = i_refData.p_bzInputDataT4->length(blitz::firstDim) - i_refData.t_testT4.B - 1;
 				o_ref_bz_correct.resize(N);
 				o_ref_bz_correct = 0;
 
@@ -358,7 +358,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 3. For i = B + 2 to L:
 				// -------------------------------------------------------------------------- //
-				for (int i = i_refData.t_testT4.B + 2; i <= i_refData.p_bzInputS->length(blitz::firstDim); ++i)
+				for (int i = i_refData.t_testT4.B + 2; i <= i_refData.p_bzInputDataT4->length(blitz::firstDim); ++i)
 				{
 					// -------------------------------------------------------------------------- //
 					// a. For j = B to 1
@@ -366,7 +366,7 @@ namespace ais_31_lib
 					for (int j = i_refData.t_testT4.B; j >= 1; --j)
 					{
 						blitz::Range	rg_x(i - j - 2, i - 3);
-						blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputS))(rg_x);
+						blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT4))(rg_x);
 
 						boost::dynamic_bitset<>		xExp(j * i_refData.bits_per_sample, 0);
 
@@ -376,7 +376,7 @@ namespace ais_31_lib
 							return sts = stsCnv;
 						}
 
-						ns_dt::octet	oct_y = (*(i_refData.p_bzInputS))(i - 2);
+						ns_dt::octet	oct_y = (*(i_refData.p_bzInputDataT4))(i - 2);
 
 
 						// -------------------------------------------------------------------------- //
@@ -428,7 +428,7 @@ namespace ais_31_lib
 						// For example, if D[prev][1] and D[prev][5] both have the highest value, then y = 5.
 						// -------------------------------------------------------------------------- //
 						blitz::Range	rg_prev(i - j - 1, i - 2);
-						blitz::Array<ns_dt::octet, 1>	bz_prev = (*(i_refData.p_bzInputS))(rg_prev);
+						blitz::Array<ns_dt::octet, 1>	bz_prev = (*(i_refData.p_bzInputDataT4))(rg_prev);
 
 						boost::dynamic_bitset<>		prevExp(j * i_refData.bits_per_sample, 0);
 						ns_consts::EnmReturnStatus	stsCnv = ns_spt::convertSeqSamplesToBitSet(prevExp, bz_prev);
@@ -464,7 +464,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					if (false == prediction.bIsValueNull)
 					{
-						if (prediction.value == (*(i_refData.p_bzInputS))(i - 1))
+						if (prediction.value == (*(i_refData.p_bzInputDataT4))(i - 1))
 						{
 							io_ref_bz_correct(i - i_refData.t_testT4.B - 2) = 1;
 						}
@@ -759,7 +759,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				const int		N = io_refData.p_bzInputS->length(blitz::firstDim) - io_refData.t_testT4.B - 1;
+				const int		N = io_refData.p_bzInputDataT4->length(blitz::firstDim) - io_refData.t_testT4.B - 1;
 				blitz::Array<ns_dt::octet, 1>	bz_correct(N);
 				bz_correct = 0;
 				// -------------------------------------------------------------------------- //

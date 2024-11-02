@@ -20,19 +20,19 @@
 
 namespace ais_31_lib
 {
-	namespace estimators
+	namespace predictors
 	{
 		namespace multimmc_prediction
 		{
 			namespace ns_consts = ais_31_lib::constants;
 			namespace ns_dt = ais_31_lib::data_types;
-			namespace ns_math = ais_31_lib::estimators::math;
+			namespace ns_math = ais_31_lib::predictors::math;
 			namespace ns_spt = ais_31_lib::support;
-			namespace ns_es = ais_31_lib::estimators::support;
+			namespace ns_es = ais_31_lib::predictors::support;
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output LaTeX header for
+			///  Output LaTeX header for Multi MMC Prediction Estimate
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -109,7 +109,7 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output LaTeX Footer for
+			///  Output LaTeX Footer for Multi MMC Prediction Estimate
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -300,7 +300,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				const int		N = i_refData.p_bzInputS->length(blitz::firstDim) - 2;
+				const int		N = i_refData.p_bzInputDataT4->length(blitz::firstDim) - 2;
 				o_ref_bz_correct.resize(N);
 				o_ref_bz_correct = 0;
 
@@ -389,7 +389,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 3. For i = 3 to L:
 				// -------------------------------------------------------------------------- //
-				for (int i = 3; i <= i_refData.p_bzInputS->length(blitz::firstDim); ++i)
+				for (int i = 3; i <= i_refData.p_bzInputDataT4->length(blitz::firstDim); ++i)
 				{
 					// -------------------------------------------------------------------------- //
 					// a. For d = 1 to D
@@ -402,7 +402,7 @@ namespace ais_31_lib
 							// i. If (d < i - 1), 
 							// -------------------------------------------------------------------------- //
 							const blitz::Range	rg(i - d - 2, i - 3);
-							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputS))(rg);
+							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT4))(rg);
 
 							boost::dynamic_bitset<>		xExp(d * i_refData.bits_per_sample, 0);
 							const ns_consts::EnmReturnStatus	stsCnv = ns_spt::convertSeqSamplesToBitSet(xExp, bz_x);
@@ -410,7 +410,7 @@ namespace ais_31_lib
 							{
 								return sts = stsCnv;
 							}
-							const ns_dt::octet	oct_y = (*(i_refData.p_bzInputS))(i - 2);
+							const ns_dt::octet	oct_y = (*(i_refData.p_bzInputDataT4))(i - 2);
 
 							// -------------------------------------------------------------------------- //
 							//   1. If [(s_{i - d - 1}, \ldots, s_{i - 2}), s_{i - 1}] is in M_{d}, 
@@ -450,7 +450,7 @@ namespace ais_31_lib
 							//    If all possible values of M_{d}[(s_{i-d}, \ldots, s_{i-1}), y] are 0, then let subpredict_{d} = Null.
 							// -------------------------------------------------------------------------- //
 							const blitz::Range	rg(i - d - 1, i - 2);
-							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputS))(rg);
+							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT4))(rg);
 
 							boost::dynamic_bitset<>		xExp(d * i_refData.bits_per_sample, 0);
 							const ns_consts::EnmReturnStatus	stsCnv = ns_spt::convertSeqSamplesToBitSet(xExp, bz_x);
@@ -482,7 +482,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					if (false == prediction.bIsValueNull)
 					{
-						if (prediction.value == (*(i_refData.p_bzInputS))(i - 1))
+						if (prediction.value == (*(i_refData.p_bzInputDataT4))(i - 1))
 						{
 							io_ref_bz_correct(i - 3) = 1;
 						}
@@ -498,7 +498,7 @@ namespace ais_31_lib
 						// -------------------------------------------------------------------------- //
 						if (false == o_ref_bz_subpredict(d - 1).bIsValueNull)
 						{
-							if (o_ref_bz_subpredict(d - 1).value == (*(i_refData.p_bzInputS))(i - 1))
+							if (o_ref_bz_subpredict(d - 1).value == (*(i_refData.p_bzInputDataT4))(i - 1))
 							{
 								// -------------------------------------------------------------------------- //
 								// 1. Let scoreboard_{d} = scoreboard_{d} + 1
@@ -809,7 +809,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				int		N = io_refData.p_bzInputS->length(blitz::firstDim) - 2;
+				int		N = io_refData.p_bzInputDataT4->length(blitz::firstDim) - 2;
 				blitz::Array<ns_dt::octet, 1>	bz_correct(N);
 				bz_correct = 0;
 

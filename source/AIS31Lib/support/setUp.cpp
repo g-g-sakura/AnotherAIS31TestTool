@@ -37,16 +37,22 @@ namespace ais_31_lib
 			//
 			// -------------------------------------------------------------------------- //
 			io_refData.p_bzInputDataT1 = nullptr;
+			io_refData.p_bzInputDataT2 = nullptr;
+			io_refData.p_bzInputDataT3 = nullptr;
+			io_refData.p_bzInputDataT4 = nullptr;
 			io_refData.p_bzInterpretedBj = nullptr;
 			io_refData.p_bzSampleSpaceA = nullptr;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 2>(257, 20000);
+			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 1>(20000);
+			io_refData.p_bzInputDataT2 = new blitz::Array<ns_dt::octet, 1>(20000);
+			io_refData.p_bzInputDataT3 = new blitz::Array<ns_dt::octet, 1>(1000000);
+			io_refData.p_bzInputDataT4 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInterpretedBj = new blitz::Array<ns_dt::octet, 1>(20000);
 			io_refData.p_bzSampleSpaceA = new blitz::Array<ns_dt::octet, 1>(256);
 			io_refData.t_testT1 = { 0, 0, {9654, 10346}, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
-			io_refData.t_testT2 = { 0, 0, 1.03, 57.4, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT2 = { 0, 1.03, 57.4, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
@@ -86,6 +92,21 @@ namespace ais_31_lib
 			{
 				delete io_refData.p_bzInterpretedBj;
 				io_refData.p_bzInterpretedBj = nullptr;
+			}
+			if (nullptr != io_refData.p_bzInputDataT4)
+			{
+				delete io_refData.p_bzInputDataT4;
+				io_refData.p_bzInputDataT4 = nullptr;
+			}
+			if (nullptr != io_refData.p_bzInputDataT3)
+			{
+				delete io_refData.p_bzInputDataT3;
+				io_refData.p_bzInputDataT3 = nullptr;
+			}
+			if (nullptr != io_refData.p_bzInputDataT2)
+			{
+				delete io_refData.p_bzInputDataT2;
+				io_refData.p_bzInputDataT2 = nullptr;
 			}
 			if (nullptr != io_refData.p_bzInputDataT1)
 			{

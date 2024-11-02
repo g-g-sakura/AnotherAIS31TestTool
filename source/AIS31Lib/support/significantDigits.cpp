@@ -14,13 +14,13 @@
 
 namespace ais_31_lib
 {
-	namespace estimators
+	namespace predictors
 	{
 		namespace support
 		{
 
 			namespace ns_consts = ais_31_lib::constants;
-			namespace ns_math = ais_31_lib::estimators::math;
+			namespace ns_math = ais_31_lib::predictors::math;
 
 
 			// -------------------------------------------------------------------------- //

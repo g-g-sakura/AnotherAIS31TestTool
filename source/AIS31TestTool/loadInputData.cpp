@@ -52,6 +52,18 @@ namespace ais_31_tool
 			{
 				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 			}
+			if (io_refData.p_bzInputDataT2 == nullptr)
+			{
+				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+			}
+			if (io_refData.p_bzInputDataT3 == nullptr)
+			{
+				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+			}
+			if (io_refData.p_bzInputDataT4 == nullptr)
+			{
+				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+			}
 			break;
 		default:
 			break;
@@ -83,7 +95,7 @@ namespace ais_31_tool
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT1->resize(257, size);
+			io_refData.p_bzInputDataT1->resize(size);
 			(*io_refData.p_bzInputDataT1) = 0;
 			break;
 		default:
@@ -113,10 +125,9 @@ namespace ais_31_tool
 			ns_consts::EnmReturnStatus	stsSynth = ns_consts::EnmReturnStatus::Success;
 			do
 			{
-				blitz::Array<ns_dt::octet, 2> bz_slice = (*io_refData.p_bzInputDataT1)(blitz::Range(i, i), blitz::Range::all());
+				blitz::Array<ns_dt::octet, 1> bz_slice = (*io_refData.p_bzInputDataT1)(blitz::Range::all());
 				file.read((char*)bz_slice.data(), size);
 				file.close();
-				//io_refData.p_bzInputDataT1->resizeAndPreserve(257, size);
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -169,7 +180,7 @@ namespace ais_31_tool
 				//
 				// -------------------------------------------------------------------------- //
 				++i;
-			} while ((ns_consts::EnmReturnStatus::Success == stsSynth) && (i < 257));
+			} while ((ns_consts::EnmReturnStatus::Success == stsSynth) && (i < 1));
 		}
 		break;
 		default:
@@ -223,14 +234,14 @@ namespace ais_31_tool
 		{
 			return	sts = ns_consts::EnmReturnStatus::ErrorDomain;
 		}
-		const boost::uintmax_t size = io_refData.p_bzInputDataT1->length(blitz::secondDim);
+		const boost::uintmax_t size = io_refData.p_bzInputDataT1->length(blitz::firstDim);
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
 		if (1 == io_refData.bits_per_sample)
 		{
-			io_refData.p_bzInterpretedBj->resize(io_refData.p_bzInputDataT1->length(blitz::secondDim));
-			for (int j = 0; j < io_refData.p_bzInputDataT1->length(blitz::secondDim); ++j)
+			io_refData.p_bzInterpretedBj->resize(io_refData.p_bzInputDataT1->length(blitz::firstDim));
+			for (int j = 0; j < io_refData.p_bzInputDataT1->length(blitz::firstDim); ++j)
 			{
 				(*io_refData.p_bzInterpretedBj)(j) = (*io_refData.p_bzInputDataT1)(indexWithZeroOffset, j);
 			}

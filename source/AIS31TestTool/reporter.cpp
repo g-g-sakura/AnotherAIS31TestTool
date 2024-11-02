@@ -316,7 +316,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		for (int i = 0; i < 6; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			// -------------------------------------------------------------------------- //
 			// 
@@ -325,13 +325,21 @@ namespace ais_31_tool
 			double  failsafe_test_value = 0;
 			switch (i)
 			{
-			case 1:
+			case 0:
 				p_pass_fail_result = &(i_refData.t_testT1.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT1.test_value_T1;
 				break;
-			case 2:
+			case 1:
 				p_pass_fail_result = &(i_refData.t_testT2.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT2.test_value_T2;
+				break;
+			case 2:
+				p_pass_fail_result = &(i_refData.t_testT3.pass_fail_result);
+				failsafe_test_value = i_refData.t_testT3.test_value_T3;
+				break;
+			case 3:
+				p_pass_fail_result = &(i_refData.t_testT4.pass_fail_result);
+				failsafe_test_value = i_refData.t_testT4.test_value_T4;
 				break;
 			default:
 				return  sts;

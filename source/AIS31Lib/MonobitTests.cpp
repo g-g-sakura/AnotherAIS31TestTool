@@ -206,11 +206,11 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				io_refData.t_testT1.c2 = 20000;
+				io_refData.t_testT1.c1 = 20000;
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < (int64_t)io_refData.t_testT1.c2)
+				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < (int64_t)io_refData.t_testT1.c1)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
 				}
@@ -260,9 +260,9 @@ namespace ais_31_lib
 				// 
 				// -------------------------------------------------------------------------- //
 				uint32_t	test_value = 0;
-				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c2; ++i)
+				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c1; ++i)
 				{
-					if (i != (io_refData.t_testT1.c2 - 1))
+					if (i != (io_refData.t_testT1.c1 - 1))
 					{
 						const uint32_t	word_bit_count = countBits((ns_dt::octet)(*io_refData.p_bzInterpretedBj)((int)i));
 						test_value += word_bit_count;

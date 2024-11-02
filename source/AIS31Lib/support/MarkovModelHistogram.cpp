@@ -11,7 +11,7 @@
 
 namespace ais_31_lib
 {
-	namespace estimators
+	namespace predictors
 	{
 		namespace support
 		{

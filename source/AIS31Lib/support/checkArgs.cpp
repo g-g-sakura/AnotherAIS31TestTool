@@ -29,7 +29,7 @@ namespace ais_31_lib
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorInvalidData</c>: when one of the following conditions is met: 
 		///    <ul>
 		///     <li><c>i_refData.L</c> &gt; INT_MAX.</li>
-		///     <li><c>i_refData.L</c> is not equal to <c>i_refData.p_bzInputDataT1-&gt;length(blitz::secondDim)</c>.</li>
+		///     <li><c>i_refData.L</c> is not equal to <c>i_refData.p_bzInputDataT1-&gt;length(blitz::firstDim)</c>.</li>
 		///     <li><c>i_refData.bits_per_sample</c> &lt; 1</li>
 		///     <li><c>i_refData.bits_per_sample</c> &gt; 8</li>
 		///    </ul>
@@ -48,17 +48,17 @@ namespace ais_31_lib
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
+			if (nullptr == i_refData.p_bzInputDataT2)
+			{
+				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				return sts;
+			}
 			if (nullptr == i_refData.p_bzSampleSpaceA)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
-			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) < 257)
-			{
-				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-				return sts;
-			}
-			if (i_refData.p_bzInputDataT1->length(blitz::secondDim) <= 0)
+			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) <= 0)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
@@ -68,7 +68,7 @@ namespace ais_31_lib
 				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
 			}
-			if (i_refData.p_bzInputDataT1->length(blitz::secondDim) != (int)i_refData.L)
+			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) != (int)i_refData.L)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
@@ -98,7 +98,8 @@ namespace ais_31_lib
 		/// <returns>
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>: when one of the following conditions is met:
 		///    <ul>
-		///     <li><c>i_refData.p_bzInputS</c> is <c>nullptr</c>.</li>
+		///     <li><c>i_refData.p_bzInputDataT3</c> is <c>nullptr</c>.</li>
+		///     <li><c>i_refData.p_bzInputDataT4</c> is <c>nullptr</c>.</li>
 		///     <li><c>i_refData.p_bzSampleSpaceA</c> is <c>nullptr</c>.</li>
 		///    </ul>
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorInvalidData</c>: when one of the following conditions is met: 
@@ -122,7 +123,12 @@ namespace ais_31_lib
 		ns_consts::EnmReturnStatus perform_common_args_for_estimate(const ns_dt::t_data_for_v3& i_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-			if (nullptr == i_refData.p_bzInputS)
+			if (nullptr == i_refData.p_bzInputDataT3)
+			{
+				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				return sts;
+			}
+			if (nullptr == i_refData.p_bzInputDataT4)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
@@ -132,7 +138,7 @@ namespace ais_31_lib
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
-			if (i_refData.p_bzInputS->length(blitz::firstDim) <= 0)
+			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) <= 0)
 			{
 				return sts;
 			}
@@ -140,7 +146,7 @@ namespace ais_31_lib
 			{
 				return sts;
 			}
-			if (i_refData.p_bzInputS->length(blitz::firstDim) != static_cast<int>(i_refData.L))
+			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) != static_cast<int>(i_refData.L))
 			{
 				return sts;
 			}
