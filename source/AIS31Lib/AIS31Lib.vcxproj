@@ -78,7 +78,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);C:\usr\boost_1_85_0;C:\usr\blitz-0.10;</ExternalIncludePath>
+    <ExternalIncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);D:\usr\boost_1_86_0;D:\usr\blitz-0.10;</ExternalIncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -148,28 +148,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="autocorrelationTest.cpp" />
-    <ClCompile Include="DisjointnessTest.cpp" />
-    <ClCompile Include="longRunTest.cpp" />
+    <ClCompile Include="LZ78YPredictionEstimate.cpp" />
+    <ClCompile Include="math\SpecialFunctions.cpp" />
     <ClCompile Include="MonobitTests.cpp" />
+    <ClCompile Include="MultiMMCPredictionEstimate.cpp" />
     <ClCompile Include="pokerTest.cpp" />
-    <ClCompile Include="runsTest.cpp" />
     <ClCompile Include="support\checkArgs.cpp" />
+    <ClCompile Include="support\conversion.cpp" />
+    <ClCompile Include="support\LaTeX.cpp" />
+    <ClCompile Include="support\MarkovModelHistogram.cpp" />
     <ClCompile Include="support\setUp.cpp" />
     <ClCompile Include="support\showTestSummary.cpp" />
+    <ClCompile Include="support\significantDigits.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="autocorrelationTest.h" />
     <ClInclude Include="constants.h" />
-    <ClInclude Include="DisjointnessTest.h" />
-    <ClInclude Include="longRunTest.h" />
+    <ClInclude Include="LZ78YPredictionEstimate.h" />
+    <ClInclude Include="math\Equations.h" />
+    <ClInclude Include="math\SpecialFunctions.h" />
     <ClInclude Include="MonobitTests.h" />
+    <ClInclude Include="MultiMMCPredictionEstimate.h" />
     <ClInclude Include="pokerTest.h" />
-    <ClInclude Include="runsTest.h" />
     <ClInclude Include="support\checkArgs.h" />
+    <ClInclude Include="support\conversion.h" />
     <ClInclude Include="support\countBits.h" />
+    <ClInclude Include="support\LaTeX.h" />
+    <ClInclude Include="support\MarkovModelHistogram.h" />
     <ClInclude Include="support\setUp.h" />
     <ClInclude Include="support\showTestSummary.h" />
+    <ClInclude Include="support\significantDigits.h" />
     <ClInclude Include="TestData.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

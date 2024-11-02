@@ -36,14 +36,12 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT0 = nullptr;
 			io_refData.p_bzInputDataT1 = nullptr;
 			io_refData.p_bzInterpretedBj = nullptr;
 			io_refData.p_bzSampleSpaceA = nullptr;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT0 = new blitz::Array<ns_dt::octet, 1>(65536);
 			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 2>(257, 20000);
 			io_refData.p_bzInterpretedBj = new blitz::Array<ns_dt::octet, 1>(20000);
 			io_refData.p_bzSampleSpaceA = new blitz::Array<ns_dt::octet, 1>(256);
@@ -93,11 +91,6 @@ namespace ais_31_lib
 			{
 				delete io_refData.p_bzInputDataT1;
 				io_refData.p_bzInputDataT1 = nullptr;
-			}
-			if (nullptr != io_refData.p_bzInputDataT0)
-			{
-				delete io_refData.p_bzInputDataT0;
-				io_refData.p_bzInputDataT0 = nullptr;
 			}
 			// -------------------------------------------------------------------------- //
 			//

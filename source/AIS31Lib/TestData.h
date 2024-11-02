@@ -32,16 +32,36 @@ namespace ais_31_lib
 
 		typedef unsigned char	octet;
 
+		template<typename T>	struct NullableT
+		{
+			bool	bIsValueNull;
+			T		value;
+		};
+
 		typedef struct _TDataCommon
 		{
 			// -------------------------------------------------------------------------- //
-			// 
+			// variables originally introduced by AIS 20/31
 			// -------------------------------------------------------------------------- //
 			double	test_value;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
 			aisconsts::EnmPassFailResults	pass_fail_result;
+
+			// -------------------------------------------------------------------------- //
+			// variables taken from NIST SP 800-90B
+			// -------------------------------------------------------------------------- //
+			double	min_entropy;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	min_entropy_lower_bound;
+			double	min_entropy_upper_bound;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	number_of_significant_digits;
 		} t_data_common;
 
 		typedef struct _TThresholdData
@@ -134,47 +154,63 @@ namespace ais_31_lib
 			t_data_for_performance_info		t_performance;
 		} t_data_for_poker_test;
 
-
-		namespace bmi = boost::multi_index;
-		using boost::multi_index_container;
-
-		struct t_element_test_value
+		typedef struct _TDataForMultiMMCPredictionEstimate
 		{
-			uint32_t		ex_tau;		// shift $\tau$
-			uint32_t		ex_test_value;		// test value
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_common					t_common;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_for_performance_info		t_performance;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	p_local;
+			double	p_prime_global;
+			double	p_global;
+			double	min_entropy;
+			double	number_of_significant_digits;
 
-			t_element_test_value(const uint32_t& i_tau, uint32_t i_test_value) : ex_tau(i_tau), ex_test_value(i_test_value) {}
+			int		r;
+			int		occurrences_at_longest_run;
 
-			bool operator <(t_element_test_value const& i_refRight) const
-			{
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (ex_test_value != i_refRight.ex_test_value)
-				{
-					return	ex_test_value < i_refRight.ex_test_value;
-				}
-				else
-				{
-					return	ex_tau < i_refRight.ex_tau;
-				}
-			}
-		};
+			int		D;
+			int		N;
+			int		C;
+			int		maxEntries;
+		} t_data_for_multi_mmc_prediction_estimate;
 
-		struct elem_tau {};
-		struct elem_test_value {};
+		typedef struct _TDataForLZ78YPredictionEstimate
+		{
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_common					t_common;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_for_performance_info		t_performance;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	p_local;
+			double	p_prime_global;
+			double	p_global;
+			double	min_entropy;
+			double	number_of_significant_digits;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			int		r;
+			int		occurrences_at_longest_run;
 
-		typedef bmi::multi_index_container<
-			t_element_test_value,
-			bmi::indexed_by<
-			bmi::ordered_unique<bmi::identity<t_element_test_value> >, //
-			bmi::ordered_unique<bmi::tag<elem_tau>, bmi::member<t_element_test_value, uint32_t, &t_element_test_value::ex_tau> >,
-			bmi::ordered_non_unique<bmi::tag<elem_test_value>, bmi::member<t_element_test_value, uint32_t, &t_element_test_value::ex_test_value> >
-			>
-		> TestValueHistogram;
-
-		typedef TestValueHistogram::index<elem_tau>::type tpl_tau_map;
-		typedef TestValueHistogram::index<elem_test_value>::type tpl_test_value_map;
+			int		B;
+			int		N;
+			int		C;
+			int		maxDictionarySize;
+		} t_data_for_lz78_y_prediction_estimate;
 
 		typedef struct _TDataForTestSuitesV3
 		{
@@ -182,7 +218,6 @@ namespace ais_31_lib
 			unsigned int			L;	// size of input
 			unsigned int			bits_per_sample;	//
 			blitz::Array<octet, 1>* p_bzSampleSpaceA;
-			blitz::Array<octet, 1>* p_bzInputDataT0;
 			blitz::Array<octet, 2>* p_bzInputDataT1;
 			blitz::Array<octet, 1>* p_bzInterpretedBj;		// $b_{j}$
 			bool					bIsMSbFirstByteBitConversion;
@@ -194,8 +229,10 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
-			t_data_for_monobit_test			t_testT1;
-			t_data_for_poker_test			t_testT2;
+			t_data_for_monobit_test						t_testT1;
+			t_data_for_poker_test						t_testT2;
+			t_data_for_multi_mmc_prediction_estimate	t_testT3;
+			t_data_for_lz78_y_prediction_estimate		t_testT4;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //

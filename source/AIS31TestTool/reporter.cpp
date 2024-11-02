@@ -782,6 +782,13 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\textit{A Proposal for Functionality Classes for Random Number Generators}," << L"\n";
 		o_ssLaTeX << L"Version 3.0 (September 10, 2024), " << L"\n";
 		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"% 2" << L"\n";
+		o_ssLaTeX << L"\\bibitem{CorrectionsSP80090B}" << L"\n";
+		o_ssLaTeX << L"G. Sakurai, \\textit{Proposed list of corrections for NIST SP 800-90B 6.3 Estimators}, Dec. 2022 " << L"\n";
+		o_ssLaTeX << L"\\url{https://github.com/g-g-sakura/AnotherEntropyEstimationTool/blob/main/documentation/ProposedListOfCorrections_SP800-90B.pdf}" << L"\n";
 		o_ssLaTeX << L"\\end{thebibliography}" << L"\n\n";
 		// -------------------------------------------------------------------------- //
 		// 

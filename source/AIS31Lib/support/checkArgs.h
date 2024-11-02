@@ -23,6 +23,8 @@ namespace ais_31_lib
 
 		ns_consts::EnmReturnStatus perform_common_args_for_tests(const ns_dt::t_data_for_v3& i_refData);
 
+		// for Tests T3 and T4
+		ns_consts::EnmReturnStatus perform_common_args_for_estimate(const ns_dt::t_data_for_v3& i_refData);
 	}
 }
 #endif

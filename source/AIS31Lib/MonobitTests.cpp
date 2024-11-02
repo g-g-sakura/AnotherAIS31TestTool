@@ -86,11 +86,11 @@ namespace ais_31_lib
 			/// <param name="i_test_value">
 			/// </param>
 			/// <returns>
-			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
+			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
 			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
 			///    </ul>
-			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
+			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 			/// </returns>
 			/// <precondition>
 			/// </precondition>

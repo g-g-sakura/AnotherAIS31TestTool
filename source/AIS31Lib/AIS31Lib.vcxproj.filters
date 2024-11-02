@@ -19,6 +19,12 @@
     <Filter Include="ソース ファイル\support">
       <UniqueIdentifier>{848bc168-9960-47f0-9605-429819a17acf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\math">
+      <UniqueIdentifier>{cf09367f-7e38-40fb-bb38-12c234f9d32f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\math">
+      <UniqueIdentifier>{758733b3-0f02-42f7-8437-272d75d16ed2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="support\checkArgs.cpp">
@@ -27,25 +33,31 @@
     <ClCompile Include="MonobitTests.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="DisjointnessTest.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="pokerTest.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="autocorrelationTest.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="longRunTest.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="runsTest.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
     <ClCompile Include="support\setUp.cpp">
       <Filter>ソース ファイル\support</Filter>
     </ClCompile>
     <ClCompile Include="support\showTestSummary.cpp">
+      <Filter>ソース ファイル\support</Filter>
+    </ClCompile>
+    <ClCompile Include="LZ78YPredictionEstimate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiMMCPredictionEstimate.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="math\SpecialFunctions.cpp">
+      <Filter>ソース ファイル\math</Filter>
+    </ClCompile>
+    <ClCompile Include="support\conversion.cpp">
+      <Filter>ソース ファイル\support</Filter>
+    </ClCompile>
+    <ClCompile Include="support\MarkovModelHistogram.cpp">
+      <Filter>ソース ファイル\support</Filter>
+    </ClCompile>
+    <ClCompile Include="support\significantDigits.cpp">
       <Filter>ソース ファイル\support</Filter>
     </ClCompile>
     <ClCompile Include="support\LaTeX.cpp">
@@ -65,28 +77,37 @@
     <ClInclude Include="MonobitTests.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="DisjointnessTest.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="support\countBits.h">
       <Filter>ヘッダー ファイル\support</Filter>
     </ClInclude>
     <ClInclude Include="pokerTest.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="autocorrelationTest.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="longRunTest.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="runsTest.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="support\setUp.h">
       <Filter>ヘッダー ファイル\support</Filter>
     </ClInclude>
     <ClInclude Include="support\showTestSummary.h">
+      <Filter>ヘッダー ファイル\support</Filter>
+    </ClInclude>
+    <ClInclude Include="LZ78YPredictionEstimate.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiMMCPredictionEstimate.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="math\Equations.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="math\SpecialFunctions.h">
+      <Filter>ヘッダー ファイル\math</Filter>
+    </ClInclude>
+    <ClInclude Include="support\conversion.h">
+      <Filter>ヘッダー ファイル\support</Filter>
+    </ClInclude>
+    <ClInclude Include="support\MarkovModelHistogram.h">
+      <Filter>ヘッダー ファイル\support</Filter>
+    </ClInclude>
+    <ClInclude Include="support\significantDigits.h">
       <Filter>ヘッダー ファイル\support</Filter>
     </ClInclude>
     <ClInclude Include="support\LaTeX.h">
