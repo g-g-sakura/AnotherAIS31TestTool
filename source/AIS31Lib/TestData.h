@@ -184,6 +184,10 @@ namespace ais_31_lib
 			int		N;
 			int		C;
 			int		maxEntries;
+			// -------------------------------------------------------------------------- //
+			// constant introduced by AIS 20/31
+			// -------------------------------------------------------------------------- //
+			double	threshold;
 		} t_data_for_multi_mmc_prediction_estimate;
 
 		typedef struct _TDataForLZ78YPredictionEstimate
@@ -224,6 +228,10 @@ namespace ais_31_lib
 			int		N;
 			int		C;
 			int		maxDictionarySize;
+			// -------------------------------------------------------------------------- //
+			// constant introduced by AIS 20/31
+			// -------------------------------------------------------------------------- //
+			double	threshold;
 		} t_data_for_lz78_y_prediction_estimate;
 
 		typedef struct _TDataForTestSuitesV3

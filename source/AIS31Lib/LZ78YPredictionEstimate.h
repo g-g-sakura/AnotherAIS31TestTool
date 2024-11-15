@@ -24,7 +24,7 @@ namespace ais_31_lib
 			namespace ns_consts = ais_31_lib::constants;
 			namespace ns_dt = ais_31_lib::data_types;
 
-			ns_consts::EnmReturnStatus estimate(ns_dt::t_data_for_v3& refData);
+			ns_consts::EnmReturnStatus estimate(ns_dt::t_data_for_v3& io_refData);
 
 		}
 	}
