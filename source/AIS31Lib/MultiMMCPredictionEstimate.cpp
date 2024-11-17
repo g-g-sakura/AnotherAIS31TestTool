@@ -972,6 +972,16 @@ namespace ais_31_lib
 					}
 				}
 				// -------------------------------------------------------------------------- //
+				// as per decision rule by AIS2031An_24
+				// -------------------------------------------------------------------------- //
+				if (io_refData.t_testT3.t_common.min_entropy < io_refData.t_testT3.threshold) {
+					io_refData.t_testT3.t_common.pass_fail_result = ns_consts::EnmPassFailResults::Fail;
+				}
+				else
+				{
+					io_refData.t_testT3.t_common.pass_fail_result = ns_consts::EnmPassFailResults::Pass;
+				}
+				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
 				io_refData.t_testT3.N = N;

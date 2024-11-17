@@ -77,115 +77,6 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output test values in LaTeX
-			/// </summary>
-			/// <remarks>
-			/// </remarks>
-			/// <param name="io_refData">
-			/// </param>
-			/// <param name="i_test_value">
-			/// </param>
-			/// <returns>
-			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
-			///    <ul>
-			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
-			///    </ul>
-			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
-			/// </returns>
-			/// <precondition>
-			/// </precondition>
-			/// <postcondition>
-			/// </postcondition>
-			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(ns_dt::t_data_for_v3& io_refData, uint32_t i_test_value)
-			{
-				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
-				{
-					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-				}
-				if (257 < io_refData.t_testT2.current_index_in_sets)
-				{
-					return	sts = ns_consts::EnmReturnStatus::ErrorDomain;
-				}
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (1 == io_refData.t_testT2.current_index_in_sets)
-				{
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					outputLaTeXSubsectionHeader(io_refData);
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\begin{figure}[htbp]" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\centering" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\begin{tikzpicture}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\begin{axis}[" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" 	xmin=0," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xmax=280," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	ymin=0," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xtick distance=20," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	width=24cm," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xlabel=\\# of given sets," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	ylabel=$T_{2}$" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" ]" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\addplot[mark size=0.4, draw=blue] coordinates {" << L"\n";
-				}
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L" (";
-				(*io_refData.p_ssLaTeXFragment) << std::right << std::setw(6) << io_refData.t_testT2.current_index_in_sets;
-				(*io_refData.p_ssLaTeXFragment) << L", ";
-				(*io_refData.p_ssLaTeXFragment) << std::right << std::setw(7) << i_test_value;
-				(*io_refData.p_ssLaTeXFragment) << L")" << L"\n";
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (257 <= io_refData.t_testT2.current_index_in_sets)
-				{
-					(*io_refData.p_ssLaTeXFragment) << L" };" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"coordinates {( 0, 1.03) ( 260, 1.03)}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"node[above right] at (axis cs: 260,1.03) {1.03};" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"coordinates {( 0, 57.4) ( 260, 57.4)}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"node[above right] at (axis cs: 260, 57.4) {57.4};" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L" \\end{axis}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\end{tikzpicture}" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L" \\caption{Test values $T_{2}$ of given sets}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\\end{figure}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\clearpage" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n\n";
-				}
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				return sts = ns_consts::EnmReturnStatus::Success;
-			}
-
-			// -------------------------------------------------------------------------- //
-			/// <summary>
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -209,7 +100,7 @@ namespace ais_31_lib
 				}
 
 				// -------------------------------------------------------------------------- //
-				// as per paragraph 772 of AIS 20/31 - Version 2.35
+				// as per paragraph 772 of AIS 20/31 - Version 3
 				// -------------------------------------------------------------------------- //
 				unsigned int	input_data_size = i_refData.p_bzInterpretedBj->length(blitz::firstDim);
 				if (input_data_size < 20000)
@@ -343,17 +234,6 @@ namespace ais_31_lib
 				else
 				{
 					io_refData.t_testT2.pass_fail_result = ns_consts::EnmPassFailResults::Fail;
-				}
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (io_refData.isGeneratingReportInLaTeXformatRequested)
-				{
-					ns_consts::EnmReturnStatus	stsReport = outputEachTestValueForSummaryFigureInLaTeX(io_refData, test_value);
-					if (ns_consts::EnmReturnStatus::Success != stsReport)
-					{
-						return sts = stsReport;
-					}
 				}
 				// -------------------------------------------------------------------------- //
 				// 

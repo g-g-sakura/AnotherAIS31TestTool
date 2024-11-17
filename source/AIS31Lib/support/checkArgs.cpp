@@ -24,7 +24,6 @@ namespace ais_31_lib
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>: when one of the following conditions is met:
 		///    <ul>
 		///     <li><c>i_refData.p_bzInputDataT1</c> is <c>nullptr</c>.</li>
-		///     <li><c>i_refData.p_bzSampleSpaceA</c> is <c>nullptr</c>.</li>
 		///    </ul>
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorInvalidData</c>: when one of the following conditions is met: 
 		///    <ul>
@@ -53,22 +52,27 @@ namespace ais_31_lib
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
-			if (nullptr == i_refData.p_bzSampleSpaceA)
+			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) < 20000)
 			{
-				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
 			}
-			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) <= 0)
+			if (i_refData.p_bzInputDataT2->length(blitz::firstDim) < 20000)
+			{
+				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
+				return sts;
+			}
+			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) < 1000000)
+			{
+				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
+				return sts;
+			}
+			if (i_refData.p_bzInputDataT4->length(blitz::firstDim) < 1000000)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
 			}
 			if (INT_MAX < i_refData.L)
-			{
-				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-				return sts;
-			}
-			if (i_refData.p_bzInputDataT1->length(blitz::firstDim) != (int)i_refData.L)
 			{
 				sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 				return sts;
@@ -100,16 +104,10 @@ namespace ais_31_lib
 		///    <ul>
 		///     <li><c>i_refData.p_bzInputDataT3</c> is <c>nullptr</c>.</li>
 		///     <li><c>i_refData.p_bzInputDataT4</c> is <c>nullptr</c>.</li>
-		///     <li><c>i_refData.p_bzSampleSpaceA</c> is <c>nullptr</c>.</li>
 		///    </ul>
 		///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorInvalidData</c>: when one of the following conditions is met: 
 		///    <ul>
 		///     <li><c>i_refData.L</c> &gt; INT_MAX.</li>
-		///     <li><c>i_refData.L</c> is not equal to <c>i_refData.p_bzInputS-&gt;length(blitz::firstDim)</c>.</li>
-		///     <li><c>i_refData.k</c> &lt; 2</li>
-		///     <li><c>i_refData.k</c> &gt; 256</li>
-		///     <li><c>i_refData.k</c> &gt; INT_MAX</li>
-		///     <li><c>i_refData.k</c> is not equal to <c>i_refData.p_bzSampleSpaceA-&gt;length(blitz::firstDim)</c>.</li>
 		///     <li><c>i_refData.bits_per_sample</c> &lt; 1</li>
 		///     <li><c>i_refData.bits_per_sample</c> &gt; 8</li>
 		///    </ul>
@@ -133,36 +131,15 @@ namespace ais_31_lib
 				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
-			if (nullptr == i_refData.p_bzSampleSpaceA)
+			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) < 1000000)
 			{
-				sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				return sts;
 			}
-			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) <= 0)
+			if (i_refData.p_bzInputDataT4->length(blitz::firstDim) < 1000000)
 			{
 				return sts;
 			}
 			if (INT_MAX < i_refData.L)
-			{
-				return sts;
-			}
-			if (i_refData.p_bzInputDataT3->length(blitz::firstDim) != static_cast<int>(i_refData.L))
-			{
-				return sts;
-			}
-			if (i_refData.k < 2)
-			{
-				return sts;
-			}
-			if (INT_MAX < i_refData.k)
-			{
-				return sts;
-			}
-			if (256 < i_refData.k)
-			{
-				return sts;
-			}
-			if (i_refData.p_bzSampleSpaceA->length(blitz::firstDim) != static_cast<int>(i_refData.k))
 			{
 				return sts;
 			}

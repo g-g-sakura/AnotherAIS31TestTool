@@ -77,8 +77,8 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // 
     // -------------------------------------------------------------------------- //
     bs_fs::path     the_report_path;
-    bs_fs::path     the_path_input_data_testT0;
-    bs_fs::path     the_path_input_data_testT1;
+    bs_fs::path     the_path_input_data;
+    the_info_report.info_source.p_path_to_input_data = &the_path_input_data;
     // -------------------------------------------------------------------------- //
     // parse command line parameters
     // -------------------------------------------------------------------------- //

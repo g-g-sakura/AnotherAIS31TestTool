@@ -101,12 +101,12 @@ namespace ais_31_tool
             // load initial input data file for T1 through T4
             // -------------------------------------------------------------------------- //
             if (po_vm.count("input")) {
-                const bs_fs::path file_path_testT1 = po_vm["input"].as<std::wstring>(); // <<<
+                const bs_fs::path file_path_input_data = po_vm["input"].as<std::wstring>(); // <<<
                 std::wcout << L"# [INFO]: Opening file:\t";
-                std::wcout << file_path_testT1 << L"\n";
+                std::wcout << file_path_input_data << L"\n";
 
                 boost::system::error_code error;
-                const bool result = bs_fs::exists(file_path_testT1, error);
+                const bool result = bs_fs::exists(file_path_input_data, error);
                 if (!result || error) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
                     std::cout << "# [ERROR]: Specified file was not found." << "\n";
@@ -121,18 +121,18 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 // full path
                 // -------------------------------------------------------------------------- //
-                const bs_fs::path full_path_testT1 = bs_fs::system_complete(file_path_testT1);
+                const bs_fs::path full_path_input_data = bs_fs::system_complete(file_path_input_data);
                 // -------------------------------------------------------------------------- //
                 // get path for future use
                 // -------------------------------------------------------------------------- //
                 if (nullptr != i_refInfoReport.info_source.p_path_to_input_data) {
-                    *i_refInfoReport.info_source.p_path_to_input_data = full_path_testT1;
+                    *i_refInfoReport.info_source.p_path_to_input_data = full_path_input_data;
                 }
-                i_refInfoReport.info_source.tm_last_write_time = bs_fs::last_write_time(full_path_testT1);
+                i_refInfoReport.info_source.tm_last_write_time = bs_fs::last_write_time(full_path_input_data);
                 // -------------------------------------------------------------------------- //
                 //
                 // -------------------------------------------------------------------------- //
-                const boost::uintmax_t size = bs_fs::file_size(file_path_testT1);
+                const boost::uintmax_t size = bs_fs::file_size(file_path_input_data);
 
                 std::cout << "# [INFO]: Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
@@ -151,7 +151,7 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 //
                 // -------------------------------------------------------------------------- //
-                sts = ais_31_tool::loadSamples(io_refData, i_refInfoReport, full_path_testT1);
+                sts = ais_31_tool::loadSamples(io_refData, i_refInfoReport, full_path_input_data);
                 if (ns_consts::EnmReturnStatus::Success != sts)
                 {
                     ais_31_lib::support::tearDown(io_refData);

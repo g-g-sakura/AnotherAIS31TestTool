@@ -36,23 +36,23 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
+			io_refData.p_bzUnprocessedData = nullptr;
 			io_refData.p_bzInputDataT1 = nullptr;
 			io_refData.p_bzInputDataT2 = nullptr;
 			io_refData.p_bzInputDataT3 = nullptr;
 			io_refData.p_bzInputDataT4 = nullptr;
 			io_refData.p_bzInterpretedBj = nullptr;
-			io_refData.p_bzSampleSpaceA = nullptr;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
+			io_refData.p_bzUnprocessedData = new blitz::Array<ns_dt::octet, 1>(4080000);
 			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 1>(20000);
 			io_refData.p_bzInputDataT2 = new blitz::Array<ns_dt::octet, 1>(20000);
 			io_refData.p_bzInputDataT3 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInputDataT4 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInterpretedBj = new blitz::Array<ns_dt::octet, 1>(20000);
-			io_refData.p_bzSampleSpaceA = new blitz::Array<ns_dt::octet, 1>(256);
-			io_refData.t_testT1 = { 0, 0, {9654, 10346}, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
-			io_refData.t_testT2 = { 0, 1.03, 57.4, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT1 = { 0, 0, {9654, 10346}, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT2 = { 0, 1.03, 57.4, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			io_refData.t_testT3 = { 0 };
 			io_refData.t_testT3.t_common.pass_fail_result = ns_consts::EnmPassFailResults::NotDetermined;
 			io_refData.t_testT3.D = 16;	// as per NIST SP 800-90B
@@ -93,11 +93,6 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			if (nullptr != io_refData.p_bzSampleSpaceA)
-			{
-				delete io_refData.p_bzSampleSpaceA;
-				io_refData.p_bzSampleSpaceA = nullptr;
-			}
 			if (nullptr != io_refData.p_bzInterpretedBj)
 			{
 				delete io_refData.p_bzInterpretedBj;

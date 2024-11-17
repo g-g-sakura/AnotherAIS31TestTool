@@ -31,7 +31,5 @@ namespace ais_31_tool
 		const IDInfoForReport& i_refInfoReport,
 		ns_consts::EnmAIS20AIS31V3Track i_enmTrack);
 
-	ns_consts::EnmReturnStatus performProjection(ns_dt::t_data_for_v3& io_refData, int indexWithZeroOffset);
-
 }
 #endif
