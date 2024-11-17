@@ -41,7 +41,8 @@ namespace ais_31_lib
 			/// <returns>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
-			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT3Header</c> == nullptr</li>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT3Body</c> == nullptr</li>
 			///    </ul>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 			/// </returns>
@@ -56,51 +57,61 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT3Header)
+				{
+					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				}
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT3Body)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\clearpage" << L"\n";
-				// -------------------------------------------------------------------------- //
-				// prepend subsection 
-				// -------------------------------------------------------------------------- //
-				std::wstring	strSubsection639 = std::wstring();
-				std::wstring	strSubsectionTitle639 = std::wstring(L"The MultiMMC Prediction Estimate (NIST SP 800-90B Section 6.3.9)");
-				std::wstring	strLabel = std::wstring();
-				switch (io_refData.bits_per_sample)
+				if (1 == io_refData.current_number_of_round_in_trials)
 				{
-				case 1:
-					strLabel = std::wstring(L"sec:Binary639");
-					break;
-				default:
-					strLabel = std::wstring(L"sec:NonBinary639");
-					break;
+					// -------------------------------------------------------------------------- //
+					//
+					// -------------------------------------------------------------------------- //
+					(*io_refData.p_ssLaTeXFragmentTestT3Header) << L"\\clearpage" << L"\n";
+					// -------------------------------------------------------------------------- //
+					// prepend subsection 
+					// -------------------------------------------------------------------------- //
+					std::wstring	strSubsection639 = std::wstring();
+					std::wstring	strSubsectionTitle639 = std::wstring(L"The MultiMMC Prediction Estimate (Test T3)");
+					std::wstring	strLabel = std::wstring();
+					switch (io_refData.bits_per_sample)
+					{
+					case 1:
+						strLabel = std::wstring(L"sec:Binary639");
+						break;
+					default:
+						strLabel = std::wstring(L"sec:NonBinary639");
+						break;
+					}
+					ns_spt::getLaTeXSubsection(strSubsection639, strSubsectionTitle639, strLabel);
+					// -------------------------------------------------------------------------- //
+					//
+					// -------------------------------------------------------------------------- //
+					(*io_refData.p_ssLaTeXFragmentTestT3Header) << strSubsection639;
+					(*io_refData.p_ssLaTeXFragmentTestT3Header) << L"\n";
 				}
-				ns_spt::getLaTeXSubsection(strSubsection639, strSubsectionTitle639, strLabel);
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << strSubsection639;
-				(*io_refData.p_ssLaTeXFragment) << L"\n";
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{figure}[htbp]" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\centering" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{tikzpicture}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{axis}[" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	ybar," << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	xmin=0," << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	ymin=0," << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	width=20cm," << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	xlabel=length of run of ones in $correct$," << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"	ylabel=occurrences" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"]" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[ybar] coordinates {" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{figure}[htbp]" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\centering" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{tikzpicture}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{axis}[" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	ybar," << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	xmin=0," << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	ymin=0," << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	width=20cm," << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	xlabel=length of run of ones in $correct$," << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"	ylabel=occurrences" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"]" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\addplot+[ybar] coordinates {" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -118,7 +129,7 @@ namespace ais_31_lib
 			/// <returns>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
-			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT3Body</c> == nullptr</li>
 			///    </ul>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 			/// </returns>
@@ -133,33 +144,33 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT3Body)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"};" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"};" << L"\n";
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"coordinates {(" << io_refData.t_testT3.r - 1 << L", " << io_refData.t_testT3.occurrences_at_longest_run << L") "; 
-				(*io_refData.p_ssLaTeXFragment) << L"(" << io_refData.t_testT3.r - 1 << L", " << std::dec << io_refData.t_testT3.occurrences_at_longest_run << L") }" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"node[above left] at (axis cs:" << io_refData.t_testT3.r - 1 << L", ";
-				(*io_refData.p_ssLaTeXFragment) << io_refData.t_testT3.occurrences_at_longest_run << L") ";
-				(*io_refData.p_ssLaTeXFragment) << L"{\\shortstack{$r - 1$ = ";
-				(*io_refData.p_ssLaTeXFragment) << io_refData.t_testT3.r - 1 << L" " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\($\\rightarrow$ min-entropy = " << io_refData.t_testT3.t_common.min_entropy;
-				(*io_refData.p_ssLaTeXFragment) << L" [bit / " << io_refData.bits_per_sample << L"-bit])}};" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"coordinates {(" << io_refData.t_testT3.r - 1 << L", " << io_refData.t_testT3.occurrences_at_longest_run << L") "; 
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"(" << io_refData.t_testT3.r - 1 << L", " << std::dec << io_refData.t_testT3.occurrences_at_longest_run << L") }" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"node[above left] at (axis cs:" << io_refData.t_testT3.r - 1 << L", ";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << io_refData.t_testT3.occurrences_at_longest_run << L") ";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"{\\shortstack{$r - 1$ = ";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << io_refData.t_testT3.r - 1 << L" " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\($\\rightarrow$ min-entropy = " << io_refData.t_testT3.t_common.min_entropy;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L" [bit / " << io_refData.bits_per_sample << L"-bit])}};" << L"\n";
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{axis}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{tikzpicture}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\caption{Distribution of $correct$}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{figure}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{axis}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{tikzpicture}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\caption{Distribution of $correct$}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{figure}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -177,7 +188,7 @@ namespace ais_31_lib
 			/// <returns>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
-			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT3Body</c> == nullptr</li>
 			///    </ul>
 			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 			/// </returns>
@@ -192,7 +203,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT3Body)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
@@ -211,47 +222,47 @@ namespace ais_31_lib
 					break;
 				}
 				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strLabel);
-				(*io_refData.p_ssLaTeXFragment) << strSubsubsectionTraceability;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << strSubsubsectionTraceability;
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{table}[h]" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.9)}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{center}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\begin{tabular}{|l|c|}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{table}[h]" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.9)}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\rowcolor{anotherlightblue} %%" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"Symbol				& Value ";
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$N$				& " << io_refData.t_testT3.N;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$C$				& " << io_refData.t_testT3.C;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$P_{\\textrm{global}}$				& " << std::setw(8) << io_refData.t_testT3.p_global;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$P'_{\\textrm{global}}$			& " << std::setw(8) << io_refData.t_testT3.p_prime_global;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$r$				& " << io_refData.t_testT3.r;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline " << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"$P_{\\textrm{local}}$ 			& " << std::setw(8) << io_refData.t_testT3.p_local;
-				(*io_refData.p_ssLaTeXFragment) << L"\\\\ \\hline" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\rowcolor{anotherlightblue} %%" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"Symbol				& Value ";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$N$				& " << io_refData.t_testT3.N;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$C$				& " << io_refData.t_testT3.C;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$P_{\\textrm{global}}$				& " << std::setw(8) << io_refData.t_testT3.p_global;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$P'_{\\textrm{global}}$			& " << std::setw(8) << io_refData.t_testT3.p_prime_global;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$r$				& " << io_refData.t_testT3.r;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"$P_{\\textrm{local}}$ 			& " << std::setw(8) << io_refData.t_testT3.p_local;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\\\ \\hline" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{tabular}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{center}" << L"\n";
-				(*io_refData.p_ssLaTeXFragment) << L"\\end{table}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{tabular}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\end{table}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -991,9 +1002,9 @@ namespace ais_31_lib
 				if (io_refData.isGeneratingReportInLaTeXformatRequested)
 				{
 					outputLaTeXHeader(io_refData);
-					if (nullptr != io_refData.p_ssLaTeXFragment)
+					if (nullptr != io_refData.p_ssLaTeXFragmentTestT3Body)
 					{
-						(*io_refData.p_ssLaTeXFragment) << ssFragmentForLaTeX.rdbuf();
+						(*io_refData.p_ssLaTeXFragmentTestT3Body) << ssFragmentForLaTeX.rdbuf();
 					}
 					outputLaTeXFooter(io_refData);
 					// -------------------------------------------------------------------------- //

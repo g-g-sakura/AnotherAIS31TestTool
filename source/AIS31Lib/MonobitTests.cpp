@@ -41,7 +41,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT1Header)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
@@ -64,11 +64,84 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << ssSep.rdbuf();
+				(*io_refData.p_ssLaTeXFragmentTestT1Header) << ssSep.rdbuf();
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\n\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Header) << L"\n\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				return sts = ns_consts::EnmReturnStatus::Success;
+			}
+
+			// -------------------------------------------------------------------------- //
+			/// <summary>
+			///  Output supplemental information in LaTeX format
+			/// </summary>
+			/// <remarks>
+			/// </remarks>
+			/// <param name="io_refData">
+			/// </param>
+			/// <returns>
+			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
+			///    <ul>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT1Body</c> == nullptr</li>
+			///    </ul>
+			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
+			/// </returns>
+			/// <precondition>
+			/// </precondition>
+			/// <postcondition>
+			/// </postcondition>
+			// -------------------------------------------------------------------------- //
+			ns_consts::EnmReturnStatus outputSupplementalInfoLaTeX(ns_dt::t_data_for_v3& io_refData)
+			{
+				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT1Body)
+				{
+					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				}
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strSubsubsectionTraceability = std::wstring();
+				std::wstring	strLabel = std::wstring(L"sec:TestT1-traceability");
+				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strLabel);
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << strSubsubsectionTraceability;
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{table}[h]" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\caption{Supplemental information for traceability (Test T1)}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\rowcolor{anotherlightblue} %%" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"Symbol				& Value ";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"$t_{IRN(1)}$				& " << io_refData.t_testT1.test_value_T1;
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\\\ \\hline" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{tabular}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{table}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -176,6 +249,23 @@ namespace ais_31_lib
 				else
 				{
 					io_refData.t_testT1.pass_fail_result = ns_consts::EnmPassFailResults::Fail;
+				}
+				// -------------------------------------------------------------------------- //
+				// output LaTeX
+				// -------------------------------------------------------------------------- //
+				if (io_refData.isGeneratingReportInLaTeXformatRequested)
+				{
+					// -------------------------------------------------------------------------- //
+					// 
+					// -------------------------------------------------------------------------- //
+					if (1 == io_refData.current_number_of_round_in_trials)
+					{
+						outputLaTeXSubsectionHeader(io_refData);
+					}
+					// -------------------------------------------------------------------------- //
+					// supplemental information for traceability
+					// -------------------------------------------------------------------------- //
+					outputSupplementalInfoLaTeX(io_refData);
 				}
 				// -------------------------------------------------------------------------- //
 				// 

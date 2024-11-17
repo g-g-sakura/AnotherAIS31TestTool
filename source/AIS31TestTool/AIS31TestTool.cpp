@@ -101,6 +101,34 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     std::wstringstream ssLaTeXFragmentBody = std::wstringstream();
     data.p_ssLaTeXFragment = &ssLaTeXFragmentBody;
     // -------------------------------------------------------------------------- //
+    // for Test T1
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT1Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT1Header = &ssLaTeXFragmentT1Header;
+    std::wstringstream ssLaTeXFragmentT1Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT1Body = &ssLaTeXFragmentT1Body;
+    // -------------------------------------------------------------------------- //
+    // for Test T2
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT2Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT2Header = &ssLaTeXFragmentT2Header;
+    std::wstringstream ssLaTeXFragmentT2Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT2Body = &ssLaTeXFragmentT2Body;
+    // -------------------------------------------------------------------------- //
+    // for Test T3
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT3Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT3Header = &ssLaTeXFragmentT3Header;
+    std::wstringstream ssLaTeXFragmentT3Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT3Body = &ssLaTeXFragmentT3Body;
+    // -------------------------------------------------------------------------- //
+    // for Test T4
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT4Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT4Header = &ssLaTeXFragmentT4Header;
+    std::wstringstream ssLaTeXFragmentT4Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT4Body = &ssLaTeXFragmentT4Body;
+    // -------------------------------------------------------------------------- //
     // perform tests
     // -------------------------------------------------------------------------- //
     sts = ns_tool::performTests(data, the_info_report);

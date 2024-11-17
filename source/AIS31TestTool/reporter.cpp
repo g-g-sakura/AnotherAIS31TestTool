@@ -981,7 +981,7 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		o_refLaTeXSupportingInfo << L"\\begin{itemize}" << L"\n";
-		o_refLaTeXSupportingInfo << L"		\\item Filename(s) of input data : See Annex \\ref{sec:AnnexIdentification}." << L"\n";
+		o_refLaTeXSupportingInfo << L"		\\item Filename of input data : See Annex \\ref{sec:AnnexIdentification}." << L"\n";
 		o_refLaTeXSupportingInfo << L"		\\item Name of the submitter of the input data : " << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\noindent" << L"\n";
@@ -1150,7 +1150,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXSupportingInfo << L"Test Procedure A of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} is applied." << L"\n";
+		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} is applied." << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1366,14 +1366,28 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T1 (monobit test)			& ";
 		ssLaTeXSummary << getPassFail(io_refData.t_testT1.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT1}         \\\\" << L"\n";
+		ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability}         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T2 (poker test)			& ";
 		ssLaTeXSummary << getPassFail(io_refData.t_testT2.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT2}         \\\\" << L"\n";
+		ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability}         \\\\" << L"\n";
+		ssLaTeXSummary << L"\\hline " << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		ssLaTeXSummary << L"Test T3 (MultiMMC Prediction Estimate)			& ";
+		ssLaTeXSummary << getPassFail(io_refData.t_testT3.t_common.pass_fail_result);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary639}         \\\\" << L"\n";
+		ssLaTeXSummary << L"\\hline " << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		ssLaTeXSummary << L"Test T4 (LZ78Y Prediction Estimate)			& ";
+		ssLaTeXSummary << getPassFail(io_refData.t_testT4.t_common.pass_fail_result);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary6310}         \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1421,7 +1435,15 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeX << io_refData.p_ssLaTeXFragment->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT1Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT1Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT2Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT2Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT3Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT3Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT4Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT4Body->rdbuf();
+		//ssLaTeX << io_refData.p_ssLaTeXFragment->rdbuf();
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
