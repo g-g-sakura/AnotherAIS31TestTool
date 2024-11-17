@@ -280,7 +280,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				o_refStream << "# " << "Test T3:\t" << "\n";
 				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT3.pass_fail_result)
+				switch (io_refData.t_testT3.t_common.pass_fail_result)
 				{
 				case ns_consts::EnmPassFailResults::NotDetermined:
 					o_refStream << "Not determined";
@@ -300,7 +300,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				o_refStream << "# " << "Test T4:\t" << "\n";
 				o_refStream << "#\tTest result = ";
-				switch (io_refData.t_testT4.pass_fail_result)
+				switch (io_refData.t_testT4.t_common.pass_fail_result)
 				{
 				case ns_consts::EnmPassFailResults::NotDetermined:
 					o_refStream << "Not determined";

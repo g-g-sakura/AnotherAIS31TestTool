@@ -23,8 +23,6 @@ namespace ais_31_tool
 	/// </param>
 	/// <param name="i_refFullPath">
 	/// </param>
-	/// <param name="i_enmTrack">
-	/// </param>
 	/// <returns>
 	/// </returns>
 	/// <precondition>
@@ -34,73 +32,72 @@ namespace ais_31_tool
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v3& io_refData,
 		const IDInfoForReport& i_refInfoReport,
-		const bs_fs::path& i_refFullPath,
-		ns_consts::EnmAIS20AIS31V3Track i_enmTrack)
+		const bs_fs::path& i_refFullPath)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		switch (i_enmTrack)
-		{
-		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
-			if (io_refData.p_bzInputDataT1 == nullptr)
-			{
-				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			if (io_refData.p_bzInputDataT2 == nullptr)
-			{
-				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			if (io_refData.p_bzInputDataT3 == nullptr)
-			{
-				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			if (io_refData.p_bzInputDataT4 == nullptr)
-			{
-				return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			break;
-		default:
-			break;
-		}
-		boost::uintmax_t size = bs_fs::file_size(i_refFullPath);
+		const unsigned int	cui_number_of_bits_lowerbound = 2040000;
+		const unsigned int	cui_number_of_bits_upperbound = 4080000;
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		switch (i_enmTrack)
+		if (io_refData.p_bzUnprocessedData == nullptr)
 		{
-		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
-		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			if (20000 < size * io_refData.bits_per_sample)
-			{
-				if (1 == io_refData.bits_per_sample)
-				{
-					size = 20000;
-				}
-				else if (1 < io_refData.bits_per_sample)
-				{
-					size = (20000 + io_refData.bits_per_sample - 1) / io_refData.bits_per_sample;
-				}
-			}
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT1->resize(size);
-			(*io_refData.p_bzInputDataT1) = 0;
-			break;
-		default:
-			break;
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
+		if (io_refData.p_bzInputDataT1 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT2 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT3 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT4 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		boost::uintmax_t size = bs_fs::file_size(i_refFullPath);
+		boost::uintmax_t size_to_read = size;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		if (cui_number_of_bits_upperbound <= size * io_refData.bits_per_sample)
+		{
+			if (1 == io_refData.bits_per_sample)
+			{
+				size_to_read = cui_number_of_bits_upperbound;
+			}
+			else if (1 < io_refData.bits_per_sample)
+			{
+				size_to_read = (cui_number_of_bits_upperbound + io_refData.bits_per_sample - 1) / io_refData.bits_per_sample;
+			}
+		}
+		else if (cui_number_of_bits_lowerbound <= size * io_refData.bits_per_sample) {
+			if (1 == io_refData.bits_per_sample)
+			{
+				size_to_read = size;
+			}
+			else if (1 < io_refData.bits_per_sample)
+			{
+				size_to_read = (size + io_refData.bits_per_sample - 1) / io_refData.bits_per_sample;
+			}
+		}
+		else {
+			return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
+		}
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		blitz::Array<ns_dt::octet, 1>	bz_original(size_to_read);
+		bz_original = 0;
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
@@ -109,92 +106,196 @@ namespace ais_31_tool
 		{
 			return sts = ns_consts::EnmReturnStatus::ErrorFileIO;
 		}
+		file.read((char*)bz_original.data(), size_to_read);
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		io_refData.p_bzUnprocessedData->resize(size_to_read * (io_refData.bits_per_sample));
+		*(io_refData.p_bzUnprocessedData) = 0;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		if (1 == io_refData.bits_per_sample)
+		{
+			memcpy(io_refData.p_bzUnprocessedData->data(), bz_original.data(), size_to_read);
+		}
+		else
+		{
+			// -------------------------------------------------------------------------- //
+			/// fill <c>io_refData.p_bzUnprocessedData</c> by converting <c>io_refData.bits_per_sample</c>-bit vectors to an array of bit
+			// -------------------------------------------------------------------------- //
+			if (io_refData.bIsMSbFirstByteBitConversion == true)
+			{
+				// -------------------------------------------------------------------------- //
+				// MSb first
+				// -------------------------------------------------------------------------- //
+				for (uintmax_t i = 0; i < size_to_read; ++i)
+				{
+					for (unsigned int j = 0; j < io_refData.bits_per_sample; ++j)
+					{
+						// -------------------------------------------------------------------------- //
+						// assuming MSb first
+						// -------------------------------------------------------------------------- //
+						const int shift_width = (static_cast<int>(io_refData.bits_per_sample) - 1) - static_cast<int>(j);
+						if (shift_width < 0)
+						{
+							return	sts;
+						}
+						// -------------------------------------------------------------------------- //
+						/// here, <c>shift_witdth</c> is greater than or equal to 0
+						// -------------------------------------------------------------------------- //
+						(*(io_refData.p_bzUnprocessedData))(io_refData.bits_per_sample * i + j) = (bz_original(i) >> shift_width) & 0x01;
+					}
+				}
+			}
+			else
+			{
+				// -------------------------------------------------------------------------- //
+				// LSb first
+				// -------------------------------------------------------------------------- //
+				for (uintmax_t i = 0; i < size_to_read; ++i)
+				{
+					for (unsigned int j = 0; j < io_refData.bits_per_sample; ++j)
+					{
+						// -------------------------------------------------------------------------- //
+						// assuming LSb first
+						// -------------------------------------------------------------------------- //
+						const unsigned int shift_width = j;
+						// -------------------------------------------------------------------------- //
+						/// here, <c>shift_witdth</c> is greater than or equal to 0
+						// -------------------------------------------------------------------------- //
+						(*(io_refData.p_bzUnprocessedData))(io_refData.bits_per_sample * i + j) = (bz_original(i) >> shift_width) & 0x01;
+					}
+				}
+			}
+		}
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		bz_original.resize(0);
+		io_refData.L = size_to_read * io_refData.bits_per_sample;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		return sts = ns_consts::EnmReturnStatus::Success;
+	}
+
+	// -------------------------------------------------------------------------- //
+	/// <summary>
+	/// </summary>
+	/// <remarks>
+	/// </remarks>
+	/// <param name="io_refData">
+	/// </param>
+	/// <param name="i_refInfoReport">
+	/// </param>
+	/// <param name="i_enmTrack">
+	/// </param>
+	/// <returns>
+	/// </returns>
+	/// <precondition>
+	/// </precondition>
+	/// <postcondition>
+	/// </postcondition>
+	// -------------------------------------------------------------------------- //
+	ns_consts::EnmReturnStatus loadSamplesForTest(ns_dt::t_data_for_v3& io_refData,
+		const IDInfoForReport& i_refInfoReport,
+		ns_consts::EnmAIS20AIS31V3Track i_enmTrack)
+	{
+		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
+
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		const unsigned int	cui_number_of_bits_lowerbound = 2040000;
+		const unsigned int	cui_number_of_bits_upperbound = 4080000;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		if (io_refData.p_bzUnprocessedData == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT1 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT2 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT3 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		if (io_refData.p_bzInputDataT4 == nullptr)
+		{
+			return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+		}
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		uintmax_t	ui_requied_number_of_bits_for_test = 20000;
+		blitz::Array<ns_dt::octet, 1>** dpInputData = nullptr;
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
 		switch (i_enmTrack)
 		{
 		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
+			ui_requied_number_of_bits_for_test = 20000;
+			dpInputData = &(io_refData.p_bzInputDataT1);
+			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
+			ui_requied_number_of_bits_for_test = 20000;
+			dpInputData = &(io_refData.p_bzInputDataT2);
+			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+			ui_requied_number_of_bits_for_test = 1000000;
+			dpInputData = &(io_refData.p_bzInputDataT3);
+			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
-		{
-			int i = 0;
-			bs_fs::path	path_next_index = bs_fs::path(i_refFullPath);
-			int	next_index = 0;
-			ns_consts::EnmReturnStatus	stsSynth = ns_consts::EnmReturnStatus::Success;
-			do
-			{
-				blitz::Array<ns_dt::octet, 1> bz_slice = (*io_refData.p_bzInputDataT1)(blitz::Range::all());
-				file.read((char*)bz_slice.data(), size);
-				file.close();
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				next_index = 1 + i;
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				if (i < 256)
-				{
-					stsSynth = synthesizeFilename(path_next_index, next_index, i_refFullPath);
-					if (ns_consts::EnmReturnStatus::Success != stsSynth)
-					{
-						sts = stsSynth;
-						std::cout << "# [ERROR]: Failed to synthesize the filename for " << next_index << "-th input data in 257 sets.\n";
-						return sts;
-					}
-					// -------------------------------------------------------------------------- //
-					//
-					// -------------------------------------------------------------------------- //
-					file.open(path_next_index.wstring(), std::ios::in | std::ios::binary);
-					if (!file)
-					{
-						sts = stsSynth = ns_consts::EnmReturnStatus::ErrorFileIO;
-						std::wcout << L"# [ERROR]: Failed to open the file: " << path_next_index.wstring() << L".\n";
-						return sts;
-					}
-					// -------------------------------------------------------------------------- //
-					//
-					// -------------------------------------------------------------------------- //
-					size = bs_fs::file_size(path_next_index);
-					if (20000 < size * io_refData.bits_per_sample)
-					{
-						if (1 == io_refData.bits_per_sample)
-						{
-							size = 20000;
-						}
-						else if (1 < io_refData.bits_per_sample)
-						{
-							size = (20000 + io_refData.bits_per_sample - 1) / io_refData.bits_per_sample;
-						}
-					}
-					// -------------------------------------------------------------------------- //
-					//
-					// -------------------------------------------------------------------------- //
-					i_refInfoReport.info_source.p_info_input_data_items_testT1->emplace_back(InfoInputDataItem{ nullptr, 0 });
-					i_refInfoReport.info_source.p_info_input_data_items_testT1->at(i + 1).p_path_to_input_data = new bs_fs::path(path_next_index);
-					i_refInfoReport.info_source.p_info_input_data_items_testT1->at(i + 1).tm_last_write_time = bs_fs::last_write_time(path_next_index);
-				}
-				// -------------------------------------------------------------------------- //
-				//
-				// -------------------------------------------------------------------------- //
-				++i;
-			} while ((ns_consts::EnmReturnStatus::Success == stsSynth) && (i < 1));
-		}
-		break;
+			ui_requied_number_of_bits_for_test = 1000000;
+			dpInputData = &(io_refData.p_bzInputDataT4);
+			break;
 		default:
 			break;
 		}
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		io_refData.L = size;
+		if (io_refData.p_bzUnprocessedData->size() < ui_requied_number_of_bits_for_test) {
+			return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
+		}
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		memcpy((*dpInputData)->data(), io_refData.p_bzUnprocessedData->data(), ui_requied_number_of_bits_for_test);
+		// -------------------------------------------------------------------------- //
+		// copy unprocessed data to temporary variable
+		// -------------------------------------------------------------------------- //
+		uintmax_t	ui_size_remaining = io_refData.p_bzUnprocessedData->size() - ui_requied_number_of_bits_for_test;
+		blitz::Array<ns_dt::octet, 1>	bz_remaining(ui_size_remaining);
+		memcpy(bz_remaining.data(), io_refData.p_bzUnprocessedData->data() + ui_requied_number_of_bits_for_test, ui_size_remaining);
+		// -------------------------------------------------------------------------- //
+		// set unprocessed data
+		// -------------------------------------------------------------------------- //
+		io_refData.p_bzUnprocessedData->resize((int)ui_size_remaining);
+		memcpy(io_refData.p_bzUnprocessedData->data(), bz_remaining.data(), ui_size_remaining);
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		bz_remaining = 0;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		bz_remaining.resize(0);
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
 		return sts = ns_consts::EnmReturnStatus::Success;
 	}
+
 
 	// -------------------------------------------------------------------------- //
 	/// <summary>

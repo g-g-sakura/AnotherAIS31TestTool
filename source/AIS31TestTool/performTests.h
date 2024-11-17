@@ -14,12 +14,14 @@
 
 #include "AIS31Lib/constants.h"
 #include "AIS31Lib/TestData.h"
+#include "reportItems.h"
 
 namespace ais_31_tool
 {
 	namespace ns_consts = ais_31_lib::constants;
 	namespace ns_dt = ais_31_lib::data_types;
 
-	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refDataOriginal);
+	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refData,
+		IDInfoForReport& i_refInfoReport);
 }
 #endif

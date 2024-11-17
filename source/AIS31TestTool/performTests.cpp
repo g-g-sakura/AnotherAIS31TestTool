@@ -16,13 +16,16 @@
 #include <AIS31Lib/MultiMMCPredictionEstimate.h>	// T3
 #include <AIS31Lib/LZ78YPredictionEstimate.h> // T4
 #include <AIS31Lib/support/showTestSummary.h>
+#include <locale>
+#include <Windows.h>
 
 
 namespace ais_31_tool
 {
 	typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v3&);
 
-	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refData)
+	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refData,
+		IDInfoForReport& i_refInfoReport)
 	{
 		PF_EE	func_tests[5] = {
 							ais_31_lib::v3::monobit_test::performTest,
@@ -48,56 +51,65 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		ns_dt::t_data_for_v3* pData = &io_refData;
-		for (int j = 0; j < 4; ++j)
-		{
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if (nullptr == pData)
-			{
-				// should not reach here
-				return sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-			}
-			// -------------------------------------------------------------------------- //
-			// show case specific header
-			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus stsShowInfo = ais_31_lib::support::showTestSpecificHeader(ss, enm_test[j],
-				*pData);
-			if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
-			{
-				return  sts = stsShowInfo;
-			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			ns_consts::EnmPassFailResults* p_current_pass_fail = nullptr;
-			switch (j)
-			{
-			case 1:
-				p_current_pass_fail = &(pData->t_testT1.pass_fail_result);
-				break;
-			case 2:
-				p_current_pass_fail = &(pData->t_testT2.pass_fail_result);
-				break;
-			default:
-				break;
-			}
-			// -------------------------------------------------------------------------- //
-			// perform tests
-			// -------------------------------------------------------------------------- //
-			ns_consts::EnmPassFailResults	pass_fail_result_over_multiple_sets = ns_consts::EnmPassFailResults::NotDetermined;
-			for (int s = 0; s < 257; ++s)
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		ns_consts::EnmPassFailResults	pass_fail_result_over_multiple_sets = ns_consts::EnmPassFailResults::NotDetermined;
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		constexpr uintmax_t	cui_required_number_of_bits_lowerbound = 2040000;
+		const uintmax_t max_iterations = (io_refData.L + cui_required_number_of_bits_lowerbound - 1) / cui_required_number_of_bits_lowerbound;
+		// -------------------------------------------------------------------------- //
+		//
+		// -------------------------------------------------------------------------- //
+		setlocale(LC_ALL, "");
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		// -------------------------------------------------------------------------- //
+		// perform tests
+		// -------------------------------------------------------------------------- //
+		uintmax_t s = 0;
+		do {
+			for (int j = 0; j < 4; ++j)
 			{
 				// -------------------------------------------------------------------------- //
-				// autocorrelation test specific setting
+				// 
 				// -------------------------------------------------------------------------- //
+				if (nullptr == pData)
+				{
+					// should not reach here
+					return sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
+				}
+				// -------------------------------------------------------------------------- //
+				// 
+				// -------------------------------------------------------------------------- //
+				ns_consts::EnmReturnStatus stsLoadSamples;
+				// -------------------------------------------------------------------------- //
+				// show case specific header
+				// -------------------------------------------------------------------------- //
+				ns_consts::EnmReturnStatus stsShowInfo = ais_31_lib::support::showTestSpecificHeader(ss, enm_test[j],
+					*pData);
+				if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
+				{
+					return  sts = stsShowInfo;
+				}
+				// -------------------------------------------------------------------------- //
+				// 
+				// -------------------------------------------------------------------------- //
+				ns_consts::EnmPassFailResults* p_current_pass_fail = nullptr;
 				switch (j)
 				{
+				case 0:
+					p_current_pass_fail = &(pData->t_testT1.pass_fail_result);
+					break;
 				case 1:
-					pData->t_testT1.current_index_in_sets = s + 1;
+					p_current_pass_fail = &(pData->t_testT2.pass_fail_result);
 					break;
 				case 2:
-					pData->t_testT2.current_index_in_sets = s + 1;
+					p_current_pass_fail = &(pData->t_testT3.t_common.pass_fail_result);
+					break;
+				case 3:
+					p_current_pass_fail = &(pData->t_testT4.t_common.pass_fail_result);
 					break;
 				default:
 					break;
@@ -108,7 +120,9 @@ namespace ais_31_tool
 				sts = (*func_tests[j])(*pData);
 				if (ns_consts::EnmReturnStatus::Success != sts)
 				{
-					std::cout << "The test was terminated..." << std::endl;
+					SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
+					std::cout << "# [ERROR]: The test was terminated..." << std::endl;
+					SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
 					return  sts;
 				}
 				// -------------------------------------------------------------------------- //
@@ -122,56 +136,39 @@ namespace ais_31_tool
 					}
 				}
 				// -------------------------------------------------------------------------- //
-				// merge LaTeX output for autocorrelation test
+				// show case specific footer
 				// -------------------------------------------------------------------------- //
-				if (5 == j)
+				stsShowInfo = ais_31_lib::support::showTestSpecificFooter(ss, enm_test[j],
+					*pData);
+				if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
 				{
-					if (pData->isGeneratingReportInLaTeXformatRequested)
-					{
-					}
+					return  sts = stsShowInfo;
 				}
 				// -------------------------------------------------------------------------- //
-				// prepare projected $b_{j}$ for next set
+				// show test result
 				// -------------------------------------------------------------------------- //
-				if (s < 256)
+				stsShowInfo = ais_31_lib::support::showTestSpecificResult(ss, enm_test[j],
+					*pData);
+				if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
 				{
-					sts = ais_31_tool::performProjection(*pData, s + 1);
-					if (ns_consts::EnmReturnStatus::Success != sts)
-					{
-						std::cout << "The test was terminated due to an error in constructing $b_{j}$." << std::endl;
-						return  sts;
-					}
+					return  sts = stsShowInfo;
+				}
+				// -------------------------------------------------------------------------- //
+				// load input data from unprocessed data
+				// -------------------------------------------------------------------------- //
+				stsLoadSamples = loadSamplesForTest(*pData, i_refInfoReport, enm_test[j]);
+				if (ns_consts::EnmReturnStatus::Success != stsLoadSamples)
+				{
+					return  sts = stsLoadSamples;
 				}
 			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if (ns_consts::EnmPassFailResults::NotDetermined == pass_fail_result_over_multiple_sets)
-			{
-				pass_fail_result_over_multiple_sets = ns_consts::EnmPassFailResults::Pass;
-			}
-			// -------------------------------------------------------------------------- //
-			// write back
-			// -------------------------------------------------------------------------- //
-			*p_current_pass_fail = pass_fail_result_over_multiple_sets;
-			// -------------------------------------------------------------------------- //
-			// show case specific footer
-			// -------------------------------------------------------------------------- //
-			stsShowInfo = ais_31_lib::support::showTestSpecificFooter(ss, enm_test[j],
-				*pData);
-			if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
-			{
-				return  sts = stsShowInfo;
-			}
-			// -------------------------------------------------------------------------- //
-			// show test result
-			// -------------------------------------------------------------------------- //
-			stsShowInfo = ais_31_lib::support::showTestSpecificResult(ss, enm_test[j],
-				*pData);
-			if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
-			{
-				return  sts = stsShowInfo;
-			}
+		} while ((ns_consts::EnmPassFailResults::Fail == pass_fail_result_over_multiple_sets) && (s < max_iterations));
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		if (ns_consts::EnmPassFailResults::NotDetermined == pass_fail_result_over_multiple_sets)
+		{
+			pass_fail_result_over_multiple_sets = ns_consts::EnmPassFailResults::Pass;
 		}
 		// -------------------------------------------------------------------------- //
 		// 

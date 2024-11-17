@@ -42,14 +42,14 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	void showHeadSamplesTestT1(const ns_dt::t_data_for_v3& i_refData)
+	void showHeadSamplesTest(const ns_dt::t_data_for_v3& i_refData)
 	{
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		if (i_refData.areT1ThroughT4Selected)
 		{
-			const int total_length = i_refData.p_bzInputDataT1->length(blitz::firstDim);
+			const int total_length = i_refData.p_bzUnprocessedData->length(blitz::firstDim);
 			int num_bytes = 64;
 			if (total_length < 64)
 			{
@@ -59,7 +59,7 @@ namespace ais_31_tool
 			// 
 			// -------------------------------------------------------------------------- //
 			std::cout << "\n";
-			std::cout << "The following are the first " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T5 for confirmation:" << "\n";
+			std::cout << "The following are the first " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T4 for confirmation:" << "\n";
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -67,7 +67,7 @@ namespace ais_31_tool
 			const char chFillSaved = std::cout.fill('0');
 			for (int j = 0; j < num_bytes; ++j)
 			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT1)(j)) << ", ";
+				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzUnprocessedData)(j)) << ", ";
 				if ((j != 0) && (15 == j % 16))
 				{
 					std::cout << "\n";
@@ -92,14 +92,14 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	void showTailSamplesTestT1(const ns_dt::t_data_for_v3& i_refData)
+	void showTailSamplesTest(const ns_dt::t_data_for_v3& i_refData)
 	{
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		if (i_refData.areT1ThroughT4Selected)
 		{
-			const int total_length = i_refData.p_bzInputDataT1->length(blitz::firstDim);
+			const int total_length = i_refData.p_bzUnprocessedData->length(blitz::firstDim);
 			int offset = total_length;
 			int num_bytes = 64;
 			if (64 <= total_length)
@@ -115,7 +115,7 @@ namespace ais_31_tool
 			// 
 			// -------------------------------------------------------------------------- //
 			std::cout << "\n";
-			std::cout << "The following are the last " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T5 for confirmation:" << "\n";
+			std::cout << "The following are the last " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T4 for confirmation:" << "\n";
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -123,7 +123,7 @@ namespace ais_31_tool
 			const char chFillSaved = std::cout.fill('0');
 			for (int j = 0; j < num_bytes; ++j)
 			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT1)(offset + j)) << ", ";
+				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzUnprocessedData)(offset + j)) << ", ";
 				if ((j != 0) && (15 == j % 16))
 				{
 					std::cout << "\n";
@@ -270,16 +270,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1)
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if ((nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-			&& (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data))
+		if (nullptr == i_refInfoReport.info_source.p_path_to_input_data)
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
@@ -287,25 +278,11 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		bs_fs::path the_report_path;
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data)
-		{
-			sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data));
-		}
-		else if (nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-		{
-			sts = synthesizeReportPath(the_report_path, *(i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data));
-		}
-		else
-		{
-			sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data));
-		}
+		sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.p_path_to_input_data));
 		if (ns_consts::EnmReturnStatus::Success != sts)
 		{
 			return  sts;
 		}
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
 		boost::property_tree::wptree the_tree;
 		// -------------------------------------------------------------------------- //
 		// 
@@ -334,11 +311,11 @@ namespace ais_31_tool
 				failsafe_test_value = i_refData.t_testT2.test_value_T2;
 				break;
 			case 2:
-				p_pass_fail_result = &(i_refData.t_testT3.pass_fail_result);
+				p_pass_fail_result = &(i_refData.t_testT3.t_common.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT3.test_value_T3;
 				break;
 			case 3:
-				p_pass_fail_result = &(i_refData.t_testT4.pass_fail_result);
+				p_pass_fail_result = &(i_refData.t_testT4.t_common.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT4.test_value_T4;
 				break;
 			default:
@@ -367,105 +344,72 @@ namespace ais_31_tool
 		// <identification><sources>
 		// -------------------------------------------------------------------------- //
 		{
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
+			the_tree.add(L"entropy_report.identification.source.path", i_refInfoReport.info_source.p_path_to_input_data->wstring());
+
+			struct tm newtime;
+
+			if (errno_t err = localtime_s(&newtime, &(i_refInfoReport.info_source.tm_last_write_time)))
 			{
-				the_tree.add(L"conformance_report.identification.sources.source.path", i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data->wstring());
-
-				struct tm newtime;
-
-				errno_t err = localtime_s(&newtime, &(i_refInfoReport.info_source.info_input_data_testT0.tm_last_write_time));
-				if (err)
-				{
-					return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-				}
-
-				the_tree.add(L"conformance_report.identification.sources.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
-				the_tree.add(L"conformance_report.identification.sources.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
-				the_tree.add(L"conformance_report.identification.sources.source.description", std::wstring(L" "));
+				return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-				&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
-			{
 
-				BOOST_FOREACH(const InfoInputDataItem & input_item, *i_refInfoReport.info_source.p_info_input_data_items_testT1) {
-					if (nullptr != input_item.p_path_to_input_data)
-					{
-						the_tree.add(L"conformance_report.identification.sources.source.path", input_item.p_path_to_input_data->wstring());
-
-						struct tm newtime;
-
-						errno_t err = localtime_s(&newtime, &(input_item.tm_last_write_time));
-						if (err)
-						{
-							return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-						}
-
-						the_tree.add(L"conformance_report.identification.sources.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
-						the_tree.add(L"conformance_report.identification.sources.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
-						the_tree.add(L"conformance_report.identification.sources.source.description", std::wstring(L" "));
-					}
-				}
-			}
+			the_tree.add(L"entropy_report.identification.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
+			the_tree.add(L"entropy_report.identification.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
+			the_tree.add(L"entropy_report.identification.source.description", std::wstring(L" "));
 		}
 		// -------------------------------------------------------------------------- //
 		// <identification><analysis_tool>
 		// -------------------------------------------------------------------------- //
 		if (nullptr != i_refInfoReport.info_analysis_tool.p_analyzer_name)
 		{
-			the_tree.add(L"conformance_report.identification.analysis_tool.name", *i_refInfoReport.info_analysis_tool.p_analyzer_name);
+			the_tree.add(L"tirn_blackbox_test_report.identification.analysis_tool.name", *i_refInfoReport.info_analysis_tool.p_analyzer_name);
 		}
 		if (nullptr != i_refInfoReport.info_analysis_tool.p_analyzer_versioning)
 		{
-			the_tree.add(L"conformance_report.identification.analysis_tool.version", *i_refInfoReport.info_analysis_tool.p_analyzer_versioning);
+			the_tree.add(L"tirn_blackbox_test_report.identification.analysis_tool.version", *i_refInfoReport.info_analysis_tool.p_analyzer_versioning);
 		}
 		// -------------------------------------------------------------------------- //
 		// <identification><environment>
 		// -------------------------------------------------------------------------- //
 		if (nullptr != i_refInfoReport.info_env.p_hostname)
 		{
-			the_tree.add(L"conformance_report.identification.environment.hostname", *i_refInfoReport.info_env.p_hostname);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.hostname", *i_refInfoReport.info_env.p_hostname);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_cpuinfo)
 		{
-			the_tree.add(L"conformance_report.identification.environment.cpuinfo", *i_refInfoReport.info_env.p_cpuinfo);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.cpuinfo", *i_refInfoReport.info_env.p_cpuinfo);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_physicalmemory)
 		{
-			the_tree.add(L"conformance_report.identification.environment.physicalmemory", *i_refInfoReport.info_env.p_physicalmemory);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.physicalmemory", *i_refInfoReport.info_env.p_physicalmemory);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_osname)
 		{
-			the_tree.add(L"conformance_report.identification.environment.os_name", *i_refInfoReport.info_env.p_osname);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.os_name", *i_refInfoReport.info_env.p_osname);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_osversion)
 		{
-			the_tree.add(L"conformance_report.identification.environment.os_version", *i_refInfoReport.info_env.p_osversion);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.os_version", *i_refInfoReport.info_env.p_osversion);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_system_type)
 		{
-			the_tree.add(L"conformance_report.identification.environment.system_type", *i_refInfoReport.info_env.p_system_type);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.system_type", *i_refInfoReport.info_env.p_system_type);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_username)
 		{
-			the_tree.add(L"conformance_report.identification.environment.username", *i_refInfoReport.info_env.p_username);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.username", *i_refInfoReport.info_env.p_username);
 		}
 		// -------------------------------------------------------------------------- //
 		// <summary>
 		// -------------------------------------------------------------------------- //
 		{
-			the_tree.add(L"conformance_report.summary.result", getPassFail(global_pass_fail));
+			the_tree.add(L"tirn_blackbox_test_report.summary.result", getPassFail(global_pass_fail));
 		}
 		// -------------------------------------------------------------------------- //
 		// <results>
 		// -------------------------------------------------------------------------- //
 		BOOST_FOREACH(const TestResult & tr_entry, vec_tr) {
-			boost::property_tree::wptree& child = the_tree.add(L"conformance_report.results.test", getPassFail(tr_entry.pass_fail_result));
+			boost::property_tree::wptree& child = the_tree.add(L"tirn_blackbox_test_report.results.test", getPassFail(tr_entry.pass_fail_result));
 			child.put(L"<xmlattr>.test_method", getTestInfo(tr_entry.test_info));
 		}
 		// -------------------------------------------------------------------------- //
@@ -1277,9 +1221,9 @@ namespace ais_31_tool
 		constexpr ais_31_tool::constants::EnmHashAlgorithm  enmDefaultHashId = ais_31_tool::constants::EnmHashAlgorithm::ESHA_256;
 		std::string strHashOfAcquisitionData = std::string();
 
-		if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
+		if (nullptr != i_refInfoReport.info_source.p_path_to_input_data)
 		{
-			const InfoInputDataItem* pInfoInputDataItem = &i_refInfoReport.info_source.info_input_data_testT0;
+			const InfoInputDataItem* pInfoInputDataItem = &i_refInfoReport.info_source;
 
 			const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
 				*(pInfoInputDataItem->p_path_to_input_data),
@@ -1290,7 +1234,7 @@ namespace ais_31_tool
 				return  sts = stsCalcHash;
 			}
 
-			std::wstring    wstrTestSpecific = std::wstring(L"for Test T0");
+			std::wstring    wstrTestSpecific = std::wstring(L"for Tests T1 through T4");
 
 			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
 			if (ns_consts::EnmReturnStatus::Success != sts)
@@ -1298,32 +1242,6 @@ namespace ais_31_tool
 				return  sts;
 			}
 			++number_of_entry;
-		}
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-			&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
-		{
-			BOOST_FOREACH(const InfoInputDataItem & info_item, *(i_refInfoReport.info_source.p_info_input_data_items_testT1)) {
-				const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
-					*info_item.p_path_to_input_data,
-					enmDefaultHashId);
-
-				if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
-				{
-					return  sts = stsCalcHash;
-				}
-
-				std::wstring    wstrTestSpecific = std::wstring(L"for Test T1");
-
-				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
-				if (ns_consts::EnmReturnStatus::Success != sts)
-				{
-					return  sts;
-				}
-				++number_of_entry;
-			}
 		}
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1414,32 +1332,16 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1)
+		if (nullptr == i_refInfoReport.info_source.p_path_to_input_data)
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
-		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if ((nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-			&& (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data))
+		if (true == i_refInfoReport.info_source.p_path_to_input_data->empty())
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
 		bs_fs::path the_report_path_LaTeX;
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data)
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data);
-		}
-		else if (nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *(i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data));
-		}
-		else
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data);
-		}
+		sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.p_path_to_input_data);
 		if (ns_consts::EnmReturnStatus::Success != sts)
 		{
 			return  sts;

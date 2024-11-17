@@ -22,8 +22,8 @@ namespace ais_31_tool
 	namespace ns_dt = ais_31_lib::data_types;
 	namespace bs_fs = boost::filesystem;
 
-	void showHeadSamplesTestT1(const ns_dt::t_data_for_v3& i_refData);
-	void showTailSamplesTestT1(const ns_dt::t_data_for_v3& i_refData);
+	void showHeadSamplesTest(const ns_dt::t_data_for_v3& i_refData);
+	void showTailSamplesTest(const ns_dt::t_data_for_v3& i_refData);
 
 	ns_consts::EnmReturnStatus reportXML(const IDInfoForReport& i_refInfoReport,
 		const ns_dt::t_data_for_v3& i_refData);

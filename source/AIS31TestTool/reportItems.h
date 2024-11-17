@@ -25,12 +25,6 @@ namespace ais_31_tool
 		std::time_t		tm_last_write_time;
 	};
 
-	struct InfoInputData
-	{
-		InfoInputDataItem		info_input_data_testT0;
-		std::vector<InfoInputDataItem>* p_info_input_data_items_testT1;
-	};
-
 	struct InfoAnalysisTool
 	{
 		std::wstring* p_analyzer_name;
@@ -50,7 +44,7 @@ namespace ais_31_tool
 
 	struct IDInfoForReport
 	{
-		InfoInputData	info_source;
+		InfoInputDataItem	info_source;
 		InfoAnalysisTool	info_analysis_tool;
 		InfoEnv				info_env;
 	};

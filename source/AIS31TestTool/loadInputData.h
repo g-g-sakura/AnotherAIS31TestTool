@@ -25,7 +25,10 @@ namespace ais_31_tool
 
 	ns_consts::EnmReturnStatus loadSamples(ns_dt::t_data_for_v3& io_refData,
 		const IDInfoForReport& i_refInfoReport,
-		const bs_fs::path& i_refFullPath,
+		const bs_fs::path& i_refFullPath);
+
+	ns_consts::EnmReturnStatus loadSamplesForTest(ns_dt::t_data_for_v3& io_refData,
+		const IDInfoForReport& i_refInfoReport,
 		ns_consts::EnmAIS20AIS31V3Track i_enmTrack);
 
 	ns_consts::EnmReturnStatus performProjection(ns_dt::t_data_for_v3& io_refData, int indexWithZeroOffset);

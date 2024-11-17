@@ -53,6 +53,16 @@ namespace ais_31_lib
 			io_refData.p_bzSampleSpaceA = new blitz::Array<ns_dt::octet, 1>(256);
 			io_refData.t_testT1 = { 0, 0, {9654, 10346}, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			io_refData.t_testT2 = { 0, 1.03, 57.4, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT3 = { 0 };
+			io_refData.t_testT3.t_common.pass_fail_result = ns_consts::EnmPassFailResults::NotDetermined;
+			io_refData.t_testT3.D = 16;	// as per NIST SP 800-90B
+			io_refData.t_testT3.maxEntries = 100000;	// as per NIST SP 800-90B
+			io_refData.t_testT3.threshold = 0.95;	// as per AIS2031An_24
+			io_refData.t_testT4 = { 0 };
+			io_refData.t_testT4.t_common.pass_fail_result = ns_consts::EnmPassFailResults::NotDetermined;
+			io_refData.t_testT4.B = 16;	// as per NIST SP 800-90B
+			io_refData.t_testT4.maxDictionarySize = 65536;	// as per NIST SP 800-90B
+			io_refData.t_testT4.threshold = 0.95;	// as per AIS2031An_24
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //

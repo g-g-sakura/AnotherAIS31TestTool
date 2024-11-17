@@ -79,9 +79,6 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     bs_fs::path     the_report_path;
     bs_fs::path     the_path_input_data_testT0;
     bs_fs::path     the_path_input_data_testT1;
-    the_info_report.info_source.info_input_data_testT0.p_path_to_input_data = &the_path_input_data_testT0;
-    the_info_report.info_source.p_info_input_data_items_testT1 = new std::vector<ns_tool::InfoInputDataItem>;
-    the_info_report.info_source.p_info_input_data_items_testT1->emplace_back(ns_tool::InfoInputDataItem{nullptr, 0});
     // -------------------------------------------------------------------------- //
     // parse command line parameters
     // -------------------------------------------------------------------------- //
@@ -93,26 +90,20 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // show some samples from the head of file, for confirmation
     // -------------------------------------------------------------------------- //
-    ns_tool::showHeadSamplesTestT1(data);
+    ns_tool::showHeadSamplesTest(data);
     // -------------------------------------------------------------------------- //
     // show some samples from the tail of file, for confirmation
     // -------------------------------------------------------------------------- //
-    ns_tool::showTailSamplesTestT1(data);
+    ns_tool::showTailSamplesTest(data);
     // -------------------------------------------------------------------------- //
     // 
     // -------------------------------------------------------------------------- //
     std::wstringstream ssLaTeXFragmentBody = std::wstringstream();
     data.p_ssLaTeXFragment = &ssLaTeXFragmentBody;
     // -------------------------------------------------------------------------- //
-    // for Test T3
+    // perform tests
     // -------------------------------------------------------------------------- //
-    // -------------------------------------------------------------------------- //
-    // for Test T4
-    // -------------------------------------------------------------------------- //
-    // -------------------------------------------------------------------------- //
-    // 
-    // -------------------------------------------------------------------------- //
-    sts = ns_tool::performTests(data);
+    sts = ns_tool::performTests(data, the_info_report);
     if (ns_consts::EnmReturnStatus::Success != sts)
     {
         return  static_cast<int>(sts);
