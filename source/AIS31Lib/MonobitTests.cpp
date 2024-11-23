@@ -110,7 +110,27 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				std::wstring	strSubsubsectionTraceability = std::wstring();
 				std::wstring	strLabel = std::wstring(L"sec:TestT1-traceability");
-				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strLabel);
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					strLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
+					break;
+				default:
+					break;
+				}
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strTrailer, strLabel);
 				(*io_refData.p_ssLaTeXFragmentTestT1Body) << strSubsubsectionTraceability;
 				// -------------------------------------------------------------------------- //
 				//
@@ -120,7 +140,25 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{table}[h]" << L"\n";
-				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\caption{Supplemental information for traceability (Test T1)}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\caption{Supplemental information for traceability (Test T1) ";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"for the 1-st trial";
+					break;
+				case 2:
+					(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"for the 2-nd trial";
+					break;
+				default:
+					break;
+				}
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{center}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
 				// -------------------------------------------------------------------------- //

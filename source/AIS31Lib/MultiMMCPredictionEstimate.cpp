@@ -79,16 +79,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					std::wstring	strSubsection639 = std::wstring();
 					std::wstring	strSubsectionTitle639 = std::wstring(L"The MultiMMC Prediction Estimate (Test T3)");
-					std::wstring	strLabel = std::wstring();
-					switch (io_refData.bits_per_sample)
-					{
-					case 1:
-						strLabel = std::wstring(L"sec:Binary639");
-						break;
-					default:
-						strLabel = std::wstring(L"sec:NonBinary639");
-						break;
-					}
+					std::wstring	strLabel = std::wstring(L"sec:Binary639");
 					ns_spt::getLaTeXSubsection(strSubsection639, strSubsectionTitle639, strLabel);
 					// -------------------------------------------------------------------------- //
 					//
@@ -96,6 +87,33 @@ namespace ais_31_lib
 					(*io_refData.p_ssLaTeXFragmentTestT3Header) << strSubsection639;
 					(*io_refData.p_ssLaTeXFragmentTestT3Header) << L"\n";
 				}
+				// -------------------------------------------------------------------------- //
+				// prepend subsubsection 
+				// -------------------------------------------------------------------------- //
+				std::wstring	strSubsubsection639 = std::wstring();
+				std::wstring	strSubsubsectionTitle639 = std::wstring(L"Distribution of $correct$");
+				std::wstring	strSubsubLabel = std::wstring(L"sec:Binary639-distribution");
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					strSubsubLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strSubsubLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
+					break;
+				default:
+					break;
+				}
+				strSubsubsectionTitle639 += strTrailer;
+				ns_spt::getLaTeXSubsubsection(strSubsubsection639, strSubsubsectionTitle639, strSubsubLabel);
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << strSubsubsection639;
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -211,17 +229,28 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				std::wstring	strSubsubsectionTraceability = std::wstring();
-				std::wstring	strLabel = std::wstring();
-				switch (io_refData.bits_per_sample)
+				std::wstring	strLabel = std::wstring(L"sec:Binary639-traceability");
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
 				{
 				case 1:
-					strLabel = std::wstring(L"sec:Binary639-traceability");
+					strLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
 					break;
 				default:
-					strLabel = std::wstring(L"sec:NonBinary639-traceability");
 					break;
 				}
-				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strLabel);
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strTrailer, strLabel);
 				(*io_refData.p_ssLaTeXFragmentTestT3Body) << strSubsubsectionTraceability;
 				// -------------------------------------------------------------------------- //
 				//
@@ -231,7 +260,25 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{table}[h]" << L"\n";
-				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.9)}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.9)";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"for the 1-st trial";
+					break;
+				case 2:
+					(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"for the 2-nd trial";
+					break;
+				default:
+					break;
+				}
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{center}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
 				// -------------------------------------------------------------------------- //
@@ -263,6 +310,10 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT3Body) << L"\\clearpage" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -311,7 +362,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				const int		N = i_refData.p_bzInputDataT4->length(blitz::firstDim) - 2;
+				const int		N = i_refData.p_bzInputDataT3->length(blitz::firstDim) - 2;
 				o_ref_bz_correct.resize(N);
 				o_ref_bz_correct = 0;
 
@@ -400,7 +451,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 3. For i = 3 to L:
 				// -------------------------------------------------------------------------- //
-				for (int i = 3; i <= i_refData.p_bzInputDataT4->length(blitz::firstDim); ++i)
+				for (int i = 3; i <= i_refData.p_bzInputDataT3->length(blitz::firstDim); ++i)
 				{
 					// -------------------------------------------------------------------------- //
 					// a. For d = 1 to D
@@ -413,7 +464,7 @@ namespace ais_31_lib
 							// i. If (d < i - 1), 
 							// -------------------------------------------------------------------------- //
 							const blitz::Range	rg(i - d - 2, i - 3);
-							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT4))(rg);
+							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT3))(rg);
 
 							boost::dynamic_bitset<>		xExp(d * i_refData.bits_per_sample, 0);
 							const ns_consts::EnmReturnStatus	stsCnv = ns_spt::convertSeqSamplesToBitSet(xExp, bz_x);
@@ -421,7 +472,7 @@ namespace ais_31_lib
 							{
 								return sts = stsCnv;
 							}
-							const ns_dt::octet	oct_y = (*(i_refData.p_bzInputDataT4))(i - 2);
+							const ns_dt::octet	oct_y = (*(i_refData.p_bzInputDataT3))(i - 2);
 
 							// -------------------------------------------------------------------------- //
 							//   1. If [(s_{i - d - 1}, \ldots, s_{i - 2}), s_{i - 1}] is in M_{d}, 
@@ -461,7 +512,7 @@ namespace ais_31_lib
 							//    If all possible values of M_{d}[(s_{i-d}, \ldots, s_{i-1}), y] are 0, then let subpredict_{d} = Null.
 							// -------------------------------------------------------------------------- //
 							const blitz::Range	rg(i - d - 1, i - 2);
-							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT4))(rg);
+							blitz::Array<ns_dt::octet, 1>	bz_x = (*(i_refData.p_bzInputDataT3))(rg);
 
 							boost::dynamic_bitset<>		xExp(d * i_refData.bits_per_sample, 0);
 							const ns_consts::EnmReturnStatus	stsCnv = ns_spt::convertSeqSamplesToBitSet(xExp, bz_x);
@@ -493,7 +544,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					if (false == prediction.bIsValueNull)
 					{
-						if (prediction.value == (*(i_refData.p_bzInputDataT4))(i - 1))
+						if (prediction.value == (*(i_refData.p_bzInputDataT3))(i - 1))
 						{
 							io_ref_bz_correct(i - 3) = 1;
 						}
@@ -509,7 +560,7 @@ namespace ais_31_lib
 						// -------------------------------------------------------------------------- //
 						if (false == o_ref_bz_subpredict(d - 1).bIsValueNull)
 						{
-							if (o_ref_bz_subpredict(d - 1).value == (*(i_refData.p_bzInputDataT4))(i - 1))
+							if (o_ref_bz_subpredict(d - 1).value == (*(i_refData.p_bzInputDataT3))(i - 1))
 							{
 								// -------------------------------------------------------------------------- //
 								// 1. Let scoreboard_{d} = scoreboard_{d} + 1
@@ -820,7 +871,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				int		N = io_refData.p_bzInputDataT4->length(blitz::firstDim) - 2;
+				int		N = io_refData.p_bzInputDataT3->length(blitz::firstDim) - 2;
 				blitz::Array<ns_dt::octet, 1>	bz_correct(N);
 				bz_correct = 0;
 

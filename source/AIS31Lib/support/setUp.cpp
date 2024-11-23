@@ -75,6 +75,15 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
+			io_refData.test_result_summary.overall_test_result = ns_consts::EnmPassFailResults::NotDetermined;
+			for (int i = 0; i < 2; ++i)
+				for (int j = 0; j < 4; ++j)
+				{
+					io_refData.test_result_summary.pass_fail_results[i][j] = ns_consts::EnmPassFailResults::NotDetermined;
+				}
+			// -------------------------------------------------------------------------- //
+			//
+			// -------------------------------------------------------------------------- //
 			return sts = ns_consts::EnmReturnStatus::Success;
 		}
 

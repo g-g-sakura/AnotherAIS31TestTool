@@ -1150,7 +1150,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} is applied." << L"\n";
+		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} with corrections \\cite{CorrectionsSP80090B} is applied." << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1202,7 +1202,7 @@ namespace ais_31_tool
 		o_refLaTeXAppendix << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
 		o_refLaTeXAppendix << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.7cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
 		o_refLaTeXAppendix << L"\\caption{Identification information of input data} \\\\" << L"\n";
-		o_refLaTeXAppendix << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & Value \\\\ \\hline \\hline " << L"\n";
+		o_refLaTeXAppendix << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & {\\cellcolor{anotherlightblue}Value} \\\\ \\hline \\hline " << L"\n";
 		o_refLaTeXAppendix << L"\\endfirsthead " << L"\n";
 		o_refLaTeXAppendix << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
 		o_refLaTeXAppendix << L"\\endhead " << L"\n";
@@ -1356,39 +1356,88 @@ namespace ais_31_tool
 		ssLaTeXSummary << L"\\begin{table}[h]" << L"\n";
 		ssLaTeXSummary << L"\\caption{Test results}" << L"\n";
 		ssLaTeXSummary << L"\\begin{center}" << L"\n";
-		ssLaTeXSummary << L"\\begin{tabular}{|l|c|c|}" << L"\n";
+		ssLaTeXSummary << L"\\begin{tabular}{|l|c|c|c|c|}" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		ssLaTeXSummary << L"\\rowcolor{anotherlightblue} %%" << L"\n";
-		ssLaTeXSummary << L"Tests							& Pass / Fail & Notes 	\\\\ " << L"\n";
+		ssLaTeXSummary << L"& \\multicolumn{2}{c|}{1-st trial} & \\multicolumn{2}{c|}{2-nd trial} \\\\" << L"\n";
+		ssLaTeXSummary << L"\\cline{2-5}" << L"\n";
+		ssLaTeXSummary << L"\\rowcolor{anotherlightblue} %%" << L"\n";
+		ssLaTeXSummary << L"Tests							& Pass / Fail & Notes & Pass / Fail & Notes	\\\\ " << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T1 (monobit test)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT1.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][0]);
+		ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2){
+			ssLaTeXSummary << L"N/A";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][0]);
+			ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability-2ndTrial} " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T2 (poker test)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT2.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][1]);
+		ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][1]);
+			ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability-2ndTrial}  " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T3 (MultiMMC Prediction Estimate)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT3.t_common.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:Binary639}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][2]);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary639-distribution-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][2]);
+			ssLaTeXSummary << L" & see \\ref{sec:Binary639-distribution-2ndTrial} " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T4 (LZ78Y Prediction Estimate)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT4.t_common.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:Binary6310}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][3]);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary6310-distribution-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][3]);
+			ssLaTeXSummary << L" & see \\ref{sec:Binary6310-distribution-2ndTrial}  " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
+		ssLaTeXSummary << L"\\hline " << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		ssLaTeXSummary << L"Overall test result			&  \\multicolumn{4}{c|}{";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.overall_test_result);
+		ssLaTeXSummary << L"} \\\\" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //

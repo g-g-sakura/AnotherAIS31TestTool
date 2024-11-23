@@ -79,16 +79,7 @@ namespace ais_31_lib
 					// -------------------------------------------------------------------------- //
 					std::wstring	strSubsection6310 = std::wstring();
 					std::wstring	strSubsectionTitle6310 = std::wstring(L"The LZ78Y Prediction Estimate (Test T4)");
-					std::wstring	strLabel = std::wstring();
-					switch (io_refData.bits_per_sample)
-					{
-					case 1:
-						strLabel = std::wstring(L"sec:Binary6310");
-						break;
-					default:
-						strLabel = std::wstring(L"sec:NonBinary6310");
-						break;
-					}
+					std::wstring	strLabel = std::wstring(L"sec:Binary6310");
 					ns_spt::getLaTeXSubsection(strSubsection6310, strSubsectionTitle6310, strLabel);
 					// -------------------------------------------------------------------------- //
 					//
@@ -96,6 +87,33 @@ namespace ais_31_lib
 					(*io_refData.p_ssLaTeXFragmentTestT4Header) << strSubsection6310;
 					(*io_refData.p_ssLaTeXFragmentTestT4Header) << L"\n";
 				}
+				// -------------------------------------------------------------------------- //
+				// prepend subsubsection 
+				// -------------------------------------------------------------------------- //
+				std::wstring	strSubsubsection6310 = std::wstring();
+				std::wstring	strSubsubsectionTitle6310 = std::wstring(L"Distribution of $correct$");
+				std::wstring	strSubsubLabel = std::wstring(L"sec:Binary6310-distribution");
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					strSubsubLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strSubsubLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
+					break;
+				default:
+					break;
+				}
+				strSubsubsectionTitle6310 += strTrailer;
+				ns_spt::getLaTeXSubsubsection(strSubsubsection6310, strSubsubsectionTitle6310, strSubsubLabel);
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT4Body) << strSubsubsection6310;
+				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -211,17 +229,28 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				std::wstring	strSubsubsectionTraceability = std::wstring();
-				std::wstring	strLabel = std::wstring();
-				switch (io_refData.bits_per_sample)
+				std::wstring	strLabel = std::wstring(L"sec:Binary6310-traceability");
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
 				{
 				case 1:
-					strLabel = std::wstring(L"sec:Binary6310-traceability");
+					strLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
 					break;
 				default:
-					strLabel = std::wstring(L"sec:NonBinary6310-traceability");
 					break;
 				}
-				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strLabel);
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strTrailer, strLabel);
 				(*io_refData.p_ssLaTeXFragmentTestT4Body) << strSubsubsectionTraceability;
 				// -------------------------------------------------------------------------- //
 				//
@@ -231,7 +260,25 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\begin{table}[h]" << L"\n";
-				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.10)}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\caption{Supplemental information for traceability (NIST SP 800-90B Section 6.3.10)";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				switch (io_refData.current_number_of_round_in_trials)
+				{
+				case 1:
+					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"for the 1-st trial";
+					break;
+				case 2:
+					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"for the 2-nd trial";
+					break;
+				default:
+					break;
+				}
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\begin{center}" << L"\n";
 				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
 				// -------------------------------------------------------------------------- //
@@ -263,6 +310,10 @@ namespace ais_31_lib
 				//
 				// -------------------------------------------------------------------------- //
 				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"\\clearpage" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //

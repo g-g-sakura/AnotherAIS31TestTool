@@ -29,6 +29,7 @@ namespace ais_31_lib
 			const std::wstring& i_refSubsubsectionTitle,
 			const std::wstring& i_refLabel);
 		ns_consts::EnmReturnStatus getLaTeXSubsubsectionTraceability(std::wstring& o_refSubsubsection,
+			const std::wstring& i_refTrailing,
 			const std::wstring& i_refLabel);
 	}
 }

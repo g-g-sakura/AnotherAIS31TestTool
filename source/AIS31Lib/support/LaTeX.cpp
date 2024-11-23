@@ -235,9 +235,11 @@ namespace ais_31_lib
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
 		ns_consts::EnmReturnStatus getLaTeXSubsubsectionTraceability(std::wstring& o_refSubsubsection,
+			const std::wstring& i_refTrailing,
 			const std::wstring& i_refLabel)
 		{
 			std::wstring	strSubsubsectionTitle = std::wstring(L"Supplemental information for traceability");
+			strSubsubsectionTitle += i_refTrailing;
 			return getLaTeXSubsubsection(o_refSubsubsection, strSubsubsectionTitle, i_refLabel);
 		}
 
