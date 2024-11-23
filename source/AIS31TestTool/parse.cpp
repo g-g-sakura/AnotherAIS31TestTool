@@ -40,7 +40,7 @@ namespace ais_31_tool
             int     vl = 1;
             bs_po::options_description desc("Allowed options");
             desc.add_options()
-                ("help,h", "Usage is : ea_non_iid [-i|-c][-a|-t][-v][-l <index>, <samples>] -f <file_name>[-w] [-x]")
+                ("help,h", "Usage is : AIS31TestTool --inputT0 <file_name_for_test_T0> --inputT1 <initial_file_name_for_tests_T1_through_T5> [-w <bits per sample>] [-x]")
                 ("inputT0", bs_po::wvalue<std::wstring>(), "Must be relative path to a binary file for input data for test T0.")
                 ("inputT1", bs_po::wvalue<std::wstring>(), "Must be relative path to a binary file for input data for test T1 through T5.")
                 ("bits_per_sample,w", bs_po::value<int>(&bits_per_sample)->default_value(8), "Must be between 1-8, inclusive. By default this value is 8.")
