@@ -11,7 +11,7 @@ debugging
 .\AIS31TestTool.exe --input <file name for tests through T4> [-w <number of bits per sample>] [-x] [--MSb|--LSb]
 ```
 
-- ```--input``` specifies the file name of the input data.  The file path must be relative path to a binary file with at least 4,080,000 bits. [A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3).
+- ```--input``` specifies the file name of the input data.  The file path must be relative path to a binary file with at least 4,080,000 bits. In order to support max 2 trials, the value is twice the specified value by [A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3).
 - ```-w``` specifies the number of bits per sample.  This shall be between 1-8, inclusive.  By default, this value is 8.
 - ```-x``` requests to generate a XeLaTeX source file of entropy estimation report, in the same folder as the specified acquisition data (see ```--input```).
 - ```--MSb``` specifies the conversion from sample to bitstring in Most Significant bit first (**default**). 
