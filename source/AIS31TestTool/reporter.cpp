@@ -1372,6 +1372,7 @@ namespace ais_31_tool
 		ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability-1stTrial} & ";
 		if (io_refData.current_number_of_round_in_trials < 2){
 			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
 		}
 		else
 		{

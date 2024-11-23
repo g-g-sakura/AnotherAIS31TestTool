@@ -100,9 +100,13 @@ namespace ais_31_tool
 					return sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
 				// -------------------------------------------------------------------------- //
-				// 
+				// load input data from unprocessed data
 				// -------------------------------------------------------------------------- //
-				ns_consts::EnmReturnStatus stsLoadSamples;
+				ns_consts::EnmReturnStatus	stsLoadSamples = loadSamplesForTest(*pData, i_refInfoReport, enm_test[j]);
+				if (ns_consts::EnmReturnStatus::Success != stsLoadSamples)
+				{
+					return  sts = stsLoadSamples;
+				}
 				// -------------------------------------------------------------------------- //
 				// show case specific header
 				// -------------------------------------------------------------------------- //
@@ -192,26 +196,6 @@ namespace ais_31_tool
 				if (ns_consts::EnmReturnStatus::Success != stsShowInfo)
 				{
 					return  sts = stsShowInfo;
-				}
-				// -------------------------------------------------------------------------- //
-				// load input data from unprocessed data
-				// -------------------------------------------------------------------------- //
-				ns_consts::EnmAIS20AIS31V3Track   next_test = ns_consts::EnmAIS20AIS31V3Track::TestT1;
-				if (j < 3)
-				{
-					next_test = enm_test[j + 1];
-				}
-				else
-				{
-					next_test = ns_consts::EnmAIS20AIS31V3Track::TestT1;
-				}
-				if (!((max_iterations == s) && (3 == j)))
-				{
-					stsLoadSamples = loadSamplesForTest(*pData, i_refInfoReport, next_test);
-					if (ns_consts::EnmReturnStatus::Success != stsLoadSamples)
-					{
-						return  sts = stsLoadSamples;
-					}
 				}
 			}
 			// -------------------------------------------------------------------------- //
