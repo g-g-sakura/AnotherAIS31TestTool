@@ -18,7 +18,7 @@ debugging
 - ```--LSb``` specifies the conversion from sample to bitstring in Least Significant bit first.
 
 # Examples of test results
-[test_report_v3_sample_input_data_for_T1-T4.pdf](https://github.com/g-g-sakura/AnotherAIS31TestTool/blob/main/tool_validation_evidence/test_report_v3_sample_input_data_for_T1-T4.pdf)
+[test_report_v3_sample_input_data_for_T1-T4.pdf](https://github.com/g-g-sakura/AnotherAIS31TestTool/blob/AIS20_31_Version3_2024/tool_validation_evidence/test_report_v3_sample_input_data_for_T1-T4.pdf)
 
 # System equirements for runtime environment
 - OS : Windows 10 or newer with 64-bit
