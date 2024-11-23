@@ -1,27 +1,24 @@
 # AnotherAIS31TestTool
-This tool provides tests specified by [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
-
-## ToDo
-[A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3) is posted on BSI Web site. The implementing statistical tests are ongoing.
-Implementation of some statistical tests will be using that in [AnotherEntropyEstimationTool](https://github.com/g-g-sakura/AnotherEntropyEstimationTool).
+This tool provides tests specified by [A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3).
+### To do
+debugging
 
 # Features
 - Automatic report generation with graphs
   - Supports report generation capability, in XeLaTeX source file (see ```-x``` option), where relevant intermediate results are also contained to gain confidence and support characterization of input data (or of entropy source).
 # Usage
 ```
-.\AIS31TestTool.exe --inputT0 <file name for test T0> --inputT1 <initial file name for tests T1 through T5> [-w] [-x] [--MSb|--LSb]
+.\AIS31TestTool.exe --input <file name for tests through T4> [-w <number of bits per sample>] [-x] [--MSb|--LSb]
 ```
 
-- ```--inputT0``` specifies the file name of the input data.  The file path must be relative path to a binary file with at least 3145728 bits as per [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
-- ```--inputT1``` specifies the initial file name of the input data of 257 sets for tests T1 through T5.  The file name must contain at least 3 digits which identifies the index of 257 sets, at the end.  The file path must be relative path to a binary file with at least 20000 bits as per [BSI AIS 20 / AIS 31](https://www.bsi.bund.de/dok/ais-20-31-appx-2011).
+- ```--input``` specifies the file name of the input data.  The file path must be relative path to a binary file with at least 4,080,000 bits. [A Proposal for Functionality Classes for Random Number Generators - Version 3.0](https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3).
 - ```-w``` specifies the number of bits per sample.  This shall be between 1-8, inclusive.  By default, this value is 8.
-- ```-x``` requests to generate a XeLaTeX source file of entropy estimation report, in the same folder as the specified acquisition data (see ```--inputT0``` or ```--inputT1```).
+- ```-x``` requests to generate a XeLaTeX source file of entropy estimation report, in the same folder as the specified acquisition data (see ```--input```).
 - ```--MSb``` specifies the conversion from sample to bitstring in Most Significant bit first (**default**). 
 - ```--LSb``` specifies the conversion from sample to bitstring in Least Significant bit first.
 
 # Examples of test results
-[test_report_sample_input_data_8-bit.pdf](https://github.com/g-g-sakura/AnotherAIS31TestTool/blob/main/tool_validation_evidence/test_report_sample_input_data_8-bit.pdf)
+[test_report_v3_sample_input_data_for_T1-T4.pdf](https://github.com/g-g-sakura/AnotherAIS31TestTool/blob/main/tool_validation_evidence/test_report_v3_sample_input_data_for_T1-T4.pdf)
 
 # System equirements for runtime environment
 - OS : Windows 10 or newer with 64-bit
