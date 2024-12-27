@@ -19,7 +19,7 @@ namespace bs_po = boost::program_options;
 
 namespace ais_31_tool
 {
-    ns_consts::EnmReturnStatus parse(ns_dt::t_data_for_v2& io_refData,
+    ns_consts::EnmReturnStatus parse(ns_dt::t_data_for_v3& io_refData,
         IDInfoForReport& i_refInfoReport,
         int ac, wchar_t* av[], wchar_t* envp[])
     {
@@ -31,6 +31,11 @@ namespace ais_31_tool
         //
         // -------------------------------------------------------------------------- //
         constexpr  boost::uintmax_t file_size_limit = 32 * 1024 * 1024;
+        // -------------------------------------------------------------------------- //
+        //
+        // -------------------------------------------------------------------------- //
+        constexpr   uintmax_t   minimum_data_size = 2040000;
+        constexpr   uintmax_t   sufficient_data_size = 2 * minimum_data_size;
 
         setlocale(LC_ALL, "");
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -40,9 +45,8 @@ namespace ais_31_tool
             int     vl = 1;
             bs_po::options_description desc("Allowed options");
             desc.add_options()
-                ("help,h", "Usage is : ea_non_iid [-i|-c][-a|-t][-v][-l <index>, <samples>] -f <file_name>[-w] [-x]")
-                ("inputT0", bs_po::wvalue<std::wstring>(), "Must be relative path to a binary file for input data for test T0.")
-                ("inputT1", bs_po::wvalue<std::wstring>(), "Must be relative path to a binary file for input data for test T1 through T5.")
+                ("help,h", "Usage is : AIS31TestTool --input <file_name> [-w] [-x] [-v]")
+                ("input", bs_po::wvalue<std::wstring>(), "Must be relative path to a binary file for input data for tests T1 through T4.")
                 ("bits_per_sample,w", bs_po::value<int>(&bits_per_sample)->default_value(8), "Must be between 1-8, inclusive. By default this value is 8.")
                 ("MSb", "    Byte to bitstring conversion is performed by assuming Most Significant bit (MSb) first (default).")
                 ("LSb", "    Byte to bitstring conversion is performed by assuming Least Significant bit (LSb) first.")
@@ -87,19 +91,22 @@ namespace ais_31_tool
             // 
             // 
             // -------------------------------------------------------------------------- //
-            if ((po_vm.count("inputT0") == 0) && (po_vm.count("inputT1") == 0)) {
+            if (po_vm.count("input") == 0) {
                 std::cout << "# [INFO]: No file is specified to process." << "\n";
                 std::cout << "# [INFO]: Terminates conformance test..." << "\n";
                 ais_31_lib::support::tearDown(io_refData);
                 return  sts = ns_consts::EnmReturnStatus::ErrorNoTask;
             }
-            if (po_vm.count("inputT0")) {
-                const bs_fs::path file_path_testT0 = po_vm["inputT0"].as<std::wstring>(); // <<<
+            // -------------------------------------------------------------------------- //
+            // load initial input data file for T1 through T4
+            // -------------------------------------------------------------------------- //
+            if (po_vm.count("input")) {
+                const bs_fs::path file_path_input_data = po_vm["input"].as<std::wstring>(); // <<<
                 std::wcout << L"# [INFO]: Opening file:\t";
-                std::wcout << file_path_testT0 << L"\n";
+                std::wcout << file_path_input_data << L"\n";
 
                 boost::system::error_code error;
-                const bool result = bs_fs::exists(file_path_testT0, error);
+                const bool result = bs_fs::exists(file_path_input_data, error);
                 if (!result || error) {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
                     std::cout << "# [ERROR]: Specified file was not found." << "\n";
@@ -114,107 +121,18 @@ namespace ais_31_tool
                 // -------------------------------------------------------------------------- //
                 // full path
                 // -------------------------------------------------------------------------- //
-                const bs_fs::path full_path_testT0 = bs_fs::system_complete(file_path_testT0);
+                const bs_fs::path full_path_input_data = bs_fs::system_complete(file_path_input_data);
                 // -------------------------------------------------------------------------- //
                 // get path for future use
                 // -------------------------------------------------------------------------- //
-                if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data) {
-                    *i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data = full_path_testT0;
+                if (nullptr != i_refInfoReport.info_source.p_path_to_input_data) {
+                    *i_refInfoReport.info_source.p_path_to_input_data = full_path_input_data;
                 }
-                i_refInfoReport.info_source.info_input_data_testT0.tm_last_write_time = bs_fs::last_write_time(full_path_testT0);
+                i_refInfoReport.info_source.tm_last_write_time = bs_fs::last_write_time(full_path_input_data);
                 // -------------------------------------------------------------------------- //
                 //
                 // -------------------------------------------------------------------------- //
-                const boost::uintmax_t size = bs_fs::file_size(file_path_testT0);
-
-                std::cout << "# [INFO]: Its file size: " << size << "-byte" << "\n";
-                if (file_size_limit < size)
-                {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Huge file is specified, so the estimation is stopped." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts;
-                }
-
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                sts = ais_31_tool::loadSamples(io_refData, i_refInfoReport, file_path_testT0, ns_consts::EnmAIS20AIS31V2Track::TestT0);
-                if (ns_consts::EnmReturnStatus::Success != sts)
-                {
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts;
-                }
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                io_refData.bits_per_sample = bits_per_sample;
-                // -------------------------------------------------------------------------- //
-                // test T0 is selected
-                // -------------------------------------------------------------------------- //
-                io_refData.isT0Selected = true;
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                if (io_refData.p_bzInputDataT0->size() < 65536 * 6)
-                {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-                    std::cout << "# [WARNING]: data contains less than 65,536 samples." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                }
-                // -------------------------------------------------------------------------- //
-                // 
-                // check pre-conditions for L
-                // -------------------------------------------------------------------------- //
-                if ((io_refData.p_bzInputDataT0->size() * bits_per_sample) < 65536 * 48)
-                {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T0." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts = ns_consts::EnmReturnStatus::ErrorPreconditions;
-                }
-            }
-            // -------------------------------------------------------------------------- //
-            // load initial input data file for T1 through T5
-            // -------------------------------------------------------------------------- //
-            if (po_vm.count("inputT1")) {
-                const bs_fs::path file_path_testT1 = po_vm["inputT1"].as<std::wstring>(); // <<<
-                std::wcout << L"# [INFO]: Opening file:\t";
-                std::wcout << file_path_testT1 << L"\n";
-
-                boost::system::error_code error;
-                const bool result = bs_fs::exists(file_path_testT1, error);
-                if (!result || error) {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: Specified file was not found." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts;
-                }
-                else {
-                    std::cout << "# [INFO]: Specified file was found." << "\n";
-                }
-                // -------------------------------------------------------------------------- //
-                // full path
-                // -------------------------------------------------------------------------- //
-                const bs_fs::path full_path_testT1 = bs_fs::system_complete(file_path_testT1);
-                // -------------------------------------------------------------------------- //
-                // get path for future use
-                // -------------------------------------------------------------------------- //
-                if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-                    && (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())) {
-                    i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data = new bs_fs::path(full_path_testT1);
-                }
-                i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).tm_last_write_time = bs_fs::last_write_time(full_path_testT1);
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                const boost::uintmax_t size = bs_fs::file_size(file_path_testT1);
+                const boost::uintmax_t size = bs_fs::file_size(file_path_input_data);
 
                 std::cout << "# [INFO]: Its file size: " << size << "-byte" << "\n";
                 if (file_size_limit < size)
@@ -227,71 +145,39 @@ namespace ais_31_tool
                     return  sts;
                 }
                 // -------------------------------------------------------------------------- //
-                // obtain offset in input data files index
-                // -------------------------------------------------------------------------- //
-                unsigned long       offset;
-                size_t              digitsOfOffset = 3;
-                ns_consts::EnmReturnStatus	stsGetFirstIndex = getFirstIndex(offset, digitsOfOffset, file_path_testT1);
-                if (ns_consts::EnmReturnStatus::Success != stsGetFirstIndex)
-                {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: More than or equal to 3-digit number is not appended at the file name of the input data file." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts = stsGetFirstIndex;
-                }
-                else
-                {
-                    io_refData.offsetOfInputDataFilesIndex = offset;
-                    io_refData.numberOfDigitsOfOffset = digitsOfOffset;
-                }
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                sts = ais_31_tool::loadSamples(io_refData, i_refInfoReport, full_path_testT1, ns_consts::EnmAIS20AIS31V2Track::TestT1);
-                if (ns_consts::EnmReturnStatus::Success != sts)
-                {
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts;
-                }
-                // -------------------------------------------------------------------------- //
-                //
-                // -------------------------------------------------------------------------- //
-                sts = ais_31_tool::performProjection(io_refData, 0);
-                if (ns_consts::EnmReturnStatus::Success != sts)
-                {
-                    ais_31_lib::support::tearDown(io_refData);
-                    return  sts;
-                }
-                // -------------------------------------------------------------------------- //
                 //
                 // -------------------------------------------------------------------------- //
                 io_refData.bits_per_sample = bits_per_sample;
                 // -------------------------------------------------------------------------- //
-                // test T1 through T5 are selected
-                // -------------------------------------------------------------------------- //
-                io_refData.areT1ThroughT5Selected = true;
-                // -------------------------------------------------------------------------- //
                 //
                 // -------------------------------------------------------------------------- //
-                if (io_refData.p_bzInputDataT1->size() < 20000 / 8)
+                sts = ais_31_tool::loadSamples(io_refData, i_refInfoReport, full_path_input_data);
+                if (ns_consts::EnmReturnStatus::Success != sts)
                 {
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
-                    std::cout << "# [WARNING]: data contains less than 20,000 samples." << "\n";
-                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                    ais_31_lib::support::tearDown(io_refData);
+                    return  sts;
                 }
                 // -------------------------------------------------------------------------- //
                 // 
                 // check pre-conditions for L
                 // -------------------------------------------------------------------------- //
-                if ((io_refData.p_bzInputDataT1->size() * bits_per_sample) < 20000)
+                if (io_refData.p_bzUnprocessedData->size() < minimum_data_size)
                 {
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
-                    std::cout << "# [ERROR]: The number of samples does not meet one of pre-conditions for Test T1." << "\n";
+                    std::cout << "# [ERROR]: The input data contains less than " << minimum_data_size << " bits." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                     ais_31_lib::support::tearDown(io_refData);
                     return  sts = ns_consts::EnmReturnStatus::ErrorPreconditions;
+                }
+                // -------------------------------------------------------------------------- //
+                //
+                // -------------------------------------------------------------------------- //
+                if (io_refData.p_bzUnprocessedData->size() < sufficient_data_size)
+                {
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN);
+                    std::cout << "# [WARNING]: The input data contains less than " << sufficient_data_size << " bits." << "\n";
+                    std::cout << "# [WARNING]: If any individual test is failed, then Tirn black box test suite is failed due to insufficient data." << "\n";
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
                 }
             }
             // -------------------------------------------------------------------------- //

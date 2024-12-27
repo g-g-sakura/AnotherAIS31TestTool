@@ -23,7 +23,7 @@ namespace ais_31_tool
 
 	namespace bs_fs = boost::filesystem;
 
-	ns_consts::EnmReturnStatus parse(ns_dt::t_data_for_v2& io_refData,
+	ns_consts::EnmReturnStatus parse(ns_dt::t_data_for_v3& io_refData,
 		IDInfoForReport& i_refInfoReport,
 		int ac, wchar_t* av[], wchar_t* envp[]);
 }

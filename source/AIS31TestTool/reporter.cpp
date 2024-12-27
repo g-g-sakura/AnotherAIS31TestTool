@@ -42,14 +42,14 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	void showHeadSamplesTestT0(const ns_dt::t_data_for_v2& i_refData)
+	void showHeadSamplesTest(const ns_dt::t_data_for_v3& i_refData)
 	{
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (i_refData.isT0Selected)
+		if (i_refData.areT1ThroughT4Selected)
 		{
-			const int total_length = i_refData.p_bzInputDataT0->length(blitz::firstDim);
+			const int total_length = i_refData.p_bzUnprocessedData->length(blitz::firstDim);
 			int num_bytes = 64;
 			if (total_length < 64)
 			{
@@ -59,7 +59,7 @@ namespace ais_31_tool
 			// 
 			// -------------------------------------------------------------------------- //
 			std::cout << "\n";
-			std::cout << "The following are the first " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Test T0 for confirmation:" << "\n";
+			std::cout << "The following are the first " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T4 for confirmation:" << "\n";
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -67,56 +67,7 @@ namespace ais_31_tool
 			const char chFillSaved = std::cout.fill('0');
 			for (int j = 0; j < num_bytes; ++j)
 			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT0)(j)) << ", ";
-				if ((j != 0) && (15 == j % 16))
-				{
-					std::cout << "\n";
-				}
-			}
-			std::cout.fill(chFillSaved);
-			std::cout.setf(std::ios::dec, std::ios::basefield);
-		}
-	}
-	// -------------------------------------------------------------------------- //
-	/// <summary>
-	/// </summary>
-	/// <remarks>
-	/// </remarks>
-	/// <param name="i_refData">
-	/// </param>
-	/// <returns>
-	/// </returns>
-	/// <precondition>
-	/// </precondition>
-	/// <postcondition>
-	/// </postcondition>
-	// -------------------------------------------------------------------------- //
-	void showHeadSamplesTestT1(const ns_dt::t_data_for_v2& i_refData)
-	{
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		if (i_refData.areT1ThroughT5Selected)
-		{
-			const int total_length = i_refData.p_bzInputDataT1->length(blitz::firstDim);
-			int num_bytes = 64;
-			if (total_length < 64)
-			{
-				num_bytes = total_length;
-			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			std::cout << "\n";
-			std::cout << "The following are the first " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T5 for confirmation:" << "\n";
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			std::cout.setf(std::ios::hex, std::ios::basefield);
-			const char chFillSaved = std::cout.fill('0');
-			for (int j = 0; j < num_bytes; ++j)
-			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT1)(j)) << ", ";
+				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzUnprocessedData)(j)) << ", ";
 				if ((j != 0) && (15 == j % 16))
 				{
 					std::cout << "\n";
@@ -141,14 +92,14 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	void showTailSamplesTestT0(const ns_dt::t_data_for_v2& i_refData)
+	void showTailSamplesTest(const ns_dt::t_data_for_v3& i_refData)
 	{
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (i_refData.isT0Selected)
+		if (i_refData.areT1ThroughT4Selected)
 		{
-			const int total_length = i_refData.p_bzInputDataT0->length(blitz::firstDim);
+			const int total_length = i_refData.p_bzUnprocessedData->length(blitz::firstDim);
 			int offset = total_length;
 			int num_bytes = 64;
 			if (64 <= total_length)
@@ -164,7 +115,7 @@ namespace ais_31_tool
 			// 
 			// -------------------------------------------------------------------------- //
 			std::cout << "\n";
-			std::cout << "The following are the last " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Test T0 for confirmation:" << "\n";
+			std::cout << "The following are the last " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T4 for confirmation:" << "\n";
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -172,62 +123,7 @@ namespace ais_31_tool
 			const char chFillSaved = std::cout.fill('0');
 			for (int j = 0; j < num_bytes; ++j)
 			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT0)(offset + j)) << ", ";
-				if ((j != 0) && (15 == j % 16))
-				{
-					std::cout << "\n";
-				}
-			}
-			std::cout.fill(chFillSaved);
-			std::cout.setf(std::ios::dec, std::ios::basefield);
-		}
-	}
-	// -------------------------------------------------------------------------- //
-	/// <summary>
-	/// </summary>
-	/// <remarks>
-	/// </remarks>
-	/// <param name="i_refData">
-	/// </param>
-	/// <returns>
-	/// </returns>
-	/// <precondition>
-	/// </precondition>
-	/// <postcondition>
-	/// </postcondition>
-	// -------------------------------------------------------------------------- //
-	void showTailSamplesTestT1(const ns_dt::t_data_for_v2& i_refData)
-	{
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		if (i_refData.areT1ThroughT5Selected)
-		{
-			const int total_length = i_refData.p_bzInputDataT1->length(blitz::firstDim);
-			int offset = total_length;
-			int num_bytes = 64;
-			if (64 <= total_length)
-			{
-				offset = total_length - 64;
-			}
-			else
-			{
-				offset = 0;
-				num_bytes = total_length;
-			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			std::cout << "\n";
-			std::cout << "The following are the last " << num_bytes << "-byte samples, in hexadecimal, of the specified file for Tests T1 through T5 for confirmation:" << "\n";
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			std::cout.setf(std::ios::hex, std::ios::basefield);
-			const char chFillSaved = std::cout.fill('0');
-			for (int j = 0; j < num_bytes; ++j)
-			{
-				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzInputDataT1)(offset + j)) << ", ";
+				std::cout << std::setw(2) << static_cast<int>((*i_refData.p_bzUnprocessedData)(offset + j)) << ", ";
 				if ((j != 0) && (15 == j % 16))
 				{
 					std::cout << "\n";
@@ -243,42 +139,28 @@ namespace ais_31_tool
 	{
 		double  test_value;
 
-		ns_consts::EnmAIS20AIS31V2Track   test_info;
+		ns_consts::EnmAIS20AIS31V3Track   test_info;
 		bool    bIsTestValueScalar;
 		ns_consts::EnmPassFailResults	pass_fail_result;
 
-		TestResult() : test_value(0.0), test_info(ns_consts::EnmAIS20AIS31V2Track::TestT0), bIsTestValueScalar(true), pass_fail_result(ns_consts::EnmPassFailResults::NotDetermined) {}
+		TestResult() : test_value(0.0), test_info(ns_consts::EnmAIS20AIS31V3Track::TestT1), bIsTestValueScalar(true), pass_fail_result(ns_consts::EnmPassFailResults::NotDetermined) {}
 
-		TestResult(double val, ns_consts::EnmAIS20AIS31V2Track i_test, ns_consts::EnmPassFailResults i_pass_fail)
+		TestResult(double val, ns_consts::EnmAIS20AIS31V3Track i_test, ns_consts::EnmPassFailResults i_pass_fail)
 			: test_value(val), test_info(i_test), bIsTestValueScalar(true), pass_fail_result(i_pass_fail)
 		{
 			switch (i_test)
 			{
-			case ns_consts::EnmAIS20AIS31V2Track::TestT0:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT1:
+				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT2:
+				break;
+			case ns_consts::EnmAIS20AIS31V3Track::TestT3:
 				test_value = 0;
 				bIsTestValueScalar = false;
 				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT1:
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT2:
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT3:
+			case ns_consts::EnmAIS20AIS31V3Track::TestT4:
 				test_value = 0;
 				bIsTestValueScalar = false;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-				test_value = 0;
-				bIsTestValueScalar = false;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-				test_value = 0;
-				bIsTestValueScalar = false;
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT6:
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-				break;
-			case ns_consts::EnmAIS20AIS31V2Track::TestT8:
 				break;
 			default:
 				break;
@@ -301,37 +183,22 @@ namespace ais_31_tool
 	/// <postcondition>
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
-	std::wstring getTestInfo(ns_consts::EnmAIS20AIS31V2Track i_test)
+	std::wstring getTestInfo(ns_consts::EnmAIS20AIS31V3Track i_test)
 	{
 		std::wstring str_ret;
 		switch (i_test)
 		{
-		case ns_consts::EnmAIS20AIS31V2Track::TestT0:
-			str_ret = std::wstring(L"Test T0 (disjointness test)");
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT1:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
 			str_ret = std::wstring(L"Test T1 (monobit test)");
 			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT2:
+		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
 			str_ret = std::wstring(L"Test T2 (poker test)");
 			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT3:
-			str_ret = std::wstring(L"Test T3 (runs test)");
+		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
+			str_ret = std::wstring(L"Test T3 (MultiMMC Prediction Estimate)");
 			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT4:
-			str_ret = std::wstring(L"Test T4 (long run test)");
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT5:
-			str_ret = std::wstring(L"Test T5 (autocorrelation test)");
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT6:
-			str_ret = std::wstring(L"Test T6 (uniform distribution test)");
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT7:
-			str_ret = std::wstring(L"Test T7 (comparative test for multinomial distributions aka `test for homogeneity')");
-			break;
-		case ns_consts::EnmAIS20AIS31V2Track::TestT8:
-			str_ret = std::wstring(L"Test T8 (entropy estimation)");
+		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
+			str_ret = std::wstring(L"Test T4 (LZ78Y Prediction Estimate)");
 			break;
 		default:
 			break;
@@ -387,37 +254,23 @@ namespace ais_31_tool
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus reportXML(const IDInfoForReport& i_refInfoReport,
-		const ns_dt::t_data_for_v2& i_refData)
+		const ns_dt::t_data_for_v3& i_refData)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		constexpr  ns_consts::EnmAIS20AIS31V2Track   enm_test_method[] = {
-				ns_consts::EnmAIS20AIS31V2Track::TestT0,
-				ns_consts::EnmAIS20AIS31V2Track::TestT1,
-				ns_consts::EnmAIS20AIS31V2Track::TestT2,
-				ns_consts::EnmAIS20AIS31V2Track::TestT3,
-				ns_consts::EnmAIS20AIS31V2Track::TestT4,
-				ns_consts::EnmAIS20AIS31V2Track::TestT5,
-				ns_consts::EnmAIS20AIS31V2Track::TestT6,
-				ns_consts::EnmAIS20AIS31V2Track::TestT7,
-				ns_consts::EnmAIS20AIS31V2Track::TestT8
+		constexpr  ns_consts::EnmAIS20AIS31V3Track   enm_test_method[] = {
+				ns_consts::EnmAIS20AIS31V3Track::TestT1,
+				ns_consts::EnmAIS20AIS31V3Track::TestT2,
+				ns_consts::EnmAIS20AIS31V3Track::TestT3,
+				ns_consts::EnmAIS20AIS31V3Track::TestT4
 		};
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1)
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if ((nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-			&& (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data))
+		if (nullptr == i_refInfoReport.info_source.p_path_to_input_data)
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
@@ -425,25 +278,11 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		bs_fs::path the_report_path;
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data)
-		{
-			sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data));
-		}
-		else if (nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-		{
-			sts = synthesizeReportPath(the_report_path, *(i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data));
-		}
-		else
-		{
-			sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data));
-		}
+		sts = synthesizeReportPath(the_report_path, (*i_refInfoReport.info_source.p_path_to_input_data));
 		if (ns_consts::EnmReturnStatus::Success != sts)
 		{
 			return  sts;
 		}
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
 		boost::property_tree::wptree the_tree;
 		// -------------------------------------------------------------------------- //
 		// 
@@ -454,7 +293,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		for (int i = 0; i < 6; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			// -------------------------------------------------------------------------- //
 			// 
@@ -464,24 +303,20 @@ namespace ais_31_tool
 			switch (i)
 			{
 			case 0:
-				p_pass_fail_result = &(i_refData.t_testT0.pass_fail_result);
-				break;
-			case 1:
 				p_pass_fail_result = &(i_refData.t_testT1.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT1.test_value_T1;
 				break;
-			case 2:
+			case 1:
 				p_pass_fail_result = &(i_refData.t_testT2.pass_fail_result);
 				failsafe_test_value = i_refData.t_testT2.test_value_T2;
 				break;
+			case 2:
+				p_pass_fail_result = &(i_refData.t_testT3.t_common.pass_fail_result);
+				failsafe_test_value = i_refData.t_testT3.test_value_T3;
+				break;
 			case 3:
-				p_pass_fail_result = &(i_refData.t_testT3.pass_fail_result);
-				break;
-			case 4:
-				p_pass_fail_result = &(i_refData.t_testT4.pass_fail_result);
-				break;
-			case 5:
-				p_pass_fail_result = &(i_refData.t_testT5.pass_fail_result);
+				p_pass_fail_result = &(i_refData.t_testT4.t_common.pass_fail_result);
+				failsafe_test_value = i_refData.t_testT4.test_value_T4;
 				break;
 			default:
 				return  sts;
@@ -509,105 +344,72 @@ namespace ais_31_tool
 		// <identification><sources>
 		// -------------------------------------------------------------------------- //
 		{
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
+			the_tree.add(L"entropy_report.identification.source.path", i_refInfoReport.info_source.p_path_to_input_data->wstring());
+
+			struct tm newtime;
+
+			if (errno_t err = localtime_s(&newtime, &(i_refInfoReport.info_source.tm_last_write_time)))
 			{
-				the_tree.add(L"conformance_report.identification.sources.source.path", i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data->wstring());
-
-				struct tm newtime;
-
-				errno_t err = localtime_s(&newtime, &(i_refInfoReport.info_source.info_input_data_testT0.tm_last_write_time));
-				if (err)
-				{
-					return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-				}
-
-				the_tree.add(L"conformance_report.identification.sources.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
-				the_tree.add(L"conformance_report.identification.sources.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
-				the_tree.add(L"conformance_report.identification.sources.source.description", std::wstring(L" "));
+				return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 			}
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-				&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
-			{
 
-				BOOST_FOREACH(const InfoInputDataItem & input_item, *i_refInfoReport.info_source.p_info_input_data_items_testT1) {
-					if (nullptr != input_item.p_path_to_input_data)
-					{
-						the_tree.add(L"conformance_report.identification.sources.source.path", input_item.p_path_to_input_data->wstring());
-
-						struct tm newtime;
-
-						errno_t err = localtime_s(&newtime, &(input_item.tm_last_write_time));
-						if (err)
-						{
-							return  sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
-						}
-
-						the_tree.add(L"conformance_report.identification.sources.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
-						the_tree.add(L"conformance_report.identification.sources.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
-						the_tree.add(L"conformance_report.identification.sources.source.description", std::wstring(L" "));
-					}
-				}
-			}
+			the_tree.add(L"entropy_report.identification.source.last_write_time", std::put_time(&newtime, L"%Y-%b-%d %H:%M:%S"));
+			the_tree.add(L"entropy_report.identification.source.bits_per_sample", std::to_wstring(i_refData.bits_per_sample));
+			the_tree.add(L"entropy_report.identification.source.description", std::wstring(L" "));
 		}
 		// -------------------------------------------------------------------------- //
 		// <identification><analysis_tool>
 		// -------------------------------------------------------------------------- //
 		if (nullptr != i_refInfoReport.info_analysis_tool.p_analyzer_name)
 		{
-			the_tree.add(L"conformance_report.identification.analysis_tool.name", *i_refInfoReport.info_analysis_tool.p_analyzer_name);
+			the_tree.add(L"tirn_blackbox_test_report.identification.analysis_tool.name", *i_refInfoReport.info_analysis_tool.p_analyzer_name);
 		}
 		if (nullptr != i_refInfoReport.info_analysis_tool.p_analyzer_versioning)
 		{
-			the_tree.add(L"conformance_report.identification.analysis_tool.version", *i_refInfoReport.info_analysis_tool.p_analyzer_versioning);
+			the_tree.add(L"tirn_blackbox_test_report.identification.analysis_tool.version", *i_refInfoReport.info_analysis_tool.p_analyzer_versioning);
 		}
 		// -------------------------------------------------------------------------- //
 		// <identification><environment>
 		// -------------------------------------------------------------------------- //
 		if (nullptr != i_refInfoReport.info_env.p_hostname)
 		{
-			the_tree.add(L"conformance_report.identification.environment.hostname", *i_refInfoReport.info_env.p_hostname);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.hostname", *i_refInfoReport.info_env.p_hostname);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_cpuinfo)
 		{
-			the_tree.add(L"conformance_report.identification.environment.cpuinfo", *i_refInfoReport.info_env.p_cpuinfo);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.cpuinfo", *i_refInfoReport.info_env.p_cpuinfo);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_physicalmemory)
 		{
-			the_tree.add(L"conformance_report.identification.environment.physicalmemory", *i_refInfoReport.info_env.p_physicalmemory);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.physicalmemory", *i_refInfoReport.info_env.p_physicalmemory);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_osname)
 		{
-			the_tree.add(L"conformance_report.identification.environment.os_name", *i_refInfoReport.info_env.p_osname);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.os_name", *i_refInfoReport.info_env.p_osname);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_osversion)
 		{
-			the_tree.add(L"conformance_report.identification.environment.os_version", *i_refInfoReport.info_env.p_osversion);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.os_version", *i_refInfoReport.info_env.p_osversion);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_system_type)
 		{
-			the_tree.add(L"conformance_report.identification.environment.system_type", *i_refInfoReport.info_env.p_system_type);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.system_type", *i_refInfoReport.info_env.p_system_type);
 		}
 		if (nullptr != i_refInfoReport.info_env.p_username)
 		{
-			the_tree.add(L"conformance_report.identification.environment.username", *i_refInfoReport.info_env.p_username);
+			the_tree.add(L"tirn_blackbox_test_report.identification.environment.username", *i_refInfoReport.info_env.p_username);
 		}
 		// -------------------------------------------------------------------------- //
 		// <summary>
 		// -------------------------------------------------------------------------- //
 		{
-			the_tree.add(L"conformance_report.summary.result", getPassFail(global_pass_fail));
+			the_tree.add(L"tirn_blackbox_test_report.summary.result", getPassFail(global_pass_fail));
 		}
 		// -------------------------------------------------------------------------- //
 		// <results>
 		// -------------------------------------------------------------------------- //
 		BOOST_FOREACH(const TestResult & tr_entry, vec_tr) {
-			boost::property_tree::wptree& child = the_tree.add(L"conformance_report.results.test", getPassFail(tr_entry.pass_fail_result));
+			boost::property_tree::wptree& child = the_tree.add(L"tirn_blackbox_test_report.results.test", getPassFail(tr_entry.pass_fail_result));
 			child.put(L"<xmlattr>.test_method", getTestInfo(tr_entry.test_info));
 		}
 		// -------------------------------------------------------------------------- //
@@ -927,11 +729,18 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\addcontentsline{toc}{chapter}{\\refname}" << L"\n";
 		o_ssLaTeX << L"\\begin{thebibliography}{99}" << L"\n";
 		o_ssLaTeX << L"% 1" << L"\n";
-		o_ssLaTeX << L"\\bibitem{AIS2031An_11}" << L"\n";
-		o_ssLaTeX << L"W. Killmann and W. Schindler." << L"\n";
-		o_ssLaTeX << L"\\textit{A proposal for: Functionality classes for random number generators}," << L"\n";
-		o_ssLaTeX << L"Version 2.0 (18.09.2011), " << L"\n";
-		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/dok/ais-20-31-appx-2011}" << L"\n";
+		o_ssLaTeX << L"\\bibitem{AIS2031An_24}" << L"\n";
+		o_ssLaTeX << L"Matthias Peter and Werner Schindler." << L"\n";
+		o_ssLaTeX << L"\\textit{A Proposal for Functionality Classes for Random Number Generators}," << L"\n";
+		o_ssLaTeX << L"Version 3.0 (September 10, 2024), " << L"\n";
+		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"% 2" << L"\n";
+		o_ssLaTeX << L"\\bibitem{CorrectionsSP80090B}" << L"\n";
+		o_ssLaTeX << L"G. Sakurai, \\textit{Proposed list of corrections for NIST SP 800-90B 6.3 Estimators}, Dec. 2022 " << L"\n";
+		o_ssLaTeX << L"\\url{https://github.com/g-g-sakura/AnotherEntropyEstimationTool/blob/main/documentation/ProposedListOfCorrections_SP800-90B.pdf}" << L"\n";
 		o_ssLaTeX << L"\\end{thebibliography}" << L"\n\n";
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1156,7 +965,7 @@ namespace ais_31_tool
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus reportLaTeXSupportingInfo(std::wstringstream& o_refLaTeXSupportingInfo,
 		const IDInfoForReport& i_refInfoReport,
-		const ns_dt::t_data_for_v2& i_refData)
+		const ns_dt::t_data_for_v3& i_refData)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -1172,7 +981,7 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		o_refLaTeXSupportingInfo << L"\\begin{itemize}" << L"\n";
-		o_refLaTeXSupportingInfo << L"		\\item Filename(s) of input data : See Annex \\ref{sec:AnnexIdentification}." << L"\n";
+		o_refLaTeXSupportingInfo << L"		\\item Filename of input data : See Annex \\ref{sec:AnnexIdentification}." << L"\n";
 		o_refLaTeXSupportingInfo << L"		\\item Name of the submitter of the input data : " << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\noindent" << L"\n";
@@ -1309,12 +1118,7 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << L"\\begin{center}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\begin{tabular}{|>{\\columncolor{anotherlightblue}}l|p{8cm}|}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\\hline " << L"\n";
-		if (i_refData.isT0Selected)
-		{
-			o_refLaTeXSupportingInfo << L"Number of samples for Test T0 & " << i_refData.p_bzInputDataT0->extent(blitz::firstDim) << L" \\\\" << L"\n";
-			o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
-		}
-		if (i_refData.areT1ThroughT5Selected)
+		if (i_refData.areT1ThroughT4Selected)
 		{
 			o_refLaTeXSupportingInfo << L"Number of samples in each set for Tests T1 through T5 & " << i_refData.p_bzInputDataT1->extent(blitz::secondDim) << L" \\\\" << L"\n";
 			o_refLaTeXSupportingInfo << L"\\hline" << L"\n";
@@ -1346,18 +1150,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if ((i_refData.isT0Selected) && (i_refData.areT1ThroughT5Selected))
-		{
-			o_refLaTeXSupportingInfo << L"Test Procedure A of BSI AIS 20 / AIS 31 \\cite{AIS2031An_11} is applied." << L"\n";
-		}
-		else if (i_refData.isT0Selected)
-		{
-			o_refLaTeXSupportingInfo << L"Test T0 of BSI AIS 20 / AIS 31\\cite{AIS2031An_11} is applied." << L"\n";
-		}
-		else if (i_refData.areT1ThroughT5Selected)
-		{
-			o_refLaTeXSupportingInfo << L"Tests T1 - T5 of BSI AIS 20 / AIS 31\\cite{AIS2031An_11} are applied." << L"\n";
-		}
+		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} with corrections \\cite{CorrectionsSP80090B} is applied." << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1385,7 +1178,7 @@ namespace ais_31_tool
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus reportLaTeXAppendix(std::wstringstream& o_refLaTeXAppendix,
 		const IDInfoForReport& i_refInfoReport,
-		const ns_dt::t_data_for_v2& i_refData)
+		const ns_dt::t_data_for_v3& i_refData)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -1409,7 +1202,7 @@ namespace ais_31_tool
 		o_refLaTeXAppendix << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
 		o_refLaTeXAppendix << L"\\begin{longtable}{|>{\\cellcolor{anotherlightblue}}p{0.7cm}|>{\\columncolor{anotherlightblue}}p{7cm}|p{16cm}|}" << L"\n";
 		o_refLaTeXAppendix << L"\\caption{Identification information of input data} \\\\" << L"\n";
-		o_refLaTeXAppendix << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & Value \\\\ \\hline \\hline " << L"\n";
+		o_refLaTeXAppendix << L"\\hline {\\cellcolor{anotherlightblue}No} & Item & {\\cellcolor{anotherlightblue}Value} \\\\ \\hline \\hline " << L"\n";
 		o_refLaTeXAppendix << L"\\endfirsthead " << L"\n";
 		o_refLaTeXAppendix << L"\\hline No & Item & Value \\\\ \\hline " << L"\n";
 		o_refLaTeXAppendix << L"\\endhead " << L"\n";
@@ -1428,9 +1221,9 @@ namespace ais_31_tool
 		constexpr ais_31_tool::constants::EnmHashAlgorithm  enmDefaultHashId = ais_31_tool::constants::EnmHashAlgorithm::ESHA_256;
 		std::string strHashOfAcquisitionData = std::string();
 
-		if (nullptr != i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
+		if (nullptr != i_refInfoReport.info_source.p_path_to_input_data)
 		{
-			const InfoInputDataItem* pInfoInputDataItem = &i_refInfoReport.info_source.info_input_data_testT0;
+			const InfoInputDataItem* pInfoInputDataItem = &i_refInfoReport.info_source;
 
 			const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
 				*(pInfoInputDataItem->p_path_to_input_data),
@@ -1441,7 +1234,7 @@ namespace ais_31_tool
 				return  sts = stsCalcHash;
 			}
 
-			std::wstring    wstrTestSpecific = std::wstring(L"for Test T0");
+			std::wstring    wstrTestSpecific = std::wstring(L"for Tests T1 through T4");
 
 			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
 			if (ns_consts::EnmReturnStatus::Success != sts)
@@ -1449,32 +1242,6 @@ namespace ais_31_tool
 				return  sts;
 			}
 			++number_of_entry;
-		}
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		if ((nullptr != i_refInfoReport.info_source.p_info_input_data_items_testT1)
-			&& (false == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty()))
-		{
-			BOOST_FOREACH(const InfoInputDataItem & info_item, *(i_refInfoReport.info_source.p_info_input_data_items_testT1)) {
-				const ns_consts::EnmReturnStatus  stsCalcHash = ais_31_tool::calcMessageDigest(strHashOfAcquisitionData,
-					*info_item.p_path_to_input_data,
-					enmDefaultHashId);
-
-				if (ns_consts::EnmReturnStatus::Success != stsCalcHash)
-				{
-					return  sts = stsCalcHash;
-				}
-
-				std::wstring    wstrTestSpecific = std::wstring(L"for Test T1");
-
-				sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, info_item, number_of_entry);
-				if (ns_consts::EnmReturnStatus::Success != sts)
-				{
-					return  sts;
-				}
-				++number_of_entry;
-			}
 		}
 		// -------------------------------------------------------------------------- //
 		// 
@@ -1558,39 +1325,23 @@ namespace ais_31_tool
 	/// </postcondition>
 	// -------------------------------------------------------------------------- //
 	ns_consts::EnmReturnStatus reportLaTeX(IDInfoForReport& i_refInfoReport,
-		ns_dt::t_data_for_v2& io_refData)
+		ns_dt::t_data_for_v3& io_refData)
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1)
+		if (nullptr == i_refInfoReport.info_source.p_path_to_input_data)
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
-		if (true == i_refInfoReport.info_source.p_info_input_data_items_testT1->empty())
-		{
-			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
-		}
-		if ((nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-			&& (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data))
+		if (true == i_refInfoReport.info_source.p_path_to_input_data->empty())
 		{
 			return  sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 		}
 		bs_fs::path the_report_path_LaTeX;
-		if (nullptr == i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data)
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data);
-		}
-		else if (nullptr == i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data)
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *(i_refInfoReport.info_source.p_info_input_data_items_testT1->at(0).p_path_to_input_data));
-		}
-		else
-		{
-			sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.info_input_data_testT0.p_path_to_input_data);
-		}
+		sts = synthesizeReportPathTex(the_report_path_LaTeX, *i_refInfoReport.info_source.p_path_to_input_data);
 		if (ns_consts::EnmReturnStatus::Success != sts)
 		{
 			return  sts;
@@ -1605,52 +1356,89 @@ namespace ais_31_tool
 		ssLaTeXSummary << L"\\begin{table}[h]" << L"\n";
 		ssLaTeXSummary << L"\\caption{Test results}" << L"\n";
 		ssLaTeXSummary << L"\\begin{center}" << L"\n";
-		ssLaTeXSummary << L"\\begin{tabular}{|l|c|c|}" << L"\n";
+		ssLaTeXSummary << L"\\begin{tabular}{|l|c|c|c|c|}" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		ssLaTeXSummary << L"\\rowcolor{anotherlightblue} %%" << L"\n";
-		ssLaTeXSummary << L"Tests							& Pass / Fail & Notes 	\\\\ " << L"\n";
-		ssLaTeXSummary << L"\\hline " << L"\n";
-		// -------------------------------------------------------------------------- //
-		// 
-		// -------------------------------------------------------------------------- //
-		ssLaTeXSummary << L"Test T0 (disjointness test)		& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT0.pass_fail_result);
-		ssLaTeXSummary << L" & ---         \\\\" << L"\n";
+		ssLaTeXSummary << L"& \\multicolumn{2}{c|}{1-st trial} & \\multicolumn{2}{c|}{2-nd trial} \\\\" << L"\n";
+		ssLaTeXSummary << L"\\cline{2-5}" << L"\n";
+		ssLaTeXSummary << L"\\rowcolor{anotherlightblue} %%" << L"\n";
+		ssLaTeXSummary << L"Tests							& Pass / Fail & Notes & Pass / Fail & Notes	\\\\ " << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T1 (monobit test)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT1.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT1}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][0]);
+		ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2){
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][0]);
+			ssLaTeXSummary << L" & see \\ref{sec:TestT1-traceability-2ndTrial} " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		ssLaTeXSummary << L"Test T2 (poker test)			& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT2.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT2}         \\\\" << L"\n";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][1]);
+		ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][1]);
+			ssLaTeXSummary << L" & see \\ref{sec:TestT2-traceability-2ndTrial}  " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeXSummary << L"Test T3 (runs test)				& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT3.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT3}         \\\\" << L"\n";
+		ssLaTeXSummary << L"Test T3 (MultiMMC Prediction Estimate)			& ";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][2]);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary639-distribution-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][2]);
+			ssLaTeXSummary << L" & see \\ref{sec:Binary639-distribution-2ndTrial} " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeXSummary << L"Test T4 (long runs test)		& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT4.pass_fail_result);
-		ssLaTeXSummary << L" & ---         \\\\" << L"\n";
+		ssLaTeXSummary << L"Test T4 (LZ78Y Prediction Estimate)			& ";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[0][3]);
+		ssLaTeXSummary << L" & see \\ref{sec:Binary6310-distribution-1stTrial} & ";
+		if (io_refData.current_number_of_round_in_trials < 2) {
+			ssLaTeXSummary << L"N/A";
+			ssLaTeXSummary << L" & ---  " << L"\n";
+		}
+		else
+		{
+			ssLaTeXSummary << getPassFail(io_refData.test_result_summary.pass_fail_results[1][3]);
+			ssLaTeXSummary << L" & see \\ref{sec:Binary6310-distribution-2ndTrial}  " << L"\n";
+		}
+		ssLaTeXSummary << L"  \\\\" << L"\n";
+		ssLaTeXSummary << L"\\hline " << L"\n";
 		ssLaTeXSummary << L"\\hline " << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeXSummary << L"Test T5 (autocorrelation test)	& ";
-		ssLaTeXSummary << getPassFail(io_refData.t_testT5.pass_fail_result);
-		ssLaTeXSummary << L" & see \\ref{sec:TestT5}         \\\\" << L"\n";
+		ssLaTeXSummary << L"Overall test result			&  \\multicolumn{4}{c|}{";
+		ssLaTeXSummary << getPassFail(io_refData.test_result_summary.overall_test_result);
+		ssLaTeXSummary << L"} \\\\" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -1697,7 +1485,15 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		ssLaTeX << io_refData.p_ssLaTeXFragment->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT1Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT1Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT2Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT2Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT3Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT3Body->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT4Header->rdbuf();
+		ssLaTeX << io_refData.p_ssLaTeXFragmentTestT4Body->rdbuf();
+		//ssLaTeX << io_refData.p_ssLaTeXFragment->rdbuf();
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //

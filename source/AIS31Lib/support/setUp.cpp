@@ -30,93 +30,57 @@ namespace ais_31_lib
 		/// <postcondition>
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
-		ns_consts::EnmReturnStatus setUp(ns_dt::t_data_for_v2& io_refData)
+		ns_consts::EnmReturnStatus setUp(ns_dt::t_data_for_v3& io_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT0 = nullptr;
+			io_refData.p_bzUnprocessedData = nullptr;
 			io_refData.p_bzInputDataT1 = nullptr;
+			io_refData.p_bzInputDataT2 = nullptr;
+			io_refData.p_bzInputDataT3 = nullptr;
+			io_refData.p_bzInputDataT4 = nullptr;
 			io_refData.p_bzInterpretedBj = nullptr;
-			io_refData.p_bzSampleSpaceA = nullptr;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.p_bzInputDataT0 = new blitz::Array<ns_dt::octet, 1>(65536);
-			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 2>(257, 20000);
+			io_refData.p_bzUnprocessedData = new blitz::Array<ns_dt::octet, 1>(4080000);
+			io_refData.p_bzInputDataT1 = new blitz::Array<ns_dt::octet, 1>(20000);
+			io_refData.p_bzInputDataT2 = new blitz::Array<ns_dt::octet, 1>(20000);
+			io_refData.p_bzInputDataT3 = new blitz::Array<ns_dt::octet, 1>(1000000);
+			io_refData.p_bzInputDataT4 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInterpretedBj = new blitz::Array<ns_dt::octet, 1>(20000);
-			io_refData.p_bzSampleSpaceA = new blitz::Array<ns_dt::octet, 1>(256);
-			io_refData.t_testT0 = { 0 };
-			io_refData.t_testT1 = { 0, 0, {9654, 10346}, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
-			io_refData.t_testT2 = { 0, 0, 1.03, 57.4, 0, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT1 = { 0, 0, {9654, 10346}, ns_consts::EnmPassFailResults::NotDetermined, {0} };
+			io_refData.t_testT2 = { 0, 1.03, 57.4, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			io_refData.t_testT3 = { 0 };
-			io_refData.t_testT4 = { 0, nullptr, 0, 0, ns_consts::EnmPassFailResults::NotDetermined };
-			io_refData.t_testT5 = { 0 };
+			io_refData.t_testT3.t_common.pass_fail_result = ns_consts::EnmPassFailResults::NotDetermined;
+			io_refData.t_testT3.D = 16;	// as per NIST SP 800-90B
+			io_refData.t_testT3.maxEntries = 100000;	// as per NIST SP 800-90B
+			io_refData.t_testT3.threshold = 0.95;	// as per AIS2031An_24
+			io_refData.t_testT4 = { 0 };
+			io_refData.t_testT4.t_common.pass_fail_result = ns_consts::EnmPassFailResults::NotDetermined;
+			io_refData.t_testT4.B = 16;	// as per NIST SP 800-90B
+			io_refData.t_testT4.maxDictionarySize = 65536;	// as per NIST SP 800-90B
+			io_refData.t_testT4.threshold = 0.95;	// as per AIS2031An_24
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			io_refData.t_testT5.th = {2326, 2674};
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			io_refData.t_testT3.p_bzTestValue = new blitz::Array<uint32_t, 2>(6, 2);
-			(*io_refData.t_testT3.p_bzTestValue) = 0;
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			io_refData.t_testT4.p_bzTestValue = new blitz::Array<uint32_t, 2>(20000, 2);
-			(*io_refData.t_testT4.p_bzTestValue) = 0;
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			io_refData.t_testT5.p_bzZTau = new blitz::Array<uint32_t, 1>(5000);
-			(*io_refData.t_testT5.p_bzZTau) = 0;
-			io_refData.t_testT5.pHistogram = new ns_dt::TestValueHistogram();
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			io_refData.t_testT5.p_bzTestValue = new blitz::Array<uint32_t, 1>(257);
-			(*io_refData.t_testT5.p_bzTestValue) = 0;
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			for (int lambdaMinusOne = 0; lambdaMinusOne < 6; ++lambdaMinusOne)
-			{
-				switch (lambdaMinusOne)
-				{
-				case 0:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 2267;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 2733;
-					break;
-				case 1:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 1079;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 1421;
-					break;
-				case 2:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 502;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 748;
-					break;
-				case 3:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 223;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 402;
-					break;
-				case 4:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 90;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 223;
-					break;
-				case 5:
-					io_refData.t_testT3.th[lambdaMinusOne].lower_bound = 90;
-					io_refData.t_testT3.th[lambdaMinusOne].upper_bound = 223;
-					break;
-				default:
-					break;
-				}
-			}
+			io_refData.k = 2;
+			io_refData.current_number_of_round_in_trials = 1;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
 			io_refData.verbose_level = 1;
+			// -------------------------------------------------------------------------- //
+			//
+			// -------------------------------------------------------------------------- //
+			io_refData.test_result_summary.overall_test_result = ns_consts::EnmPassFailResults::NotDetermined;
+			for (int i = 0; i < 2; ++i)
+				for (int j = 0; j < 4; ++j)
+				{
+					io_refData.test_result_summary.pass_fail_results[i][j] = ns_consts::EnmPassFailResults::NotDetermined;
+				}
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
@@ -137,54 +101,36 @@ namespace ais_31_lib
 		/// <postcondition>
 		/// </postcondition>
 		// -------------------------------------------------------------------------- //
-		ns_consts::EnmReturnStatus tearDown(ns_dt::t_data_for_v2& io_refData)
+		ns_consts::EnmReturnStatus tearDown(ns_dt::t_data_for_v3& io_refData)
 		{
 			ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 			// -------------------------------------------------------------------------- //
 			//
 			// -------------------------------------------------------------------------- //
-			if (nullptr != io_refData.t_testT5.p_bzTestValue)
-			{
-				delete io_refData.t_testT5.p_bzTestValue;
-				io_refData.t_testT5.p_bzTestValue = nullptr;
-			}
-			if (nullptr != io_refData.t_testT5.p_bzZTau)
-			{
-				delete io_refData.t_testT5.p_bzZTau;
-				io_refData.t_testT5.p_bzZTau = nullptr;
-			}
-			if (nullptr != io_refData.t_testT4.p_bzTestValue)
-			{
-				delete io_refData.t_testT4.p_bzTestValue;
-				io_refData.t_testT4.p_bzTestValue = nullptr;
-			}
-			if (nullptr != io_refData.t_testT3.p_bzTestValue)
-			{
-				delete io_refData.t_testT3.p_bzTestValue;
-				io_refData.t_testT3.p_bzTestValue = nullptr;
-			}
-			// -------------------------------------------------------------------------- //
-			//
-			// -------------------------------------------------------------------------- //
-			if (nullptr != io_refData.p_bzSampleSpaceA)
-			{
-				delete io_refData.p_bzSampleSpaceA;
-				io_refData.p_bzSampleSpaceA = nullptr;
-			}
 			if (nullptr != io_refData.p_bzInterpretedBj)
 			{
 				delete io_refData.p_bzInterpretedBj;
 				io_refData.p_bzInterpretedBj = nullptr;
 			}
+			if (nullptr != io_refData.p_bzInputDataT4)
+			{
+				delete io_refData.p_bzInputDataT4;
+				io_refData.p_bzInputDataT4 = nullptr;
+			}
+			if (nullptr != io_refData.p_bzInputDataT3)
+			{
+				delete io_refData.p_bzInputDataT3;
+				io_refData.p_bzInputDataT3 = nullptr;
+			}
+			if (nullptr != io_refData.p_bzInputDataT2)
+			{
+				delete io_refData.p_bzInputDataT2;
+				io_refData.p_bzInputDataT2 = nullptr;
+			}
 			if (nullptr != io_refData.p_bzInputDataT1)
 			{
 				delete io_refData.p_bzInputDataT1;
 				io_refData.p_bzInputDataT1 = nullptr;
-			}
-			if (nullptr != io_refData.p_bzInputDataT0)
-			{
-				delete io_refData.p_bzInputDataT0;
-				io_refData.p_bzInputDataT0 = nullptr;
 			}
 			// -------------------------------------------------------------------------- //
 			//

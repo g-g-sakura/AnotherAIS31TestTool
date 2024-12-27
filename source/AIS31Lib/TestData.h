@@ -3,7 +3,7 @@
 //
 //
 //
-// Copyright (c) 2023 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2023-2024 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #if defined(_MSC_VER)
@@ -32,16 +32,36 @@ namespace ais_31_lib
 
 		typedef unsigned char	octet;
 
+		template<typename T>	struct NullableT
+		{
+			bool	bIsValueNull;
+			T		value;
+		};
+
 		typedef struct _TDataCommon
 		{
 			// -------------------------------------------------------------------------- //
-			// 
+			// variables originally introduced by AIS 20/31
 			// -------------------------------------------------------------------------- //
 			double	test_value;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
 			aisconsts::EnmPassFailResults	pass_fail_result;
+
+			// -------------------------------------------------------------------------- //
+			// variables taken from NIST SP 800-90B
+			// -------------------------------------------------------------------------- //
+			double	min_entropy;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	min_entropy_lower_bound;
+			double	min_entropy_upper_bound;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	number_of_significant_digits;
 		} t_data_common;
 
 		typedef struct _TThresholdData
@@ -58,28 +78,6 @@ namespace ais_31_lib
 			tm		duration;
 		} t_data_for_performance_info;
 
-		typedef struct _TDataForDisjointnessTest
-		{
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// 
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			uint64_t	c1;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			blitz::Array<uint64_t, 1>* p_bzProjectedData;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			aisconsts::EnmPassFailResults	pass_fail_result;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			t_data_for_performance_info		t_performance;
-		} t_data_for_disjointness_test;
-
 		typedef struct _TDataForMonobitTest
 		{
 			/// -------------------------------------------------------------------------- //
@@ -87,7 +85,7 @@ namespace ais_31_lib
 			/// 
 			/// </summary>
 			/// -------------------------------------------------------------------------- //
-			uint64_t	c2;
+			uint64_t	c1;
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
 			/// test value
@@ -98,10 +96,6 @@ namespace ais_31_lib
 			// 
 			// -------------------------------------------------------------------------- //
 			threshold	th;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			uint32_t	current_index_in_sets;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -116,20 +110,10 @@ namespace ais_31_lib
 		{
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
-			/// 
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			uint64_t	c2;
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
 			/// test value
 			/// </summary>
 			/// -------------------------------------------------------------------------- //
 			double		test_value_T2;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			//blitz::Array<octet, 1>* p_bzInterpretedBj;
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
 			/// lower bound of threshold, non-inclusive
@@ -145,10 +129,6 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
-			uint32_t	current_index_in_sets;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
 			aisconsts::EnmPassFailResults	pass_fail_result;
 			// -------------------------------------------------------------------------- //
 			// 
@@ -156,184 +136,124 @@ namespace ais_31_lib
 			t_data_for_performance_info		t_performance;
 		} t_data_for_poker_test;
 
-
-		typedef struct _TDataForRunsTest
+		typedef struct _TDataForMultiMMCPredictionEstimate
 		{
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// 
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			uint64_t	c2;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_common					t_common;
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
 			/// test value
 			/// </summary>
 			/// -------------------------------------------------------------------------- //
-			blitz::Array<uint32_t, 2>* p_bzTestValue;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			threshold	th[7];
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			uint32_t	current_index_in_sets;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			aisconsts::EnmPassFailResults	pass_fail_result;
+			double		test_value_T3;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
 			t_data_for_performance_info		t_performance;
-		} t_data_for_runs_test;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	p_local;
+			double	p_prime_global;
+			double	p_global;
 
-		typedef struct _TDataForLongRunTest
+			int		r;
+			int		occurrences_at_longest_run;
+
+			int		D;
+			int		N;
+			int		C;
+			int		maxEntries;
+			// -------------------------------------------------------------------------- //
+			// constant introduced by AIS 20/31
+			// -------------------------------------------------------------------------- //
+			double	threshold;
+		} t_data_for_multi_mmc_prediction_estimate;
+
+		typedef struct _TDataForLZ78YPredictionEstimate
 		{
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// 
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			uint64_t	c2;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			t_data_common					t_common;
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
 			/// test value
 			/// </summary>
 			/// -------------------------------------------------------------------------- //
-			blitz::Array<uint32_t, 2>* p_bzTestValue;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			octet			p_of_longest_run;
-			uint32_t		longest_run;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			aisconsts::EnmPassFailResults	pass_fail_result;
+			double		test_value_T4;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
 			t_data_for_performance_info		t_performance;
-		} t_data_for_long_run_test;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			double	p_local;
+			double	p_prime_global;
+			double	p_global;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			int		r;
+			int		occurrences_at_longest_run;
 
+			int		B;
+			int		N;
+			int		C;
+			int		maxDictionarySize;
+			// -------------------------------------------------------------------------- //
+			// constant introduced by AIS 20/31
+			// -------------------------------------------------------------------------- //
+			double	threshold;
+		} t_data_for_lz78_y_prediction_estimate;
 
-		namespace bmi = boost::multi_index;
-		using boost::multi_index_container;
-
-		struct t_element_test_value
+		typedef struct _TDataForTestResultSummary
 		{
-			uint32_t		ex_tau;		// shift $\tau$
-			uint32_t		ex_test_value;		// test value
-
-			t_element_test_value(const uint32_t& i_tau, uint32_t i_test_value) : ex_tau(i_tau), ex_test_value(i_test_value) {}
-
-			bool operator <(t_element_test_value const& i_refRight) const
-			{
-				// -------------------------------------------------------------------------- //
-				// 
-				// -------------------------------------------------------------------------- //
-				if (ex_test_value != i_refRight.ex_test_value)
-				{
-					return	ex_test_value < i_refRight.ex_test_value;
-				}
-				else
-				{
-					return	ex_tau < i_refRight.ex_tau;
-				}
-			}
-		};
-
-		struct elem_tau {};
-		struct elem_test_value {};
-
-		typedef bmi::multi_index_container<
-			t_element_test_value,
-			bmi::indexed_by<
-			bmi::ordered_unique<bmi::identity<t_element_test_value> >, //
-			bmi::ordered_unique<bmi::tag<elem_tau>, bmi::member<t_element_test_value, uint32_t, &t_element_test_value::ex_tau> >,
-			bmi::ordered_non_unique<bmi::tag<elem_test_value>, bmi::member<t_element_test_value, uint32_t, &t_element_test_value::ex_test_value> >
-			>
-		> TestValueHistogram;
-
-		typedef TestValueHistogram::index<elem_tau>::type tpl_tau_map;
-		typedef TestValueHistogram::index<elem_test_value>::type tpl_test_value_map;
-
-
-		typedef struct _TDataForAutocorrelationTest
-		{
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// 
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			uint64_t	c2;
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// lower bound of threshold, non-inclusive
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// upper bound of threshold, non-inclusive
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			threshold	th;
-			/// -------------------------------------------------------------------------- //
-			/// <summary>
-			/// test value
-			/// </summary>
-			/// -------------------------------------------------------------------------- //
-			blitz::Array<uint32_t, 1>* p_bzZTau;
-			blitz::Array<uint32_t, 1>* p_bzTestValue;
 			// -------------------------------------------------------------------------- //
-			// 
+			// overall test result
 			// -------------------------------------------------------------------------- //
-			uint32_t	offset_for_tau;
-			uint32_t	tau_0;
-			uint32_t	z_resulting_tau_0;
-			TestValueHistogram*		pHistogram;
-			uint32_t	current_index_in_sets;
+			aisconsts::EnmPassFailResults	overall_test_result;
 			// -------------------------------------------------------------------------- //
-			// 
+			// max 2 trials, 4 tests (Test T1 - T4)
 			// -------------------------------------------------------------------------- //
-			aisconsts::EnmPassFailResults	pass_fail_result;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			t_data_for_performance_info		t_performance;
-		} t_data_for_autocorrelation_test;
+			aisconsts::EnmPassFailResults	pass_fail_results[2][4];
+		} t_data_for_test_result_summary;
 
-		typedef struct _TDataForTestSuitesV2
+		typedef struct _TDataForTestSuitesV3
 		{
 			unsigned int			k;	// size of alphabet
 			unsigned int			L;	// size of input
 			unsigned int			bits_per_sample;	//
-			blitz::Array<octet, 1>* p_bzSampleSpaceA;
-			blitz::Array<octet, 1>* p_bzInputDataT0;
-			blitz::Array<octet, 2>* p_bzInputDataT1;
-			blitz::Array<octet, 1>* p_bzInterpretedBj;		// $b_{j}$
+			blitz::Array<octet, 1>* p_bzUnprocessedData;
+			blitz::Array<octet, 1> *p_bzInputDataT1;
+			blitz::Array<octet, 1> *p_bzInputDataT2;
+			blitz::Array<octet, 1> *p_bzInputDataT3;
+			blitz::Array<octet, 1> *p_bzInputDataT4;
+			blitz::Array<octet, 1> *p_bzInterpretedBj;		// $b_{j}$
 			bool					bIsMSbFirstByteBitConversion;
 			// -------------------------------------------------------------------------- //
+			// for Test T1
+			// -------------------------------------------------------------------------- //
+			t_data_for_monobit_test						t_testT1;
+			// -------------------------------------------------------------------------- //
+			// for Test T2
+			// -------------------------------------------------------------------------- //
+			t_data_for_poker_test						t_testT2;
+			// -------------------------------------------------------------------------- //
+			// for Test T3
+			// -------------------------------------------------------------------------- //
+			t_data_for_multi_mmc_prediction_estimate	t_testT3;
+			// -------------------------------------------------------------------------- //
+			// for Test T4
+			// -------------------------------------------------------------------------- //
+			t_data_for_lz78_y_prediction_estimate		t_testT4;
+			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
-			unsigned long			offsetOfInputDataFilesIndex;
-			size_t					numberOfDigitsOfOffset;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			t_data_for_disjointness_test	t_testT0;
-			t_data_for_monobit_test			t_testT1;
-			t_data_for_poker_test			t_testT2;
-			t_data_for_runs_test			t_testT3;
-			t_data_for_long_run_test		t_testT4;
-			t_data_for_autocorrelation_test	t_testT5;
-			// -------------------------------------------------------------------------- //
-			// 
-			// -------------------------------------------------------------------------- //
-			bool		isT0Selected;
-			bool		areT1ThroughT5Selected;
+			bool		areT1ThroughT4Selected;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
@@ -345,22 +265,39 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
-			std::wstringstream* p_ssLaTeXFragment;
-			// -------------------------------------------------------------------------- //
-			// for Test T3
-			// -------------------------------------------------------------------------- //
-			std::wstringstream* p_ssLaTeXFragmentWork3[6][2];
-			// -------------------------------------------------------------------------- //
-			// for Test T5
-			// -------------------------------------------------------------------------- //
-			std::wstringstream* p_ssLaTeXFragmentWork51;
-			std::wstringstream* p_ssLaTeXFragmentWork52;
-			std::wstringstream* p_ssLaTeXFragmentWork53;
-			std::wstringstream* p_ssLaTeXFragmentWork54;
+			unsigned int			current_number_of_round_in_trials;
 			// -------------------------------------------------------------------------- //
 			// 
 			// -------------------------------------------------------------------------- //
-		} t_data_for_v2;
+			t_data_for_test_result_summary	test_result_summary;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+			std::wstringstream* p_ssLaTeXFragment;
+			// -------------------------------------------------------------------------- //
+			// for Test T1
+			// -------------------------------------------------------------------------- //
+			std::wstringstream* p_ssLaTeXFragmentTestT1Header;
+			std::wstringstream* p_ssLaTeXFragmentTestT1Body;
+			// -------------------------------------------------------------------------- //
+			// for Test T2
+			// -------------------------------------------------------------------------- //
+			std::wstringstream* p_ssLaTeXFragmentTestT2Header;
+			std::wstringstream* p_ssLaTeXFragmentTestT2Body;
+			// -------------------------------------------------------------------------- //
+			// for Test T3
+			// -------------------------------------------------------------------------- //
+			std::wstringstream* p_ssLaTeXFragmentTestT3Header;
+			std::wstringstream* p_ssLaTeXFragmentTestT3Body;
+			// -------------------------------------------------------------------------- //
+			// for Test T4
+			// -------------------------------------------------------------------------- //
+			std::wstringstream* p_ssLaTeXFragmentTestT4Header;
+			std::wstringstream* p_ssLaTeXFragmentTestT4Body;
+			// -------------------------------------------------------------------------- //
+			// 
+			// -------------------------------------------------------------------------- //
+		} t_data_for_v3;
 
 	}
 }

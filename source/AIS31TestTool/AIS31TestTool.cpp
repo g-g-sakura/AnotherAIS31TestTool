@@ -17,7 +17,7 @@ namespace ns_consts = ais_31_lib::constants;
 namespace ns_dt = ais_31_lib::data_types;
 namespace ns_tool = ais_31_tool;
 
-typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v2&);
+typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v3&);
 
 int wmain(int ac, wchar_t* av[], wchar_t* envp[])
 {
@@ -25,7 +25,7 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // 
     // -------------------------------------------------------------------------- //
-    ns_dt::t_data_for_v2     data;
+    ns_dt::t_data_for_v3     data;
     memset(&data, 0, sizeof(data));
     // -------------------------------------------------------------------------- //
     // 
@@ -77,11 +77,8 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // 
     // -------------------------------------------------------------------------- //
     bs_fs::path     the_report_path;
-    bs_fs::path     the_path_input_data_testT0;
-    bs_fs::path     the_path_input_data_testT1;
-    the_info_report.info_source.info_input_data_testT0.p_path_to_input_data = &the_path_input_data_testT0;
-    the_info_report.info_source.p_info_input_data_items_testT1 = new std::vector<ns_tool::InfoInputDataItem>;
-    the_info_report.info_source.p_info_input_data_items_testT1->emplace_back(ns_tool::InfoInputDataItem{nullptr, 0});
+    bs_fs::path     the_path_input_data;
+    the_info_report.info_source.p_path_to_input_data = &the_path_input_data;
     // -------------------------------------------------------------------------- //
     // parse command line parameters
     // -------------------------------------------------------------------------- //
@@ -93,49 +90,48 @@ int wmain(int ac, wchar_t* av[], wchar_t* envp[])
     // -------------------------------------------------------------------------- //
     // show some samples from the head of file, for confirmation
     // -------------------------------------------------------------------------- //
-    ns_tool::showHeadSamplesTestT0(data);
+    ns_tool::showHeadSamplesTest(data);
     // -------------------------------------------------------------------------- //
     // show some samples from the tail of file, for confirmation
     // -------------------------------------------------------------------------- //
-    ns_tool::showTailSamplesTestT0(data);
-    // -------------------------------------------------------------------------- //
-    // show some samples from the head of file, for confirmation
-    // -------------------------------------------------------------------------- //
-    ns_tool::showHeadSamplesTestT1(data);
-    // -------------------------------------------------------------------------- //
-    // show some samples from the tail of file, for confirmation
-    // -------------------------------------------------------------------------- //
-    ns_tool::showTailSamplesTestT1(data);
+    ns_tool::showTailSamplesTest(data);
     // -------------------------------------------------------------------------- //
     // 
     // -------------------------------------------------------------------------- //
     std::wstringstream ssLaTeXFragmentBody = std::wstringstream();
     data.p_ssLaTeXFragment = &ssLaTeXFragmentBody;
     // -------------------------------------------------------------------------- //
+    // for Test T1
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT1Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT1Header = &ssLaTeXFragmentT1Header;
+    std::wstringstream ssLaTeXFragmentT1Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT1Body = &ssLaTeXFragmentT1Body;
+    // -------------------------------------------------------------------------- //
+    // for Test T2
+    // -------------------------------------------------------------------------- //
+    std::wstringstream ssLaTeXFragmentT2Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT2Header = &ssLaTeXFragmentT2Header;
+    std::wstringstream ssLaTeXFragmentT2Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT2Body = &ssLaTeXFragmentT2Body;
+    // -------------------------------------------------------------------------- //
     // for Test T3
     // -------------------------------------------------------------------------- //
-    for (int i = 0; i < 6; ++i)
-    {
-        for (int j = 0; j < 2; ++j)
-        {
-            data.p_ssLaTeXFragmentWork3[i][j] = new std::wstringstream();
-        }
-    }
+    std::wstringstream ssLaTeXFragmentT3Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT3Header = &ssLaTeXFragmentT3Header;
+    std::wstringstream ssLaTeXFragmentT3Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT3Body = &ssLaTeXFragmentT3Body;
     // -------------------------------------------------------------------------- //
-    // for Test T5
+    // for Test T4
     // -------------------------------------------------------------------------- //
-    std::wstringstream ssLaTeXFragmentFormer = std::wstringstream();
-    data.p_ssLaTeXFragmentWork51 = &ssLaTeXFragmentFormer;
-    std::wstringstream ssLaTeXFragmentLatter = std::wstringstream();
-    data.p_ssLaTeXFragmentWork52 = &ssLaTeXFragmentLatter;
-    std::wstringstream ssLaTeXFragmentT5Summary = std::wstringstream();
-    data.p_ssLaTeXFragmentWork53 = &ssLaTeXFragmentT5Summary;
-    std::wstringstream ssLaTeXFragmentT5Detail = std::wstringstream();
-    data.p_ssLaTeXFragmentWork54 = &ssLaTeXFragmentT5Detail;
+    std::wstringstream ssLaTeXFragmentT4Header = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT4Header = &ssLaTeXFragmentT4Header;
+    std::wstringstream ssLaTeXFragmentT4Body = std::wstringstream();
+    data.p_ssLaTeXFragmentTestT4Body = &ssLaTeXFragmentT4Body;
     // -------------------------------------------------------------------------- //
-    // 
+    // perform tests
     // -------------------------------------------------------------------------- //
-    sts = ns_tool::performTests(data);
+    sts = ns_tool::performTests(data, the_info_report);
     if (ns_consts::EnmReturnStatus::Success != sts)
     {
         return  static_cast<int>(sts);

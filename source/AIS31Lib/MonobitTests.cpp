@@ -12,7 +12,7 @@
 
 namespace ais_31_lib
 {
-	namespace v2
+	namespace v3
 	{
 		namespace monobit_test
 		{
@@ -35,13 +35,13 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus outputLaTeXSubsectionHeader(const ns_dt::t_data_for_v3& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT1Header)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
@@ -64,11 +64,11 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << ssSep.rdbuf();
+				(*io_refData.p_ssLaTeXFragmentTestT1Header) << ssSep.rdbuf();
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L"\n\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Header) << L"\n\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -77,108 +77,109 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Output test values in LaTeX
+			///  Output supplemental information in LaTeX format
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
 			/// <param name="io_refData">
 			/// </param>
-			/// <param name="i_test_value">
-			/// </param>
 			/// <returns>
-			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
+			///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNullPointer</c>:  when the following condition is met:
 			///    <ul>
-			///     <li><c>io_refData.p_ssLaTeXFragment</c> == nullptr</li>
+			///     <li><c>io_refData.p_ssLaTeXFragmentTestT1Body</c> == nullptr</li>
 			///    </ul>
-			///  <c>entropy_estimator_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
+			///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 			/// </returns>
 			/// <precondition>
 			/// </precondition>
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus outputEachTestValueForSummaryFigureInLaTeX(const ns_dt::t_data_for_v2& io_refData, uint32_t i_test_value)
+			ns_consts::EnmReturnStatus outputSupplementalInfoLaTeX(ns_dt::t_data_for_v3& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				if (nullptr == io_refData.p_ssLaTeXFragment)
+				if (nullptr == io_refData.p_ssLaTeXFragmentTestT1Body)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorNullPointer;
 				}
-				if (257 < io_refData.t_testT1.current_index_in_sets)
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strSubsubsectionTraceability = std::wstring();
+				std::wstring	strLabel = std::wstring(L"sec:TestT1-traceability");
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				std::wstring	strTrailer = std::wstring();
+				switch (io_refData.current_number_of_round_in_trials)
 				{
-					return	sts = ns_consts::EnmReturnStatus::ErrorDomain;
+				case 1:
+					strLabel += std::wstring(L"-1stTrial");
+					strTrailer += std::wstring(L" for the 1st trial");
+					break;
+				case 2:
+					strLabel += std::wstring(L"-2ndTrial");
+					strTrailer += std::wstring(L" for the 2nd trial");
+					break;
+				default:
+					break;
 				}
 				// -------------------------------------------------------------------------- //
-				// 
+				//
 				// -------------------------------------------------------------------------- //
-				if (1 == io_refData.t_testT1.current_index_in_sets)
+				ns_spt::getLaTeXSubsubsectionTraceability(strSubsubsectionTraceability, strTrailer, strLabel);
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << strSubsubsectionTraceability;
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\renewcommand{\\arraystretch}{1.8}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{table}[h]" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\caption{Supplemental information for traceability (Test T1) ";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				switch (io_refData.current_number_of_round_in_trials)
 				{
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					outputLaTeXSubsectionHeader(io_refData);
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\begin{figure}[htbp]" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\centering" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\begin{tikzpicture}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\begin{axis}[" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" 	xmin=0," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xmax=280," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	ymin=8000," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	ymax=12000," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xtick distance=20," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	width=24cm," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	xlabel=\\# of given sets," << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"	ylabel=$T_{1}$" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" ]" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\addplot[mark size=0.4, draw=blue] coordinates {" << L"\n";
+				case 1:
+					(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"for the 1-st trial";
+					break;
+				case 2:
+					(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"for the 2-nd trial";
+					break;
+				default:
+					break;
 				}
 				// -------------------------------------------------------------------------- //
-				// 
+				//
 				// -------------------------------------------------------------------------- //
-				(*io_refData.p_ssLaTeXFragment) << L" (";
-				(*io_refData.p_ssLaTeXFragment) << std::right << std::setw(6) << io_refData.t_testT1.current_index_in_sets;
-				(*io_refData.p_ssLaTeXFragment) << L", ";
-				(*io_refData.p_ssLaTeXFragment) << std::right << std::setw(7) << i_test_value;
-				(*io_refData.p_ssLaTeXFragment) << L")" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\begin{tabular}{|l|c|}" << L"\n";
 				// -------------------------------------------------------------------------- //
-				// 
+				//
 				// -------------------------------------------------------------------------- //
-				if (257 <= io_refData.t_testT1.current_index_in_sets)
-				{
-					(*io_refData.p_ssLaTeXFragment) << L" };" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"coordinates {( 0, 9654) ( 260, 9654)}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"node[above right] at (axis cs: 260,9654) {9654};" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\\addplot+[Nigelle,no marks,sharp plot,update limits=false] " << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"coordinates {( 0, 10346) ( 260, 10346)}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"node[above right] at (axis cs: 260, 10346) {10346};" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L" \\end{axis}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L" \\end{tikzpicture}" << L"\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L" \\caption{Test values $T_{1}$ of given sets}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\\end{figure}" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n\n";
-					// -------------------------------------------------------------------------- //
-					// 
-					// -------------------------------------------------------------------------- //
-					(*io_refData.p_ssLaTeXFragment) << L"\\clearpage" << L"\n";
-					(*io_refData.p_ssLaTeXFragment) << L"\n\n";
-				}
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\rowcolor{anotherlightblue} %%" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"Symbol				& Value ";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\\\ \\hline " << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"$t_{IRN(1)}$				& " << io_refData.t_testT1.test_value_T1;
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\\\ \\hline" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{tabular}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{center}" << L"\n";
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\end{table}" << L"\n";
+				// -------------------------------------------------------------------------- //
+				//
+				// -------------------------------------------------------------------------- //
+				(*io_refData.p_ssLaTeXFragmentTestT1Body) << L"\\renewcommand{\\arraystretch}{1.4}" << L"\n";
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
@@ -200,17 +201,17 @@ namespace ais_31_lib
 			/// <postcondition>
 			/// </postcondition>
 			// -------------------------------------------------------------------------- //
-			ns_consts::EnmReturnStatus performTest(ns_dt::t_data_for_v2& io_refData)
+			ns_consts::EnmReturnStatus performTest(ns_dt::t_data_for_v3& io_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				io_refData.t_testT1.c2 = 20000;
+				io_refData.t_testT1.c1 = 20000;
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //
-				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < (int64_t)io_refData.t_testT1.c2)
+				if (io_refData.p_bzInterpretedBj->length(blitz::firstDim) < (int64_t)io_refData.t_testT1.c1)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
 				}
@@ -260,9 +261,9 @@ namespace ais_31_lib
 				// 
 				// -------------------------------------------------------------------------- //
 				uint32_t	test_value = 0;
-				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c2; ++i)
+				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c1; ++i)
 				{
-					if (i != (io_refData.t_testT1.c2 - 1))
+					if (i != (io_refData.t_testT1.c1 - 1))
 					{
 						const uint32_t	word_bit_count = countBits((ns_dt::octet)(*io_refData.p_bzInterpretedBj)((int)i));
 						test_value += word_bit_count;
@@ -288,16 +289,22 @@ namespace ais_31_lib
 					io_refData.t_testT1.pass_fail_result = ns_consts::EnmPassFailResults::Fail;
 				}
 				// -------------------------------------------------------------------------- //
-				// 
+				// output LaTeX
 				// -------------------------------------------------------------------------- //
 				if (io_refData.isGeneratingReportInLaTeXformatRequested)
 				{
-					ns_consts::EnmReturnStatus	stsReport = outputEachTestValueForSummaryFigureInLaTeX(io_refData, test_value);
-					if (ns_consts::EnmReturnStatus::Success != stsReport)
+					// -------------------------------------------------------------------------- //
+					// 
+					// -------------------------------------------------------------------------- //
+					if (1 == io_refData.current_number_of_round_in_trials)
 					{
-						return sts = stsReport;
+						outputLaTeXSubsectionHeader(io_refData);
 					}
-				}				
+					// -------------------------------------------------------------------------- //
+					// supplemental information for traceability
+					// -------------------------------------------------------------------------- //
+					outputSupplementalInfoLaTeX(io_refData);
+				}
 				// -------------------------------------------------------------------------- //
 				// 
 				// -------------------------------------------------------------------------- //

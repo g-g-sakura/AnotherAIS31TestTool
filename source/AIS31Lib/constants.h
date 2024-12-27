@@ -42,17 +42,12 @@ namespace ais_31_lib
 			ErrorUnexpected = -8192,
 		};
 
-		enum class EnmAIS20AIS31V2Track
+		enum class EnmAIS20AIS31V3Track
 		{
-			TestT0 = 0,
-			TestT1,
+			TestT1 = 1,
 			TestT2,
 			TestT3,
 			TestT4,
-			TestT5,
-			TestT6,
-			TestT7,
-			TestT8,
 		};
 
 	}
