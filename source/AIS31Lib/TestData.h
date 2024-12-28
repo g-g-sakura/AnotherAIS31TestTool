@@ -17,11 +17,6 @@
 #include <blitz/array.h>
 #include "constants.h"
 #include <boost/multi_index_container.hpp>
-#include <boost/multi_index/sequenced_index.hpp>
-#include <boost/multi_index/ordered_index.hpp>
-#include <boost/multi_index/identity.hpp>
-#include <boost/multi_index/member.hpp>
-#include <boost/multi_index/random_access_index.hpp>
 
 namespace ais_31_lib
 {
@@ -38,7 +33,7 @@ namespace ais_31_lib
 			T		value;
 		};
 
-		typedef struct _TDataCommon
+		typedef struct _tDataCommon
 		{
 			// -------------------------------------------------------------------------- //
 			// variables originally introduced by AIS 20/31
@@ -64,13 +59,13 @@ namespace ais_31_lib
 			double	number_of_significant_digits;
 		} t_data_common;
 
-		typedef struct _TThresholdData
+		typedef struct _tThresholdData
 		{
 			uint32_t	lower_bound;
 			uint32_t	upper_bound;
 		} threshold;
 
-		typedef struct _TDataForPerformanceInfo
+		typedef struct _tDataForPerformanceInfo
 		{
 			tm		startTime;
 			int64_t		start_delta_microseconds;
@@ -78,7 +73,7 @@ namespace ais_31_lib
 			tm		duration;
 		} t_data_for_performance_info;
 
-		typedef struct _TDataForMonobitTest
+		typedef struct _tDataForMonobitTest
 		{
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
@@ -106,7 +101,7 @@ namespace ais_31_lib
 			t_data_for_performance_info		t_performance;
 		} t_data_for_monobit_test;
 
-		typedef struct _TDataForPokerTest
+		typedef struct _tDataForPokerTest
 		{
 			/// -------------------------------------------------------------------------- //
 			/// <summary>
@@ -136,7 +131,7 @@ namespace ais_31_lib
 			t_data_for_performance_info		t_performance;
 		} t_data_for_poker_test;
 
-		typedef struct _TDataForMultiMMCPredictionEstimate
+		typedef struct _tDataForMultiMMCPredictionEstimate
 		{
 			// -------------------------------------------------------------------------- //
 			// 
@@ -172,7 +167,7 @@ namespace ais_31_lib
 			double	threshold;
 		} t_data_for_multi_mmc_prediction_estimate;
 
-		typedef struct _TDataForLZ78YPredictionEstimate
+		typedef struct _tDataForLZ78YPredictionEstimate
 		{
 			// -------------------------------------------------------------------------- //
 			// 
@@ -210,7 +205,7 @@ namespace ais_31_lib
 			double	threshold;
 		} t_data_for_lz78_y_prediction_estimate;
 
-		typedef struct _TDataForTestResultSummary
+		typedef struct _tDataForTestResultSummary
 		{
 			// -------------------------------------------------------------------------- //
 			// overall test result
@@ -222,7 +217,7 @@ namespace ais_31_lib
 			aisconsts::EnmPassFailResults	pass_fail_results[2][4];
 		} t_data_for_test_result_summary;
 
-		typedef struct _TDataForTestSuitesV3
+		typedef struct _tDataForTestSuitesV3
 		{
 			unsigned int			k;	// size of alphabet
 			unsigned int			L;	// size of input

@@ -39,8 +39,8 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		const unsigned int	cui_number_of_bits_lowerbound = 2040000;
-		const unsigned int	cui_number_of_bits_upperbound = 4080000;
+		constexpr unsigned int	cui_number_of_bits_lowerbound = 2040000;
+		constexpr  unsigned int	cui_number_of_bits_upperbound = 4080000;
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
@@ -204,11 +204,6 @@ namespace ais_31_tool
 	{
 		ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
-		// -------------------------------------------------------------------------- //
-		//
-		// -------------------------------------------------------------------------- //
-		const unsigned int	cui_number_of_bits_lowerbound = 2040000;
-		const unsigned int	cui_number_of_bits_upperbound = 4080000;
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //

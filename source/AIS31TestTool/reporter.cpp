@@ -757,9 +757,13 @@ namespace ais_31_tool
 	/// </param>
 	/// <param name="i_refInfoReport">
 	/// </param>
+	/// <param name="i_enmHashAlgorithmId">
+	/// </param>
 	/// <param name="i_refTestSpecificString">
 	/// </param>
 	/// <param name="io_refInfoInputDataItem">
+	/// </param>
+	/// <param name="i_NoOfInputDataItem">
 	/// </param>
 	/// <returns>
 	/// </returns>
@@ -1214,10 +1218,6 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// calculate hash value of the acquisition data
 		// -------------------------------------------------------------------------- //
-		int	number_of_entry = 1;
-		// -------------------------------------------------------------------------- //
-		// calculate hash value of the acquisition data
-		// -------------------------------------------------------------------------- //
 		constexpr ais_31_tool::constants::EnmHashAlgorithm  enmDefaultHashId = ais_31_tool::constants::EnmHashAlgorithm::ESHA_256;
 		std::string strHashOfAcquisitionData = std::string();
 
@@ -1236,6 +1236,7 @@ namespace ais_31_tool
 
 			std::wstring    wstrTestSpecific = std::wstring(L"for Tests T1 through T4");
 
+			int	number_of_entry = 1;
 			sts = reportLaTeXSupportingInfoInputDataItem(o_refLaTeXAppendix, i_refInfoReport, enmDefaultHashId, wstrTestSpecific, *pInfoInputDataItem, number_of_entry);
 			if (ns_consts::EnmReturnStatus::Success != sts)
 			{
@@ -1276,7 +1277,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// Output supplementary information to compile XeLateX source file
 		// -------------------------------------------------------------------------- //
-		setlocale(LC_ALL, "");
+		const char* p_prev_loc = setlocale(LC_ALL, "");
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		std::wcout << L"\n";

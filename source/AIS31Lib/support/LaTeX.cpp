@@ -223,7 +223,9 @@ namespace ais_31_lib
 		/// </summary>
 		/// <remarks>
 		/// </remarks>
-		/// <param name="o_refSubsection">
+		/// <param name="o_refSubsubsection">
+		/// </param>
+		/// <param name="i_refTrailing">
 		/// </param>
 		/// <param name="i_refLabel">
 		/// </param>

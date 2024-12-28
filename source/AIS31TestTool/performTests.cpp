@@ -25,7 +25,7 @@ namespace ais_31_tool
 	typedef ns_consts::EnmReturnStatus(*PF_EE)(ns_dt::t_data_for_v3&);
 
 	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refData,
-		IDInfoForReport& i_refInfoReport)
+		const IDInfoForReport& i_refInfoReport)
 	{
 		PF_EE	func_tests[5] = {
 							ais_31_lib::v3::monobit_test::performTest,
@@ -63,7 +63,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		setlocale(LC_ALL, "");
+		const char* p_prev_loc = setlocale(LC_ALL, "");
 		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 		// -------------------------------------------------------------------------- //
 		// perform tests

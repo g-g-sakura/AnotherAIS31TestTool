@@ -22,6 +22,6 @@ namespace ais_31_tool
 	namespace ns_dt = ais_31_lib::data_types;
 
 	ns_consts::EnmReturnStatus performTests(ns_dt::t_data_for_v3& io_refData,
-		IDInfoForReport& i_refInfoReport);
+		const IDInfoForReport& i_refInfoReport);
 }
 #endif

@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-//
+// constants.h
 //
 //
 // Copyright (c) 2023-2024 G. G. SAKURAI <g.garland823@gmail.com>
@@ -9,8 +9,8 @@
 #pragma once
 #endif
 
-#ifndef AIS_31_LIB__CONSTANTS_H
-#define AIS_31_LIB__CONSTANTS_H
+#ifndef AIS_31_LIB_CONSTANTS_H
+#define AIS_31_LIB_CONSTANTS_H
 
 namespace ais_31_lib
 {

@@ -348,7 +348,7 @@ namespace ais_31_lib
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 
-				const int		def_D = 16;
+				constexpr  int		def_D = 16;
 				if (i_refData.t_testT3.D != def_D)
 				{
 					return	sts;
@@ -397,7 +397,7 @@ namespace ais_31_lib
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
 
-				const int	def_D = 16;
+				constexpr int	def_D = 16;
 				if (i_refData.t_testT3.D != def_D)
 				{
 					return	sts;
@@ -589,7 +589,7 @@ namespace ais_31_lib
 			/// </remarks>
 			/// <param name="o_refC">
 			/// </param>
-			/// <param name="o_ref_bz_correct">
+			/// <param name="io_ref_bz_correct">
 			/// </param>
 			/// <returns>
 			/// </returns>
@@ -831,7 +831,7 @@ namespace ais_31_lib
 				// -------------------------------------------------------------------------- //
 				//
 				// -------------------------------------------------------------------------- //
-				const int	def_D = 16;
+				constexpr  int	def_D = 16;
 				if (i_refData.t_testT3.D != def_D)
 				{
 					return sts;

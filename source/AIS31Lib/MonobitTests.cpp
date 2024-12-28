@@ -188,7 +188,7 @@ namespace ais_31_lib
 
 			// -------------------------------------------------------------------------- //
 			/// <summary>
-			///  Implements monobit test test as specified in AIS 20/31 - Version 2.0
+			///  Implements monobit test as specified in AIS 20/31 - Version 2.0
 			/// </summary>
 			/// <remarks>
 			/// </remarks>
@@ -263,7 +263,7 @@ namespace ais_31_lib
 				uint32_t	test_value = 0;
 				for (int64_t i = 0; i < (int64_t)io_refData.t_testT1.c1; ++i)
 				{
-					if (i != (io_refData.t_testT1.c1 - 1))
+					if (i != (int64_t)(io_refData.t_testT1.c1 - 1))
 					{
 						const uint32_t	word_bit_count = countBits((ns_dt::octet)(*io_refData.p_bzInterpretedBj)((int)i));
 						test_value += word_bit_count;

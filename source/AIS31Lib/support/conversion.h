@@ -52,7 +52,7 @@ namespace ais_31_lib
 		/// </remarks>
 		/// <param name="o_refBitSet">
 		/// </param>
-		/// <param name="i_refDTuple">
+		/// <param name="i_refSeqSamples">
 		/// </param>
 		/// <param name="i_bit_width">
 		/// </param>
