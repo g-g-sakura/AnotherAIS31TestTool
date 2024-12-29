@@ -34,9 +34,12 @@ Visual Studio 2019 or newer, or Intel oneAPI compiler
 
 ## Prerequisite libraries
 - [Boost C++ libraries](https://www.boost.org/)
+  - Boost.Dynamic bitset for storing variable length bitstrings.
   - Boost.Filesystem for manipulation of file path.
-  - Boost.Histogram for autocorrelation test.
+  - Boost.Math for root finding and for evaluating special functions.
   - Boost.Multi-Index for disjointness test.
+  - Boost.Posix Time for logging performance information.
   - Boost.Program Options for parsing command line options.
+  - Boost.Property Tree for outputting XML files.
 - [Blitz++ library](https://github.com/blitzpp/blitz)
   - for array indexing, referencing subarray
