@@ -342,7 +342,7 @@ namespace ais_31_lib
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
-				const int	def_B = 16;
+				constexpr int	def_B = 16;
 				if (i_refData.t_testT4.B != def_B)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
@@ -378,7 +378,7 @@ namespace ais_31_lib
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
-				const int	def_B = 16;
+				constexpr  int	def_B = 16;
 				if (i_refData.t_testT4.B != def_B)
 				{
 					return	sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
@@ -411,7 +411,7 @@ namespace ais_31_lib
 			// -------------------------------------------------------------------------- //
 			ns_consts::EnmReturnStatus step3(std::vector<ns_es::MarkovModelHistogram*> & o_refD,
 				blitz::Array<ns_dt::octet, 1>& io_ref_bz_correct,
-				ns_dt::t_data_for_v3& i_refData)
+				const ns_dt::t_data_for_v3& i_refData)
 			{
 				ns_consts::EnmReturnStatus	sts = ns_consts::EnmReturnStatus::ErrorUnexpected;
 
@@ -482,7 +482,7 @@ namespace ais_31_lib
 						// -------------------------------------------------------------------------- //
 						// -------------------------------------------------------------------------- //
 						//  ii. If prev is in the dictionary, 
-						//      find the y \in {x_{i}, \ldots, x_{k} that has the highest D[prev][y] value.
+						//      find the y \in {x_{i}, \ldots, x_{k}} that has the highest D[prev][y] value.
 						// -------------------------------------------------------------------------- //
 						// -------------------------------------------------------------------------- //
 						// In the event of a tie, let the y be the symbol with the higher byte value.
@@ -781,7 +781,7 @@ namespace ais_31_lib
 					return sts = stsCommon;
 				}
 
-				const int	def_B = 16;
+				constexpr  int	def_B = 16;
 				if (i_refData.t_testT4.B != def_B)
 				{
 					sts = ns_consts::EnmReturnStatus::ErrorInvalidData;
@@ -861,7 +861,7 @@ namespace ais_31_lib
 				//       For j = B down to 1:
 				//      i. Let prev = (s_{i-j}, \ldots, s_{i-1}).
 				//     ii. If prev is in the dictionary, 
-				//         find the y \in {x_{i}, \ldots, x_{k} that has the highest D[prev][y] value.
+				//         find the y \in {x_{i}, \ldots, x_{k}} that has the highest D[prev][y] value.
 				//         In the event of a tie, let the y be the symbol with the higher byte value.
 				//         For example, if D[prev][1] and D[prev][5] both have the highest value, then y = 5.
 				//    iii. If D[prev][y] > maxcount:

@@ -99,7 +99,7 @@ namespace ais_31_tool
     /// <param name="io_refPathForIndex">
     ///  [Output] specifies the reference to the path of input data file of the specified index <c>indexOfInputDataFiles</c>
     /// </param>
-    /// <param name="io_refNumberOfDigitsOfIndex">
+    /// <param name="indexOfInputDataFiles">
     ///  [Input] specifies the index of file to be synthesized.
     /// </param>
     /// <param name="i_refInitialFilePath">

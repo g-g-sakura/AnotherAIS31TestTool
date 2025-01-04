@@ -13,7 +13,6 @@
 #define AIS31_TEST_TOOL_REPORT_ITEMS_H
 
 #include <boost/filesystem.hpp>
-#include <vector>
 
 namespace ais_31_tool
 {

@@ -279,11 +279,13 @@ namespace ais_31_tool
             &pi);  // receives PROCESS_INFORMATION 
 
         if (!bSuccess)
+        {
             // -------------------------------------------------------------------------- //
             // If an error occurs 
             // -------------------------------------------------------------------------- //
             return sts = ns_consts::EnmReturnStatus::ErrorChildProcess;
-        else
+        }
+    	else
         {
             // -------------------------------------------------------------------------- //
             // Wait until the child process exits.
@@ -310,9 +312,9 @@ namespace ais_31_tool
     /// </summary>
     /// <remarks>
     /// </remarks>
-    /// <param name="o_refOSName">
+    /// <param name="o_OS_name">
     /// </param>
-    /// <param name="o_refOSVersion">
+    /// <param name="o_OS_version">
     /// </param>
     /// <param name="io_container">
     /// </param>

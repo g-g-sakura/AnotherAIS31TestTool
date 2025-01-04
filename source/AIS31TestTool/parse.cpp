@@ -37,7 +37,7 @@ namespace ais_31_tool
         constexpr   uintmax_t   minimum_data_size = 2040000;
         constexpr   uintmax_t   sufficient_data_size = 2 * minimum_data_size;
 
-        setlocale(LC_ALL, "");
+        const char* p_prev_loc = setlocale(LC_ALL, "");
         HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
         try {
