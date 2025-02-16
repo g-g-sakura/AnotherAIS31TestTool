@@ -2,7 +2,7 @@
 // synthesizeFilename.cpp
 //
 //
-// Copyright (c) 2024 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2024-2025 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "synthesizeFilename.h"
@@ -14,7 +14,7 @@ namespace ais_31_tool
 {
     // -------------------------------------------------------------------------- //
 /// <summary>
-///  Get the first index (or offset) of input data file either from basefilename or extesion.
+///  Get the first index (or offset) of input data file either from basefilename or extension.
 /// </summary>
 /// <remarks>
 /// </remarks>
@@ -29,7 +29,7 @@ namespace ais_31_tool
 /// </param>
 /// <returns>
 ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNotFound</c>:  the file referenced by <c>i_refInitialFilePath</c> is not found.
-///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extesion:
+///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extension:
 ///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
 /// </returns>
 /// <precondition>
@@ -107,7 +107,7 @@ namespace ais_31_tool
     /// </param>
     /// <returns>
     ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorNotFound</c>:  the file referenced by <c>i_refInitialFilePath</c> is not found.
-    ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extesion:
+    ///  <c>ais_31_lib::constants::EnmReturnStatus::ErrorFirstIndexNotFound</c>:  an appropriate offset cannot be found either from basefilename or extension:
     ///  <c>ais_31_lib::constants::EnmReturnStatus::Success</c>:  otherwise.
     /// </returns>
     /// <precondition>

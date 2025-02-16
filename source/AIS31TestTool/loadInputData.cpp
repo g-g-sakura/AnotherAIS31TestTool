@@ -3,7 +3,7 @@
 //
 //
 //
-// Copyright (c) 2024 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2024-2025 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "loadInputData.h"
@@ -230,7 +230,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		uintmax_t	ui_requied_number_of_bits_for_test = 20000;
+		uintmax_t	ui_required_number_of_bits_for_test = 20000;
 		blitz::Array<ns_dt::octet, 1>** dpInputData = nullptr;
 		// -------------------------------------------------------------------------- //
 		//
@@ -238,19 +238,19 @@ namespace ais_31_tool
 		switch (i_enmTrack)
 		{
 		case ns_consts::EnmAIS20AIS31V3Track::TestT1:
-			ui_requied_number_of_bits_for_test = 20000;
+			ui_required_number_of_bits_for_test = 20000;
 			dpInputData = &(io_refData.p_bzInputDataT1);
 			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT2:
-			ui_requied_number_of_bits_for_test = 20000;
+			ui_required_number_of_bits_for_test = 20000;
 			dpInputData = &(io_refData.p_bzInputDataT2);
 			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT3:
-			ui_requied_number_of_bits_for_test = 1000000;
+			ui_required_number_of_bits_for_test = 1000000;
 			dpInputData = &(io_refData.p_bzInputDataT3);
 			break;
 		case ns_consts::EnmAIS20AIS31V3Track::TestT4:
-			ui_requied_number_of_bits_for_test = 1000000;
+			ui_required_number_of_bits_for_test = 1000000;
 			dpInputData = &(io_refData.p_bzInputDataT4);
 			break;
 		default:
@@ -259,24 +259,24 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		if (io_refData.p_bzUnprocessedData->size() < ui_requied_number_of_bits_for_test) {
+		if (io_refData.p_bzUnprocessedData->size() < ui_required_number_of_bits_for_test) {
 			return	sts = ns_consts::EnmReturnStatus::ErrorInsufficientData;
 		}
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		memcpy((*dpInputData)->data(), io_refData.p_bzUnprocessedData->data(), ui_requied_number_of_bits_for_test);
+		memcpy((*dpInputData)->data(), io_refData.p_bzUnprocessedData->data(), ui_required_number_of_bits_for_test);
 		// -------------------------------------------------------------------------- //
 		//
 		// -------------------------------------------------------------------------- //
-		io_refData.p_bzInterpretedBj->resize(ui_requied_number_of_bits_for_test);
-		memcpy(io_refData.p_bzInterpretedBj->data(), io_refData.p_bzUnprocessedData->data(), ui_requied_number_of_bits_for_test);
+		io_refData.p_bzInterpretedBj->resize(ui_required_number_of_bits_for_test);
+		memcpy(io_refData.p_bzInterpretedBj->data(), io_refData.p_bzUnprocessedData->data(), ui_required_number_of_bits_for_test);
 		// -------------------------------------------------------------------------- //
 		// copy unprocessed data to temporary variable
 		// -------------------------------------------------------------------------- //
-		uintmax_t	ui_size_remaining = io_refData.p_bzUnprocessedData->size() - ui_requied_number_of_bits_for_test;
+		uintmax_t	ui_size_remaining = io_refData.p_bzUnprocessedData->size() - ui_required_number_of_bits_for_test;
 		blitz::Array<ns_dt::octet, 1>	bz_remaining(ui_size_remaining);
-		memcpy(bz_remaining.data(), io_refData.p_bzUnprocessedData->data() + ui_requied_number_of_bits_for_test, ui_size_remaining);
+		memcpy(bz_remaining.data(), io_refData.p_bzUnprocessedData->data() + ui_required_number_of_bits_for_test, ui_size_remaining);
 		// -------------------------------------------------------------------------- //
 		// set unprocessed data
 		// -------------------------------------------------------------------------- //
