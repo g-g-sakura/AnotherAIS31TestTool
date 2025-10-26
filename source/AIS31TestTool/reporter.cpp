@@ -578,6 +578,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\usepackage{verbatim}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{multirow}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{fancyvrb}" << L"\n";
+		o_ssLaTeX << L"\\usepackage{ fontspec }" << L"\n";
 		o_ssLaTeX << L"\\usepackage{censor}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[unicode,pdftitle={Test report of based on BSI AIS 20 / AIS 31},setpagesize=false]{hyperref}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[open,openlevel=4]{bookmark}" << L"\n";
@@ -665,6 +666,11 @@ namespace ais_31_tool
 		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\setlength{ \\topmargin }{-1.5cm}" << L"\n";
 		// -------------------------------------------------------------------------- //
+		// change title font
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"\\setmainfont{Times New Roman}" << L"\n";
+		o_ssLaTeX << L"\\newfontfamily\\titlefont{Arial}" << L"\n";
+		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		o_ssLaTeX << strBlock;
@@ -672,7 +678,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
-		o_ssLaTeX << L"\\title{Test report of based on BSI AIS 20 / AIS 31}" << L"\n";
+		o_ssLaTeX << L"\\title{{\\Huge Test report of based on BSI AIS 20 / AIS 31}}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //

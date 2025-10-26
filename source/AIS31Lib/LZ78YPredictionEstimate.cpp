@@ -98,11 +98,11 @@ namespace ais_31_lib
 				{
 				case 1:
 					strSubsubLabel += std::wstring(L"-1stTrial");
-					strTrailer += std::wstring(L" for the 1st trial");
+					strTrailer += std::wstring(L" for the 1-st trial");
 					break;
 				case 2:
 					strSubsubLabel += std::wstring(L"-2ndTrial");
-					strTrailer += std::wstring(L" for the 2nd trial");
+					strTrailer += std::wstring(L" for the 2-nd trial");
 					break;
 				default:
 					break;
@@ -238,11 +238,11 @@ namespace ais_31_lib
 				{
 				case 1:
 					strLabel += std::wstring(L"-1stTrial");
-					strTrailer += std::wstring(L" for the 1st trial");
+					strTrailer += std::wstring(L" for the 1-st trial");
 					break;
 				case 2:
 					strLabel += std::wstring(L"-2ndTrial");
-					strTrailer += std::wstring(L" for the 2nd trial");
+					strTrailer += std::wstring(L" for the 2-nd trial");
 					break;
 				default:
 					break;
