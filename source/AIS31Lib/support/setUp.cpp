@@ -51,6 +51,10 @@ namespace ais_31_lib
 			io_refData.p_bzInputDataT3 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInputDataT4 = new blitz::Array<ns_dt::octet, 1>(1000000);
 			io_refData.p_bzInterpretedBj = new blitz::Array<ns_dt::octet, 1>(20000);
+			io_refData.bIsMSbFirstByteBitConversion = true;
+			// -------------------------------------------------------------------------- //
+			//
+			// -------------------------------------------------------------------------- //
 			io_refData.t_testT1 = { 0, 0, {9654, 10346}, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			io_refData.t_testT2 = { 0, 1.03, 57.4, ns_consts::EnmPassFailResults::NotDetermined, {0} };
 			io_refData.t_testT3 = { 0 };
