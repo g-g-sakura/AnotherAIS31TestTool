@@ -189,7 +189,7 @@ namespace ais_31_tool
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
                     std::cout << "# [ERROR]: MSb first and LSb first cannot be specified simultaneously." << "\n";
                     SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-                    return  sts;
+                    return  sts = ns_consts::EnmReturnStatus::ErrorPreconditions;
                 }
                 // -------------------------------------------------------------------------- //
                 //
