@@ -181,6 +181,30 @@ namespace ais_31_tool
                 }
             }
             // -------------------------------------------------------------------------- //
+            // Handle MSb/LSb parameters
+            // -------------------------------------------------------------------------- //
+            if (po_vm.count("MSb")) {
+                if (po_vm.count("LSb")) {
+                    // Error: Cannot specify both
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_BLUE);
+                    std::cout << "# [ERROR]: MSb first and LSb first cannot be specified simultaneously." << "\n";
+                    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+                    return  sts = ns_consts::EnmReturnStatus::ErrorPreconditions;
+                }
+                // -------------------------------------------------------------------------- //
+                //
+                // -------------------------------------------------------------------------- //
+                io_refData.bIsMSbFirstByteBitConversion = true;
+                std::cout << "# [INFO]: Byte to bitstring conversion: Most Significant bit (MSb) first." << "\n";
+            }
+            else if (po_vm.count("LSb")){
+                io_refData.bIsMSbFirstByteBitConversion = false;
+                std::cout << "# [INFO]: Byte to bitstring conversion: Least Significant bit (LSb) first." << "\n";
+            }
+            else {
+                std::cout << "# [INFO]: Byte to bitstring conversion: Most Significant bit (MSb) first (default)." << "\n";
+            }
+            // -------------------------------------------------------------------------- //
             // 
             // 
             // -------------------------------------------------------------------------- //
@@ -203,10 +227,6 @@ namespace ais_31_tool
                     return  sts;
                 }
                 io_refData.verbose_level = vl;
-            }
-            else
-            {
-
             }
         }
         catch (std::exception& e) {

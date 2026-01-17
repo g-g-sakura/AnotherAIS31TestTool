@@ -3,7 +3,7 @@
 //
 //
 //
-// Copyright (c) 2021-2025 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2021-2026 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "reporter.h"
@@ -578,6 +578,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\usepackage{verbatim}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{multirow}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{fancyvrb}" << L"\n";
+		o_ssLaTeX << L"\\usepackage{ fontspec }" << L"\n";
 		o_ssLaTeX << L"\\usepackage{censor}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[unicode,pdftitle={Test report of based on BSI AIS 20 / AIS 31},setpagesize=false]{hyperref}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[open,openlevel=4]{bookmark}" << L"\n";
@@ -665,6 +666,11 @@ namespace ais_31_tool
 		o_ssLaTeX << strBlock;
 		o_ssLaTeX << L"\\setlength{ \\topmargin }{-1.5cm}" << L"\n";
 		// -------------------------------------------------------------------------- //
+		// change title font
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"\\setmainfont{Times New Roman}" << L"\n";
+		o_ssLaTeX << L"\\newfontfamily\\titlefont{Arial}" << L"\n";
+		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
 		o_ssLaTeX << strBlock;
@@ -672,7 +678,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
-		o_ssLaTeX << L"\\title{Test report of based on BSI AIS 20 / AIS 31}" << L"\n";
+		o_ssLaTeX << L"\\title{{\\Huge Test report of based on BSI AIS 20 / AIS 31}}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -870,7 +876,10 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << L"\\, & built by & ";
 		{
 #if defined(_MSC_VER) && !defined(__INTEL_LLVM_COMPILER) && !defined(__INTEL_COMPILER)
-#if _MSC_VER >= 1944
+#if _MSC_VER >= 1950
+			o_refLaTeXSupportingInfo << L" Visual Studio 2026";
+			o_refLaTeXSupportingInfo << L" (\\verb|_MSC_FULL_VER|: " << _MSC_FULL_VER << L" )";
+#elif _MSC_VER >= 1944
 			o_refLaTeXSupportingInfo << L" Visual Studio 2022 version 17.14";
 			o_refLaTeXSupportingInfo << L" (\\verb|_MSC_FULL_VER|: " << _MSC_FULL_VER << L" )";
 #elif _MSC_VER >= 1943
