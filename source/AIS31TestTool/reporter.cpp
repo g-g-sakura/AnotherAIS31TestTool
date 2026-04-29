@@ -579,8 +579,9 @@ namespace ais_31_tool
 		o_ssLaTeX << L"\\usepackage{multirow}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{fancyvrb}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{ fontspec }" << L"\n";
+		o_ssLaTeX << L"\\usepackage[1.7]{bxpdfver}" << L"\n";
 		o_ssLaTeX << L"\\usepackage{censor}" << L"\n";
-		o_ssLaTeX << L"\\usepackage[unicode,pdftitle={Test report of based on BSI AIS 20 / AIS 31},setpagesize=false]{hyperref}" << L"\n";
+		o_ssLaTeX << L"\\usepackage[unicode,pdftitle={Test report based on BSI AIS 20 / AIS 31},setpagesize=false]{hyperref}" << L"\n";
 		o_ssLaTeX << L"\\usepackage[open,openlevel=4]{bookmark}" << L"\n";
 		o_ssLaTeX << L"\\newcommand\\mib[1]{\\boldsymbol{#1}}" << L"\n";
 		o_ssLaTeX << L"\\usepgfplotslibrary{patchplots}" << L"\n";
@@ -678,7 +679,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
 		o_ssLaTeX << L"%%%%%%" << L"\n";
-		o_ssLaTeX << L"\\title{{\\Huge Test report of based on BSI AIS 20 / AIS 31}}" << L"\n";
+		o_ssLaTeX << L"\\title{{\\Huge Test report based on BSI AIS 20 / AIS 31}}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
@@ -732,20 +733,42 @@ namespace ais_31_tool
 		// 
 		// -------------------------------------------------------------------------- //
 		o_ssLaTeX << L"\\normalsize" << L"\n";
+		o_ssLaTeX << L"\\addtocounter{section}{1}" << L"\n";
 		o_ssLaTeX << L"\\addcontentsline{toc}{chapter}{\\refname}" << L"\n";
 		o_ssLaTeX << L"\\begin{thebibliography}{99}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
 		o_ssLaTeX << L"% 1" << L"\n";
+		o_ssLaTeX << L"\\bibitem{AIS20_2025}" << L"\n";
+		o_ssLaTeX << L"Bundesamt f\\\"{u}r Sicherheit in der Informationstechnik (BSI)," << L"\n";
+		o_ssLaTeX << L"\\textit{Anwendungshinweise und Interpretationen zum Schema (AIS) - Funktionalit\\\"{a}tsklassen und Evaluationsmethodologie f\\\"{u}r deterministische Zufallszahlengeneratoren}," << L"\n";
+		o_ssLaTeX << L"Version 4.0 (11.04.2025), " << L"\n";
+		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_20_pdf.pdf?__blob=publicationFile&v=4}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"% 2" << L"\n";
+		o_ssLaTeX << L"\\bibitem{AIS31_2025}" << L"\n";
+		o_ssLaTeX << L"Bundesamt f\\\"{u}r Sicherheit in der Informationstechnik (BSI)," << L"\n";
+		o_ssLaTeX << L"\\textit{Anwendungshinweise und Interpretationen zum Schema (AIS) - Funktionalit\\\"{a}tsklassen und Evaluationsmethodologie f\\\"{u}r physikalische Zufallszahlengeneratoren}," << L"\n";
+		o_ssLaTeX << L"Version 4.0 (11.04.2025), " << L"\n";
+		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/SharedDocs/Downloads/DE/BSI/Zertifizierung/Interpretationen/AIS_31_pdf.pdf?__blob=publicationFile&v=5}" << L"\n";
+		// -------------------------------------------------------------------------- //
+		// 
+		// -------------------------------------------------------------------------- //
+		o_ssLaTeX << L"% 3" << L"\n";
 		o_ssLaTeX << L"\\bibitem{AIS2031An_24}" << L"\n";
-		o_ssLaTeX << L"Matthias Peter and Werner Schindler." << L"\n";
+		o_ssLaTeX << L"Matthias Peter and Werner Schindler," << L"\n";
 		o_ssLaTeX << L"\\textit{A Proposal for Functionality Classes for Random Number Generators}," << L"\n";
 		o_ssLaTeX << L"Version 3.0 (September 10, 2024), " << L"\n";
 		o_ssLaTeX << L"\\url{https://www.bsi.bund.de/SharedDocs/Downloads/EN/BSI/Certification/Interpretations/AIS_31_Functionality_classes_for_random_number_generators_e_2024.pdf?__blob=publicationFile&v=3}" << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_ssLaTeX << L"% 2" << L"\n";
+		o_ssLaTeX << L"% 4" << L"\n";
 		o_ssLaTeX << L"\\bibitem{CorrectionsSP80090B}" << L"\n";
-		o_ssLaTeX << L"G. Sakurai, \\textit{Proposed list of corrections for NIST SP 800-90B 6.3 Estimators}, Dec. 2022 " << L"\n";
+		o_ssLaTeX << L"G. Sakurai, \\textit{Proposed list of corrections for NIST SP 800-90B 6.3 Estimators}, June 2025 " << L"\n";
 		o_ssLaTeX << L"\\url{https://github.com/g-g-sakura/AnotherEntropyEstimationTool/blob/main/documentation/ProposedListOfCorrections_SP800-90B.pdf}" << L"\n";
 		o_ssLaTeX << L"\\end{thebibliography}" << L"\n\n";
 		// -------------------------------------------------------------------------- //
@@ -1169,7 +1192,7 @@ namespace ais_31_tool
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //
-		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ of BSI AIS 20 / AIS 31 \\cite{AIS2031An_24} with corrections \\cite{CorrectionsSP80090B} is applied." << L"\n";
+		o_refLaTeXSupportingInfo << L"Black Box Test Suite $T_{irn}$ is applied, based on BSI AIS 20 \\cite{AIS20_2025} / AIS 31\\cite{AIS31_2025} and mathematical-technical appendix \\cite{AIS2031An_24}, together with corrections \\cite{CorrectionsSP80090B}." << L"\n";
 		// -------------------------------------------------------------------------- //
 		// 
 		// -------------------------------------------------------------------------- //

@@ -3,7 +3,7 @@
 //
 //
 //
-// Copyright (c) 2021-2024 G. G. SAKURAI <g.garland823@gmail.com>
+// Copyright (c) 2021-2026 G. G. SAKURAI <g.garland823@gmail.com>
 //
 ////////////////////////////////////////////////////////////////////////////////
 #include "LZ78YPredictionEstimate.h"
@@ -267,10 +267,10 @@ namespace ais_31_lib
 				switch (io_refData.current_number_of_round_in_trials)
 				{
 				case 1:
-					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"for the 1-st trial";
+					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L" for the 1-st trial";
 					break;
 				case 2:
-					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L"for the 2-nd trial";
+					(*io_refData.p_ssLaTeXFragmentTestT4Body) << L" for the 2-nd trial";
 					break;
 				default:
 					break;
