@@ -592,7 +592,7 @@ namespace ais_31_tool
 		o_ssLaTeX << L"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%" << L"\n";
 		o_ssLaTeX << L"\\fancypagestyle{mypagestylewithtotalpagenumbers}{" << L"\n"; //
 		o_ssLaTeX << L"\\lhead{}" << L"\n"; // 
-		o_ssLaTeX << L"\\rhead{}" << L"\n"; //
+		o_ssLaTeX << L"\\rhead{Document ID: \\raisebox{-.40\\baselineskip}{\\begin{Form}\\TextField[name=documentId, width=8cm, bordercolor=bordercolordarkblue, height=18pt]{}\\end{Form}} }" << L"\n"; // Add a text field to input a document identifider
 		o_ssLaTeX << L"\\cfoot{\\thepage/\\pageref{LastPage}}" << L"\n"; // 
 		o_ssLaTeX << L"\\renewcommand{\\headrulewidth}{0.0pt}" << L"\n"; // 
 		o_ssLaTeX << L"}" << L"\n";
@@ -1031,10 +1031,12 @@ namespace ais_31_tool
 		o_refLaTeXSupportingInfo << L"\\begin{itemize}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		\\item Filename of input data : See Annex \\ref{sec:AnnexIdentification}." << L"\n";
 		o_refLaTeXSupportingInfo << L"		\\item Name of the submitter of the input data : " << L"\n";
+		o_refLaTeXSupportingInfo << L"		    \\raisebox{-1.5\\baselineskip}{ " << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\noindent" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\TextField[name=NameOfSubmitter, multiline=false, bordercolor=bordercolordarkblue,width=17cm,height=1cm]{}" << L"\n";
 		o_refLaTeXSupportingInfo << L"		    \\end{Form}" << L"\n";
+		o_refLaTeXSupportingInfo << L"		    } " << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	\\item Brief explanation of the input data : \\\\" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\begin{Form}" << L"\n";
 		o_refLaTeXSupportingInfo << L"\t	    \\noindent" << L"\n";
